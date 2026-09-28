@@ -1,0 +1,24 @@
+{
+  "model": "runs/checkpoints/boston_20ep/weights/best.pt",
+  "data": "data/boston-seaport/data.yaml",
+  "split": "test",
+  "source": [
+    "data/boston-seaport/images/test/n008-2018-05-21-11-06-59-0400__CAM_FRONT__1526915375012465.jpg",
+    "data/boston-seaport/images/test/n008-2018-05-21-11-06-59-0400__CAM_FRONT__1526915375512465.jpg",
+    "data/boston-seaport/images/test/n008-2018-05-21-11-06-59-0400__CAM_FRONT__1526915376012465.jpg",
+    "data/boston-seaport/images/test/n008-2018-05-21-11-06-59-0400__CAM_FRONT__1526915376512465.jpg",
+    "data/boston-seaport/images/test/n008-2018-05-21-11-06-59-0400__CAM_FRONT__1526915377012465.jpg",
+    "data/boston-seaport/images/test/n008-2018-05-21-11-06-59-0400__CAM_FRONT__1526915377512465.jpg",
+    "data/boston-seaport/images/test/n008-2018-05-21-11-06-59-0400__CAM_FRONT__1526915378012465.jpg",
+    "data/boston-seaport/images/test/n008-2018-05-21-11-06-59-0400__CAM_FRONT__1526915378512465.jpg",
+    "data/boston-seaport/images/test/n008-2018-05-21-11-06-59-0400__CAM_FRONT__1526915379012465.jpg",
+    "data/boston-seaport/images/test/n008-2018-05-21-11-06-59-0400__CAM_FRONT__1526915379512465.jpg",
+    "data/boston-seaport/images/test/n008-2018-05-21-11-06-59-0400__CAM_FRONT__1526915380012465.jpg",
+    "data/boston-seaport/images/test/n008-2018-05-21-11-06-59-0400__CAM_FRONT__1526915380512465.jpg"
+  ],
+  "selected_images": 12,
+  "prediction_results": 12,
+  "output_dir": "runs/visualization/boston_test",
+  "save_txt": true,
+  "summary": "runs/visualization/boston_test_summary.json"
+}

@@ -1,0 +1,27 @@
+{
+  "model": "runs/checkpoints/boston_20ep/weights/best.pt",
+  "data": "data/boston-seaport/data.yaml",
+  "splits": [
+    "test"
+  ],
+  "results": {
+    "test": {
+      "data": "data/boston-seaport/data.yaml",
+      "source": "data/boston-seaport/images/test",
+      "metrics": {
+        "metrics/precision(B)": 0.5105402733891495,
+        "metrics/recall(B)": 0.3943437094151222,
+        "metrics/mAP50(B)": 0.4034156481971218,
+        "metrics/mAP50-95(B)": 0.21726774003180296,
+        "fitness": 0.21726774003180296,
+        "map": 0.21726774003180296,
+        "map50": 0.4034156481971218,
+        "map75": 0.21669627267750857,
+        "mp": 0.5105402733891495,
+        "mr": 0.3943437094151222
+      },
+      "val_dir": "runs/evaluation/boston_test_val_test"
+    }
+  },
+  "summary": "runs/evaluation/boston_test_summary.json"
+}

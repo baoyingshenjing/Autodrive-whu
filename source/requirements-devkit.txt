@@ -1,0 +1,5 @@
+nuscenes-devkit
+numpy
+Pillow
+matplotlib
+pyquaternion
