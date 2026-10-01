@@ -1,0 +1,103 @@
+{
+  "score_threshold": 0.1,
+  "top_k": 20,
+  "frames": [
+    {
+      "index": 0,
+      "sample_token": "3e8750f331d7499e9b5123e9eb70f2e2",
+      "scene": "scene-0103",
+      "selected_predictions": 20,
+      "camera_boxes": {
+        "CAM_FRONT_LEFT": {
+          "GT": 5,
+          "Prediction": 4
+        },
+        "CAM_FRONT": {
+          "GT": 14,
+          "Prediction": 8
+        },
+        "CAM_FRONT_RIGHT": {
+          "GT": 1,
+          "Prediction": 8
+        },
+        "CAM_BACK_LEFT": {
+          "GT": 0,
+          "Prediction": 1
+        },
+        "CAM_BACK": {
+          "GT": 3,
+          "Prediction": 0
+        },
+        "CAM_BACK_RIGHT": {
+          "GT": 2,
+          "Prediction": 2
+        }
+      }
+    },
+    {
+      "index": 1,
+      "sample_token": "3950bd41f74548429c0f7700ff3d8269",
+      "scene": "scene-0103",
+      "selected_predictions": 20,
+      "camera_boxes": {
+        "CAM_FRONT_LEFT": {
+          "GT": 6,
+          "Prediction": 5
+        },
+        "CAM_FRONT": {
+          "GT": 19,
+          "Prediction": 8
+        },
+        "CAM_FRONT_RIGHT": {
+          "GT": 3,
+          "Prediction": 7
+        },
+        "CAM_BACK_LEFT": {
+          "GT": 1,
+          "Prediction": 2
+        },
+        "CAM_BACK": {
+          "GT": 3,
+          "Prediction": 0
+        },
+        "CAM_BACK_RIGHT": {
+          "GT": 2,
+          "Prediction": 0
+        }
+      }
+    },
+    {
+      "index": 2,
+      "sample_token": "c5f58c19249d4137ae063b0e9ecd8b8e",
+      "scene": "scene-0103",
+      "selected_predictions": 20,
+      "camera_boxes": {
+        "CAM_FRONT_LEFT": {
+          "GT": 6,
+          "Prediction": 1
+        },
+        "CAM_FRONT": {
+          "GT": 20,
+          "Prediction": 6
+        },
+        "CAM_FRONT_RIGHT": {
+          "GT": 4,
+          "Prediction": 13
+        },
+        "CAM_BACK_LEFT": {
+          "GT": 2,
+          "Prediction": 0
+        },
+        "CAM_BACK": {
+          "GT": 5,
+          "Prediction": 2
+        },
+        "CAM_BACK_RIGHT": {
+          "GT": 3,
+          "Prediction": 6
+        }
+      }
+    }
+  ],
+  "note": "Display filters only; metrics unchanged. GT: 10 detection classes, without evaluation range/point-count filtering. Camera visibility: devkit ANY. BEV uses front-camera ego pose, view range +/-55 m."
+}

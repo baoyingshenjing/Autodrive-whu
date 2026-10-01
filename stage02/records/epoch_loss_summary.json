@@ -1,0 +1,102 @@
+[
+  {
+    "epoch": 1,
+    "logged_loss_mean": 13.40841,
+    "logged_points": 32
+  },
+  {
+    "epoch": 2,
+    "logged_loss_mean": 12.17387125,
+    "logged_points": 32
+  },
+  {
+    "epoch": 3,
+    "logged_loss_mean": 11.4694440625,
+    "logged_points": 32
+  },
+  {
+    "epoch": 4,
+    "logged_loss_mean": 10.939249375000001,
+    "logged_points": 32
+  },
+  {
+    "epoch": 5,
+    "logged_loss_mean": 10.58298125,
+    "logged_points": 32
+  },
+  {
+    "epoch": 6,
+    "logged_loss_mean": 10.349184999999999,
+    "logged_points": 32
+  },
+  {
+    "epoch": 7,
+    "logged_loss_mean": 10.0627671875,
+    "logged_points": 32
+  },
+  {
+    "epoch": 8,
+    "logged_loss_mean": 9.8007009375,
+    "logged_points": 32
+  },
+  {
+    "epoch": 9,
+    "logged_loss_mean": 9.600143437500002,
+    "logged_points": 32
+  },
+  {
+    "epoch": 10,
+    "logged_loss_mean": 9.455703750000001,
+    "logged_points": 32
+  },
+  {
+    "epoch": 11,
+    "logged_loss_mean": 9.335098125,
+    "logged_points": 32
+  },
+  {
+    "epoch": 12,
+    "logged_loss_mean": 9.23389625,
+    "logged_points": 32
+  },
+  {
+    "epoch": 13,
+    "logged_loss_mean": 9.1166021875,
+    "logged_points": 32
+  },
+  {
+    "epoch": 14,
+    "logged_loss_mean": 9.0398871875,
+    "logged_points": 32
+  },
+  {
+    "epoch": 15,
+    "logged_loss_mean": 8.9691015625,
+    "logged_points": 32
+  },
+  {
+    "epoch": 16,
+    "logged_loss_mean": 8.8926921875,
+    "logged_points": 32
+  },
+  {
+    "epoch": 17,
+    "logged_loss_mean": 8.820684374999999,
+    "logged_points": 32
+  },
+  {
+    "epoch": 18,
+    "logged_loss_mean": 8.779292812500001,
+    "logged_points": 32
+  },
+  {
+    "epoch": 19,
+    "logged_loss_mean": 8.7769403125,
+    "logged_points": 32
+  },
+  {
+    "epoch": 20,
+    "logged_loss_mean": 8.7237934375,
+    "logged_points": 32
+  }
+]

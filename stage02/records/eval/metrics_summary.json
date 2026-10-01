@@ -1,0 +1,198 @@
+{
+  "label_aps": {
+    "car": {
+      "0.5": 0.0,
+      "1.0": 0.0,
+      "2.0": 0.0,
+      "4.0": 0.022759047882039616
+    },
+    "truck": {
+      "0.5": 0.0,
+      "1.0": 0.0,
+      "2.0": 0.0,
+      "4.0": 0.0
+    },
+    "bus": {
+      "0.5": 0.0,
+      "1.0": 0.0,
+      "2.0": 0.0,
+      "4.0": 0.0
+    },
+    "trailer": {
+      "0.5": 0.0,
+      "1.0": 0.0,
+      "2.0": 0.0,
+      "4.0": 0.0
+    },
+    "construction_vehicle": {
+      "0.5": 0.0,
+      "1.0": 0.0,
+      "2.0": 0.0,
+      "4.0": 0.0
+    },
+    "pedestrian": {
+      "0.5": 0.0,
+      "1.0": 0.0,
+      "2.0": 0.0,
+      "4.0": 0.0
+    },
+    "motorcycle": {
+      "0.5": 0.0,
+      "1.0": 0.0,
+      "2.0": 0.0,
+      "4.0": 0.0
+    },
+    "bicycle": {
+      "0.5": 0.0,
+      "1.0": 0.0,
+      "2.0": 0.0,
+      "4.0": 0.0
+    },
+    "traffic_cone": {
+      "0.5": 0.0,
+      "1.0": 0.0,
+      "2.0": 0.0,
+      "4.0": 0.0
+    },
+    "barrier": {
+      "0.5": 0.0,
+      "1.0": 0.0,
+      "2.0": 0.0,
+      "4.0": 0.0
+    }
+  },
+  "mean_dist_aps": {
+    "car": 0.005689761970509904,
+    "truck": 0.0,
+    "bus": 0.0,
+    "trailer": 0.0,
+    "construction_vehicle": 0.0,
+    "pedestrian": 0.0,
+    "motorcycle": 0.0,
+    "bicycle": 0.0,
+    "traffic_cone": 0.0,
+    "barrier": 0.0
+  },
+  "mean_ap": 0.0005689761970509904,
+  "label_tp_errors": {
+    "car": {
+      "trans_err": 1.2632303037448236,
+      "scale_err": 0.26808436999212415,
+      "orient_err": 1.4793678034141424,
+      "vel_err": 0.18313733090092374,
+      "attr_err": 0.12370377122296324
+    },
+    "truck": {
+      "trans_err": 1.0,
+      "scale_err": 1.0,
+      "orient_err": 1.0,
+      "vel_err": 1.0,
+      "attr_err": 1.0
+    },
+    "bus": {
+      "trans_err": 1.0,
+      "scale_err": 1.0,
+      "orient_err": 1.0,
+      "vel_err": 1.0,
+      "attr_err": 1.0
+    },
+    "trailer": {
+      "trans_err": 1.0,
+      "scale_err": 1.0,
+      "orient_err": 1.0,
+      "vel_err": 1.0,
+      "attr_err": 1.0
+    },
+    "construction_vehicle": {
+      "trans_err": 1.0,
+      "scale_err": 1.0,
+      "orient_err": 1.0,
+      "vel_err": 1.0,
+      "attr_err": 1.0
+    },
+    "pedestrian": {
+      "trans_err": 1.0,
+      "scale_err": 1.0,
+      "orient_err": 1.0,
+      "vel_err": 1.0,
+      "attr_err": 1.0
+    },
+    "motorcycle": {
+      "trans_err": 1.0,
+      "scale_err": 1.0,
+      "orient_err": 1.0,
+      "vel_err": 1.0,
+      "attr_err": 1.0
+    },
+    "bicycle": {
+      "trans_err": 1.0,
+      "scale_err": 1.0,
+      "orient_err": 1.0,
+      "vel_err": 1.0,
+      "attr_err": 1.0
+    },
+    "traffic_cone": {
+      "trans_err": 1.0,
+      "scale_err": 1.0,
+      "orient_err": NaN,
+      "vel_err": NaN,
+      "attr_err": NaN
+    },
+    "barrier": {
+      "trans_err": 1.0,
+      "scale_err": 1.0,
+      "orient_err": 1.0,
+      "vel_err": NaN,
+      "attr_err": NaN
+    }
+  },
+  "tp_errors": {
+    "trans_err": 1.0263230303744824,
+    "scale_err": 0.9268084369992124,
+    "orient_err": 1.053263089268238,
+    "vel_err": 0.8978921663626155,
+    "attr_err": 0.8904629714028705
+  },
+  "tp_scores": {
+    "trans_err": 0.0,
+    "scale_err": 0.07319156300078755,
+    "orient_err": 0.0,
+    "vel_err": 0.10210783363738452,
+    "attr_err": 0.10953702859712955
+  },
+  "nd_score": 0.028768130622055653,
+  "eval_time": 1.509516716003418,
+  "cfg": {
+    "class_range": {
+      "car": 50,
+      "truck": 50,
+      "bus": 50,
+      "trailer": 50,
+      "construction_vehicle": 50,
+      "pedestrian": 40,
+      "motorcycle": 40,
+      "bicycle": 40,
+      "traffic_cone": 30,
+      "barrier": 30
+    },
+    "dist_fcn": "center_distance",
+    "dist_ths": [
+      0.5,
+      1.0,
+      2.0,
+      4.0
+    ],
+    "dist_th_tp": 2.0,
+    "min_recall": 0.1,
+    "min_precision": 0.1,
+    "max_boxes_per_sample": 500,
+    "mean_ap_weight": 5
+  },
+  "meta": {
+    "use_lidar": false,
+    "use_camera": true,
+    "use_radar": false,
+    "use_map": false,
+    "use_external": false
+  }
+}

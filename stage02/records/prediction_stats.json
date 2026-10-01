@@ -1,0 +1,14 @@
+{
+  "source": "test/eval/pts_bbox/results_nusc.json",
+  "frames": 81,
+  "formatted_boxes": 6783,
+  "class_counts": {
+    "barrier": 399,
+    "car": 6319,
+    "pedestrian": 65
+  },
+  "min_score": 0.232150137424469,
+  "median_score": 0.29002541303634644,
+  "max_score": 0.294952392578125,
+  "boxes_at_or_above_display_threshold": 6783
+}

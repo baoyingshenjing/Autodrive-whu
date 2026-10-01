@@ -1,0 +1,21 @@
+{
+  "final_run_dir": "outputs/run20",
+  "train_frames": 323,
+  "validation_frames": 81,
+  "train_scenes": 8,
+  "validation_scenes": 2,
+  "split_disjoint": true,
+  "all_camera_images_exist": true,
+  "completed_epochs": 20,
+  "checkpoint_iteration": 6460,
+  "checkpoint_weights_finite": true,
+  "all_logged_losses_finite": true,
+  "evaluated_frames": 81,
+  "visualized_frames": 3,
+  "mean_ap": 0.0005689761970509904,
+  "nds": 0.028768130622055653,
+  "unified_coordinate_cameras": 6,
+  "camera_transform_and_projection_checks_passed": true,
+  "visual_review_completed": true,
+  "reviewed_image_count": 8
+}

@@ -79,3 +79,8 @@ python source/scripts/build_prediction_montage.py runs/visualization/boston_test
 详细训练参数与逐轮日志见 [`records/args.yaml`](records/args.yaml) 和 [`records/results.csv`](records/results.csv)，test 评估与 12 张预测记录见 `records/` 中的两个 JSON 文件。
 
 20 轮训练满足课程实验的最低训练要求，但不代表模型已经过充分调参或达到最优性能。
+
+## 实验二：PETR 多相机三维目标检测
+
+实验二源码、环境依赖、复现说明和实际训练评估记录位于 [`stage02/`](stage02/README.md)。完成 20 轮训练及 81 帧验证评估，详细指标与限制见复现说明。
+
