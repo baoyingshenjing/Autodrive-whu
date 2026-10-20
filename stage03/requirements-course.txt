@@ -1,0 +1,20 @@
+# Versions physically installed and verified on this Windows machine.
+torch==2.0.1+cu118
+torchvision==0.15.2+cu118
+numpy==1.24.4
+scipy==1.13.1
+mmengine==0.10.7
+mmcv==2.1.0
+mmdet==3.2.0
+mmdet3d==1.4.0
+nuscenes-devkit==1.1.11
+matplotlib==3.5.3
+opencv-python==4.8.1.78
+yapf==0.40.1
+numba==0.60.0
+lyft-dataset-sdk==0.0.8
+open3d==0.18.0
+plyfile==1.1.3
+scikit-image==0.24.0
+tensorboard==2.14.0
+trimesh==4.4.9

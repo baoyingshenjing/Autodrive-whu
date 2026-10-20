@@ -1,4 +1,16 @@
-# Boston Seaport 多传感器数据处理与 YOLO 目标检测
+# 武汉大学自动驾驶技术课程实验
+
+当前分支：`experiment-3`。
+
+| 实验 | 内容 | 入口 |
+|---|---|---|
+| 实验一 | nuScenes 多传感器处理与 YOLO 检测 | [原实验说明](#实验一boston-seaport-多传感器数据处理与-yolo-目标检测) |
+| 实验二 | PETR 多视图三维目标检测 | [stage02/README.md](stage02/README.md) |
+| 实验三 | PointPillars LiDAR 三维目标检测 | [stage03/README.md](stage03/README.md) |
+
+实验三提供最终黑色字体报告、可编辑源稿、训练 Log、Loss 曲线、验证结果、BEV 图和最终模型，详见上方入口。
+
+## 实验一：Boston Seaport 多传感器数据处理与 YOLO 目标检测
 
 本仓库整理了自动驾驶技术课程中 Boston Seaport 场景的实验代码与脱敏结果记录。实验包含 nuScenes 元数据读取、Camera 与 LiDAR 数据显示、三维点投影到二维图像、YOLO 数据组织、YOLO11n 训练、独立 test 集评估及预测可视化。
 

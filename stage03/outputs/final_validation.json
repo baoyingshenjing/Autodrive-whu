@@ -1,0 +1,573 @@
+{
+  "train": {
+    "run1_compact": {
+      "audit": {
+        "validation_status": "PARAMETERS_UPDATED",
+        "trainable_scope": "pts_bbox_head only",
+        "changed_parameter_tensors": 6,
+        "total_trainable_parameter_tensors": 6,
+        "gradient_parameter_tensors": 6,
+        "gradient_events": 1938,
+        "nonfinite_scaled_gradient_events": 2,
+        "max_abs_gradient": 65184.0,
+        "max_abs_parameter_change": 0.021873876452445984,
+        "all_trainable_parameters_finite": true,
+        "wall_seconds": 20.499,
+        "peak_gpu_allocated_bytes": 489917440,
+        "peak_gpu_reserved_bytes": 2491416576,
+        "last_loss": 2.8404555320739746
+      },
+      "checkpoint_epoch": 1,
+      "all_model_weights_finite": true,
+      "recorded_steps": 323,
+      "first_iteration": 0,
+      "last_iteration": 322
+    },
+    "run5_compact": {
+      "audit": {
+        "validation_status": "PARAMETERS_UPDATED",
+        "trainable_scope": "pts_bbox_head only",
+        "changed_parameter_tensors": 6,
+        "total_trainable_parameter_tensors": 6,
+        "gradient_parameter_tensors": 6,
+        "gradient_events": 7752,
+        "nonfinite_scaled_gradient_events": 1,
+        "max_abs_gradient": 57504.0,
+        "max_abs_parameter_change": 0.0809672474861145,
+        "all_trainable_parameters_finite": true,
+        "wall_seconds": 56.393,
+        "peak_gpu_allocated_bytes": 489920512,
+        "peak_gpu_reserved_bytes": 2499805184,
+        "last_loss": 2.6194851398468018
+      },
+      "checkpoint_epoch": 5,
+      "all_model_weights_finite": true,
+      "recorded_steps": 1292,
+      "first_iteration": 323,
+      "last_iteration": 1614
+    }
+  },
+  "epoch_mean_loss": [
+    2.8732738260514226,
+    2.6893528522721755,
+    2.5848344293172145,
+    2.5111578494402647,
+    2.4562593632069167
+  ],
+  "comparison": {
+    "configuration": "single keyframe; x/y range [-25,25] m; batch=1; AMP; head-only",
+    "split": "nuScenes v1.0-mini: train=323 keyframes, validation=81 keyframes, overlap=0",
+    "baseline": {
+      "NDS": 0.026859634732443866,
+      "mAP": 6.145001388378578e-05,
+      "metrics_file": "outputs\\baseline_compact_bev\\metrics_summary.json"
+    },
+    "finetuned_5_epoch": {
+      "NDS": 0.11889101418762645,
+      "mAP": 0.06230165937510422,
+      "metrics_file": "outputs\\finetuned_compact\\metrics_summary.json"
+    },
+    "run1_audit": {
+      "validation_status": "PARAMETERS_UPDATED",
+      "trainable_scope": "pts_bbox_head only",
+      "changed_parameter_tensors": 6,
+      "total_trainable_parameter_tensors": 6,
+      "gradient_parameter_tensors": 6,
+      "gradient_events": 1938,
+      "nonfinite_scaled_gradient_events": 2,
+      "max_abs_gradient": 65184.0,
+      "max_abs_parameter_change": 0.021873876452445984,
+      "all_trainable_parameters_finite": true,
+      "wall_seconds": 20.499,
+      "peak_gpu_allocated_bytes": 489917440,
+      "peak_gpu_reserved_bytes": 2491416576,
+      "last_loss": 2.8404555320739746
+    },
+    "run5_audit": {
+      "validation_status": "PARAMETERS_UPDATED",
+      "trainable_scope": "pts_bbox_head only",
+      "changed_parameter_tensors": 6,
+      "total_trainable_parameter_tensors": 6,
+      "gradient_parameter_tensors": 6,
+      "gradient_events": 7752,
+      "nonfinite_scaled_gradient_events": 1,
+      "max_abs_gradient": 57504.0,
+      "max_abs_parameter_change": 0.0809672474861145,
+      "all_trainable_parameters_finite": true,
+      "wall_seconds": 56.393,
+      "peak_gpu_allocated_bytes": 489920512,
+      "peak_gpu_reserved_bytes": 2499805184,
+      "last_loss": 2.6194851398468018
+    },
+    "caveat": "This is a tiny mini split and a teaching-range model, not a full nuScenes benchmark. The validation set was never used for gradient updates, but it is used for model selection/reporting.",
+    "delta": {
+      "NDS": 0.092,
+      "mAP": 0.0622
+    }
+  },
+  "predictions": {
+    "baseline_compact_bev": {
+      "sample_count": 81,
+      "prediction_count": 23529,
+      "class_counts": {
+        "car": 5396,
+        "truck": 624,
+        "trailer": 1070,
+        "bus": 1085,
+        "construction_vehicle": 138,
+        "bicycle": 4433,
+        "motorcycle": 294,
+        "pedestrian": 7141,
+        "traffic_cone": 2848,
+        "barrier": 500
+      },
+      "tokens": [
+        "3e8750f331d7499e9b5123e9eb70f2e2",
+        "3950bd41f74548429c0f7700ff3d8269",
+        "c5f58c19249d4137ae063b0e9ecd8b8e",
+        "700c1a25559b4433be532de3475e58a9",
+        "747aa46b9a4641fe90db05d97db2acea",
+        "f4f86af4da3b49e79497deda5c5f223a",
+        "6832e717621341568c759151b5974512",
+        "c59e60042a8643e899008da2e446acca",
+        "fa65a298c01f44e7a182bbf9e5fe3697",
+        "a98fba72bde9433fb882032d18aedb2e",
+        "b6b0d9f2f2e14a3aaa2c8aedeb1edb69",
+        "796b1988dd254f74bf2fb19ba9c5b8c6",
+        "0d0700a2284e477db876c3ee1d864668",
+        "de7593d76648450e947ba0c203dee1b0",
+        "f753d3f87e5b40af87ff2cbf7c8e7082",
+        "b22fa0b3c34f47b6a360b60f35d5d567",
+        "0a0d6b8c2e884134a3b48df43d54c36a",
+        "8e9c2cba0ee74056aa3746e8391d54a9",
+        "fdc39b23ab4242eda6ec5e1e6574fe33",
+        "9ee4020153674b9e9943d395ff8cfdf3",
+        "5b03af7a953245b5a3b23191ed4da62a",
+        "d0ecf474e0e64950aa265cd44b9c9d75",
+        "456ec36cb4a44ca78f36fbd90c0c34fa",
+        "6bfd42cf0aba4f1a94ec11fa43e2dd92",
+        "0af0feb5b1394b928dd13d648de898f5",
+        "61d9340c5ad8418dafe7a4af1b96e6b9",
+        "9e7683e8586542a1b6032980c45f15ce",
+        "cc57c1ea80fe46a7abddfdb15654c872",
+        "4cf5d6c3f6ab42aab23f67b5a9782d1a",
+        "6d9984d09d52479e837da2fd09e192cc",
+        "38a28a3aaf2647f2a8c0e90e31267bf8",
+        "6402fd1ffaf041d0b9162bd92a7ba0a2",
+        "ce94ef7a0522468e81c0e2b3a2f1e12d",
+        "9fcdc52b791045e99c623c5fc643331f",
+        "1c9a906c40f6417bbe1cea06d6e55501",
+        "a771effa2a2648d78096c3e92b95b129",
+        "b9ea04a6121d4a8bb00199b885aa5ef0",
+        "87e772078a494d42bd34cd16172808bc",
+        "f40544fd4f5d42abbcfa948eeaf86850",
+        "281b92269fd648d4b52d06ac06ca6d65",
+        "b5989651183643369174912bc5641d3b",
+        "0bb62a68055249e381b039bf54b0ccf8",
+        "07fad91090c746ccaa1b2bdb55329e20",
+        "ae5004bf4ebb4db0a84cb3c27bd398d1",
+        "ac8b4d49731d43289579f014cb7c97ef",
+        "c1eed31234b94e9f8e22fbf3428b0ac2",
+        "edba7d0cf1c64d2a9c8a5ebddab507a9",
+        "a5afebb0aa5e4d7c95665788ce51ec58",
+        "5b7cb170eee6468aa1fdbd3abcf63c5a",
+        "d8251bbc2105497ab8ec80827d4429aa",
+        "048a45dd2cf54aa5808d8ccc85731d44",
+        "858a1ece22cf45d9bc71e42336604b78",
+        "372725a4b00e49c78d6d0b1c4a38b6e0",
+        "61a7bd24f88a46c2963280d8b13ac675",
+        "609d5177362340458a3bfd4949cd1e64",
+        "b1303058fa624645b753d7283d70de45",
+        "a19a80c905674faab7203a3a4e0f5246",
+        "b6c420c3a5bd4a219b1cb82ee5ea0aa7",
+        "8092909473464f80b9f791a4d31ddcb8",
+        "e174cb43655f49dab7ffa27b973670e3",
+        "6ff9723a60bf4e14b328b3b19f04dc32",
+        "06be0e3b665c44fa8d17d9f4770bdf9c",
+        "9150678870764c1b87a649a25939c61b",
+        "8573a885a7cb41d185c05029eeb9a54e",
+        "55c258972acb4300a3a6077a531ab050",
+        "44237858a539457da65822bfcf58c414",
+        "8cd36e9531fb4eba8e6ac1d666c4641c",
+        "7bebe3c9be714f02837f8617c56df122",
+        "4b894442c95141f9affd731d9da7b43c",
+        "e00dc15130dc44e796687baadd076ae4",
+        "e63b83b436a0479db7362338cdfab118",
+        "c567f9b8e9f34817acdc9c49d791c557",
+        "8e352d4a6c6f40c8ad4f10a3d2c3f158",
+        "841dd6709e9b4d7c9d6bf888f1fe6d7e",
+        "e54b784a608644a2804fcf800c7499f7",
+        "a1289b27ca1d41deb6fc982be9a3d03c",
+        "e6e877f31dd447199b56cae07f86daad",
+        "cb4e6195faad467094fbd4d0a9e960e9",
+        "7f594234e8034228b1a7d727f1981e09",
+        "9cdbf5ff7f294549aea0a4307e5d104a",
+        "b4ff30109dd14c89b24789dc5713cf8c"
+      ],
+      "token_verification": "sample_idx mapped to val.pkl, with LiDAR filename equality checked",
+      "score_min": 0.05000198259949684,
+      "score_max": 1.0
+    },
+    "finetuned_compact": {
+      "sample_count": 81,
+      "prediction_count": 9742,
+      "class_counts": {
+        "car": 3722,
+        "truck": 1008,
+        "trailer": 192,
+        "bus": 352,
+        "construction_vehicle": 331,
+        "pedestrian": 2350,
+        "traffic_cone": 805,
+        "barrier": 736,
+        "bicycle": 163,
+        "motorcycle": 83
+      },
+      "tokens": [
+        "3e8750f331d7499e9b5123e9eb70f2e2",
+        "3950bd41f74548429c0f7700ff3d8269",
+        "c5f58c19249d4137ae063b0e9ecd8b8e",
+        "700c1a25559b4433be532de3475e58a9",
+        "747aa46b9a4641fe90db05d97db2acea",
+        "f4f86af4da3b49e79497deda5c5f223a",
+        "6832e717621341568c759151b5974512",
+        "c59e60042a8643e899008da2e446acca",
+        "fa65a298c01f44e7a182bbf9e5fe3697",
+        "a98fba72bde9433fb882032d18aedb2e",
+        "b6b0d9f2f2e14a3aaa2c8aedeb1edb69",
+        "796b1988dd254f74bf2fb19ba9c5b8c6",
+        "0d0700a2284e477db876c3ee1d864668",
+        "de7593d76648450e947ba0c203dee1b0",
+        "f753d3f87e5b40af87ff2cbf7c8e7082",
+        "b22fa0b3c34f47b6a360b60f35d5d567",
+        "0a0d6b8c2e884134a3b48df43d54c36a",
+        "8e9c2cba0ee74056aa3746e8391d54a9",
+        "fdc39b23ab4242eda6ec5e1e6574fe33",
+        "9ee4020153674b9e9943d395ff8cfdf3",
+        "5b03af7a953245b5a3b23191ed4da62a",
+        "d0ecf474e0e64950aa265cd44b9c9d75",
+        "456ec36cb4a44ca78f36fbd90c0c34fa",
+        "6bfd42cf0aba4f1a94ec11fa43e2dd92",
+        "0af0feb5b1394b928dd13d648de898f5",
+        "61d9340c5ad8418dafe7a4af1b96e6b9",
+        "9e7683e8586542a1b6032980c45f15ce",
+        "cc57c1ea80fe46a7abddfdb15654c872",
+        "4cf5d6c3f6ab42aab23f67b5a9782d1a",
+        "6d9984d09d52479e837da2fd09e192cc",
+        "38a28a3aaf2647f2a8c0e90e31267bf8",
+        "6402fd1ffaf041d0b9162bd92a7ba0a2",
+        "ce94ef7a0522468e81c0e2b3a2f1e12d",
+        "9fcdc52b791045e99c623c5fc643331f",
+        "1c9a906c40f6417bbe1cea06d6e55501",
+        "a771effa2a2648d78096c3e92b95b129",
+        "b9ea04a6121d4a8bb00199b885aa5ef0",
+        "87e772078a494d42bd34cd16172808bc",
+        "f40544fd4f5d42abbcfa948eeaf86850",
+        "281b92269fd648d4b52d06ac06ca6d65",
+        "b5989651183643369174912bc5641d3b",
+        "0bb62a68055249e381b039bf54b0ccf8",
+        "07fad91090c746ccaa1b2bdb55329e20",
+        "ae5004bf4ebb4db0a84cb3c27bd398d1",
+        "ac8b4d49731d43289579f014cb7c97ef",
+        "c1eed31234b94e9f8e22fbf3428b0ac2",
+        "edba7d0cf1c64d2a9c8a5ebddab507a9",
+        "a5afebb0aa5e4d7c95665788ce51ec58",
+        "5b7cb170eee6468aa1fdbd3abcf63c5a",
+        "d8251bbc2105497ab8ec80827d4429aa",
+        "048a45dd2cf54aa5808d8ccc85731d44",
+        "858a1ece22cf45d9bc71e42336604b78",
+        "372725a4b00e49c78d6d0b1c4a38b6e0",
+        "61a7bd24f88a46c2963280d8b13ac675",
+        "609d5177362340458a3bfd4949cd1e64",
+        "b1303058fa624645b753d7283d70de45",
+        "a19a80c905674faab7203a3a4e0f5246",
+        "b6c420c3a5bd4a219b1cb82ee5ea0aa7",
+        "8092909473464f80b9f791a4d31ddcb8",
+        "e174cb43655f49dab7ffa27b973670e3",
+        "6ff9723a60bf4e14b328b3b19f04dc32",
+        "06be0e3b665c44fa8d17d9f4770bdf9c",
+        "9150678870764c1b87a649a25939c61b",
+        "8573a885a7cb41d185c05029eeb9a54e",
+        "55c258972acb4300a3a6077a531ab050",
+        "44237858a539457da65822bfcf58c414",
+        "8cd36e9531fb4eba8e6ac1d666c4641c",
+        "7bebe3c9be714f02837f8617c56df122",
+        "4b894442c95141f9affd731d9da7b43c",
+        "e00dc15130dc44e796687baadd076ae4",
+        "e63b83b436a0479db7362338cdfab118",
+        "c567f9b8e9f34817acdc9c49d791c557",
+        "8e352d4a6c6f40c8ad4f10a3d2c3f158",
+        "841dd6709e9b4d7c9d6bf888f1fe6d7e",
+        "e54b784a608644a2804fcf800c7499f7",
+        "a1289b27ca1d41deb6fc982be9a3d03c",
+        "e6e877f31dd447199b56cae07f86daad",
+        "cb4e6195faad467094fbd4d0a9e960e9",
+        "7f594234e8034228b1a7d727f1981e09",
+        "9cdbf5ff7f294549aea0a4307e5d104a",
+        "b4ff30109dd14c89b24789dc5713cf8c"
+      ],
+      "token_verification": "sample_idx mapped to val.pkl, with LiDAR filename equality checked",
+      "score_min": 0.05001513287425041,
+      "score_max": 0.9782450795173645
+    }
+  },
+  "environment": {
+    "python": "3.9.25 (main, Nov  3 2025, 22:44:01) [MSC v.1929 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "torch": "2.0.1+cu118",
+    "torch_cuda": "11.8",
+    "cuda_available": true,
+    "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "gpu_query": "NVIDIA GeForce RTX 4060 Laptop GPU, 591.44, 8188 MiB",
+    "numpy": "1.24.4",
+    "mmcv": "2.1.0",
+    "mmengine": "0.10.7",
+    "mmdet": "3.2.0",
+    "mmdet3d": "1.4.0",
+    "data_root": "D:\\code\\autodrive\\stage03\\data\\nuscenes",
+    "v1_mini_exists": true,
+    "keyframe_bins": 404,
+    "sweep_bins": 0
+  },
+  "data_audit": {
+    "train_samples": 323,
+    "val_samples": 81,
+    "overlap_samples": 0,
+    "train_scenes": [
+      "scene-0061",
+      "scene-0553",
+      "scene-0655",
+      "scene-0757",
+      "scene-0796",
+      "scene-1077",
+      "scene-1094",
+      "scene-1100"
+    ],
+    "val_scenes": [
+      "scene-0103",
+      "scene-0916"
+    ],
+    "max_global_center_roundtrip_error_m": 4.547473508864641e-13,
+    "point_count_min": 34368,
+    "point_count_max": 34816,
+    "classes": [
+      "car",
+      "truck",
+      "trailer",
+      "bus",
+      "construction_vehicle",
+      "bicycle",
+      "motorcycle",
+      "pedestrian",
+      "traffic_cone",
+      "barrier"
+    ],
+    "lidar_visible_annotation_counts": {
+      "train": {
+        "pedestrian": 3031,
+        "car": 3525,
+        "traffic_cone": 768,
+        "bicycle": 146,
+        "barrier": 1770,
+        "truck": 426,
+        "bus": 323,
+        "construction_vehicle": 164,
+        "motorcycle": 175,
+        "trailer": 58
+      },
+      "val": {
+        "pedestrian": 1254,
+        "car": 1991,
+        "truck": 122,
+        "traffic_cone": 35,
+        "motorcycle": 232,
+        "bicycle": 43,
+        "bus": 41
+      }
+    },
+    "source": "nuScenes SDK boxes in LiDAR coordinates; MMDet3D v1.4 official schema",
+    "box_dimensions": "center x/y/z, length/width/height, yaw; separate vx/vy",
+    "missing_velocity_policy": "retain SDK NaN; NuScenesDataset replaces missing velocities with zero"
+  },
+  "execution": [
+    {
+      "step": "environment",
+      "seconds": 3.387,
+      "exit_code": 0,
+      "command": [
+        "D:\\code\\autodrive\\stage03\\.env\\python.exe",
+        "check_environment.py"
+      ]
+    },
+    {
+      "step": "cuda_ops",
+      "seconds": 4.711,
+      "exit_code": 0,
+      "command": [
+        "D:\\code\\autodrive\\stage03\\.env\\python.exe",
+        "check_cuda_ops.py"
+      ]
+    },
+    {
+      "step": "preprocess",
+      "seconds": 16.643,
+      "exit_code": 0,
+      "command": [
+        "D:\\code\\autodrive\\stage03\\.env\\python.exe",
+        "preprocess.py"
+      ]
+    },
+    {
+      "step": "baseline",
+      "seconds": 37.495,
+      "exit_code": 0,
+      "command": [
+        "D:\\code\\autodrive\\stage03\\.env\\python.exe",
+        "test.py",
+        "--checkpoint",
+        "checkpoints/pointpillars_nuscenes_official.pth",
+        "--output-dir",
+        "outputs/baseline_compact_bev",
+        "--vis-count",
+        "3",
+        "--score-thr",
+        "0.10"
+      ]
+    },
+    {
+      "step": "run1",
+      "seconds": 38.366,
+      "exit_code": 0,
+      "command": [
+        "D:\\code\\autodrive\\stage03\\.env\\python.exe",
+        "train.py",
+        "--epochs",
+        "1",
+        "--work-dir",
+        "outputs/run1_compact",
+        "--amp"
+      ]
+    },
+    {
+      "step": "plot1",
+      "seconds": 0.689,
+      "exit_code": 0,
+      "command": [
+        "D:\\code\\autodrive\\stage03\\.env\\python.exe",
+        "plot_training.py",
+        "--work-dir",
+        "outputs/run1_compact"
+      ]
+    },
+    {
+      "step": "run5",
+      "seconds": 71.082,
+      "exit_code": 0,
+      "command": [
+        "D:\\code\\autodrive\\stage03\\.env\\python.exe",
+        "train.py",
+        "--resume-from",
+        "outputs/run1_compact/epoch_1.pth",
+        "--epochs",
+        "5",
+        "--work-dir",
+        "outputs/run5_compact",
+        "--amp"
+      ]
+    },
+    {
+      "step": "plot5",
+      "seconds": 0.685,
+      "exit_code": 0,
+      "command": [
+        "D:\\code\\autodrive\\stage03\\.env\\python.exe",
+        "plot_training.py",
+        "--work-dir",
+        "outputs/run5_compact"
+      ]
+    },
+    {
+      "step": "finetuned",
+      "seconds": 22.843,
+      "exit_code": 0,
+      "command": [
+        "D:\\code\\autodrive\\stage03\\.env\\python.exe",
+        "test.py",
+        "--checkpoint",
+        "outputs/run5_compact/epoch_5.pth",
+        "--output-dir",
+        "outputs/finetuned_compact",
+        "--vis-count",
+        "3",
+        "--score-thr",
+        "0.10"
+      ]
+    },
+    {
+      "step": "comparison",
+      "seconds": 0.892,
+      "exit_code": 0,
+      "command": [
+        "D:\\code\\autodrive\\stage03\\.env\\python.exe",
+        "compare_results.py",
+        "--output",
+        "outputs/comparison.json"
+      ]
+    }
+  ],
+  "final_checkpoint_sha256": "ff5e265009a1f482b5ff8ba68964b6bac7344824e99f7c93f462e8e7d30dce78",
+  "thresholds": {
+    "0.1": {
+      "rendered": [
+        {
+          "file": "D:\\code\\autodrive\\stage03\\outputs\\finetuned_compact\\visualizations\\bev_01.png",
+          "source_lidar": "D:\\code\\autodrive\\stage03\\data\\nuscenes\\samples\\LIDAR_TOP\\n008-2018-08-01-15-16-36-0400__LIDAR_TOP__1533151603547590.pcd.bin",
+          "detections": 51,
+          "sample_index": 0,
+          "score_threshold": 0.1
+        },
+        {
+          "file": "D:\\code\\autodrive\\stage03\\outputs\\finetuned_compact\\visualizations\\bev_02.png",
+          "source_lidar": "D:\\code\\autodrive\\stage03\\data\\nuscenes\\samples\\LIDAR_TOP\\n008-2018-08-01-15-16-36-0400__LIDAR_TOP__1533151604048025.pcd.bin",
+          "detections": 45,
+          "sample_index": 1,
+          "score_threshold": 0.1
+        },
+        {
+          "file": "D:\\code\\autodrive\\stage03\\outputs\\finetuned_compact\\visualizations\\bev_03.png",
+          "source_lidar": "D:\\code\\autodrive\\stage03\\data\\nuscenes\\samples\\LIDAR_TOP\\n008-2018-08-01-15-16-36-0400__LIDAR_TOP__1533151604547893.pcd.bin",
+          "detections": 77,
+          "sample_index": 2,
+          "score_threshold": 0.1
+        }
+      ],
+      "score_threshold": 0.1
+    },
+    "0.3": {
+      "rendered": [
+        {
+          "file": "D:\\code\\autodrive\\stage03\\outputs\\finetuned_compact\\visualizations_thr030\\bev_01.png",
+          "source_lidar": "D:\\code\\autodrive\\stage03\\data\\nuscenes\\samples\\LIDAR_TOP\\n008-2018-08-01-15-16-36-0400__LIDAR_TOP__1533151603547590.pcd.bin",
+          "detections": 2,
+          "sample_index": 0,
+          "score_threshold": 0.3
+        },
+        {
+          "file": "D:\\code\\autodrive\\stage03\\outputs\\finetuned_compact\\visualizations_thr030\\bev_02.png",
+          "source_lidar": "D:\\code\\autodrive\\stage03\\data\\nuscenes\\samples\\LIDAR_TOP\\n008-2018-08-01-15-16-36-0400__LIDAR_TOP__1533151604048025.pcd.bin",
+          "detections": 4,
+          "sample_index": 1,
+          "score_threshold": 0.3
+        },
+        {
+          "file": "D:\\code\\autodrive\\stage03\\outputs\\finetuned_compact\\visualizations_thr030\\bev_03.png",
+          "source_lidar": "D:\\code\\autodrive\\stage03\\data\\nuscenes\\samples\\LIDAR_TOP\\n008-2018-08-01-15-16-36-0400__LIDAR_TOP__1533151604547893.pcd.bin",
+          "detections": 4,
+          "sample_index": 2,
+          "score_threshold": 0.3
+        }
+      ],
+      "score_threshold": 0.3
+    }
+  }
+}

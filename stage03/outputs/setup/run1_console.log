@@ -1,0 +1,966 @@
+TRAIN_START
+work_dir=D:\code\autodrive\stage03\outputs\run1_compact
+epochs_cumulative=1 mode=head_only amp=True
+input=single_keyframe_xyz_intensity train/val_overlap=0
+D:\code\autodrive\stage03\.env\lib\site-packages\torch\utils\cpp_extension.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import packaging  # type: ignore[attr-defined]
+10/13 20:00:55 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: win32
+    Python: 3.9.25 (main, Nov  3 2025, 22:44:01) [MSC v.1929 64 bit (AMD64)]
+    CUDA available: True
+    MUSA available: False
+    numpy_random_seed: 20261012
+    GPU 0: NVIDIA GeForce RTX 4060 Laptop GPU
+    CUDA_HOME: C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6
+    NVCC: Cuda compilation tools, release 12.6, V12.6.85
+    MSVC: 用于 x64 的 Microsoft (R) C/C++ 优化编译器 19.41.34120 版
+    GCC: n/a
+    PyTorch: 2.0.1+cu118
+    PyTorch compiling details: PyTorch built with:
+  - C++ Version: 199711
+  - MSVC 193431937
+  - Intel(R) Math Kernel Library Version 2020.0.2 Product Build 20200624 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.7.3 (Git Hash 6dbeffbae1f23cbbeae17adb7b5b13f1f37c080e)
+  - OpenMP 2019
+  - LAPACK is enabled (usually provided by MKL)
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.8
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_90,code=sm_90;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 8.7
+  - Magma 2.5.4
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.8, CUDNN_VERSION=8.7.0, CXX_COMPILER=C:/actions-runner/_work/pytorch/pytorch/builder/windows/tmp_bin/sccache-cl.exe, CXX_FLAGS=/DWIN32 /D_WINDOWS /GR /EHsc /w /bigobj /FS -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOCUPTI -DLIBKINETO_NOROCTRACER -DUSE_FBGEMM -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_DISABLE_GPU_ASSERTS=OFF, TORCH_VERSION=2.0.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=OFF, USE_NNPACK=OFF, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+    TorchVision: 0.15.2+cu118
+    OpenCV: 4.8.1
+    MMEngine: 0.10.7
+
+Runtime environment:
+    cudnn_benchmark: False
+    dist_cfg: {'backend': 'nccl'}
+    mp_cfg: {'mp_start_method': 'spawn', 'opencv_num_threads': 0}
+    seed: 20261012
+    deterministic: False
+    Distributed launcher: none
+    Distributed training: False
+    GPU number: 1
+------------------------------------------------------------
+
+10/13 20:00:56 - mmengine - INFO - Config:
+auto_scale_lr = dict(base_batch_size=32, enable=False)
+backend_args = None
+class_names = [
+    'car',
+    'truck',
+    'trailer',
+    'bus',
+    'construction_vehicle',
+    'bicycle',
+    'motorcycle',
+    'pedestrian',
+    'traffic_cone',
+    'barrier',
+]
+custom_hooks = [
+    dict(
+        audit_file=
+        'D:\\code\\autodrive\\stage03\\outputs\\run1_compact\\training_audit.json',
+        type='HeadOnlyGradientAuditHook'),
+]
+data_prefix = dict(img='', pts='samples/LIDAR_TOP', sweeps='sweeps/LIDAR_TOP')
+data_root = 'data/nuscenes/'
+dataset_type = 'NuScenesDataset'
+default_hooks = dict(
+    checkpoint=dict(
+        interval=1, max_keep_ckpts=-1, save_last=True, type='CheckpointHook'),
+    logger=dict(interval=10, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(type='Det3DVisualizationHook'))
+default_scope = 'mmdet3d'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='spawn', opencv_num_threads=0))
+eval_pipeline = [
+    dict(
+        backend_args=None,
+        coord_type='LIDAR',
+        load_dim=5,
+        type='LoadPointsFromFile',
+        use_dim=5),
+    dict(
+        backend_args=None,
+        sweeps_num=10,
+        test_mode=True,
+        type='LoadPointsFromMultiSweeps'),
+    dict(keys=[
+        'points',
+    ], type='Pack3DDetInputs'),
+]
+input_modality = dict(use_camera=False, use_lidar=True)
+load_from = 'D:\\code\\autodrive\\stage03\\checkpoints\\pointpillars_nuscenes_official.pth'
+log_level = 'INFO'
+log_processor = dict(by_epoch=True, type='LogProcessor', window_size=50)
+lr = 0.001
+metainfo = dict(classes=[
+    'car',
+    'truck',
+    'trailer',
+    'bus',
+    'construction_vehicle',
+    'bicycle',
+    'motorcycle',
+    'pedestrian',
+    'traffic_cone',
+    'barrier',
+])
+model = dict(
+    data_preprocessor=dict(
+        type='Det3DDataPreprocessor',
+        voxel=True,
+        voxel_layer=dict(
+            max_num_points=64,
+            max_voxels=(
+                6000,
+                8000,
+            ),
+            point_cloud_range=[
+                -25,
+                -25,
+                -5,
+                25,
+                25,
+                3,
+            ],
+            voxel_size=[
+                0.25,
+                0.25,
+                8,
+            ])),
+    pts_backbone=dict(
+        in_channels=64,
+        layer_nums=[
+            3,
+            5,
+            5,
+        ],
+        layer_strides=[
+            2,
+            2,
+            2,
+        ],
+        norm_cfg=dict(eps=0.001, momentum=0.01, type='BN2d'),
+        out_channels=[
+            64,
+            128,
+            256,
+        ],
+        type='SECOND'),
+    pts_bbox_head=dict(
+        anchor_generator=dict(
+            custom_values=[
+                0,
+                0,
+            ],
+            ranges=[
+                [
+                    -24.6,
+                    -24.6,
+                    -1.80032795,
+                    24.6,
+                    24.6,
+                    -1.80032795,
+                ],
+                [
+                    -24.6,
+                    -24.6,
+                    -1.74440365,
+                    24.6,
+                    24.6,
+                    -1.74440365,
+                ],
+                [
+                    -24.6,
+                    -24.6,
+                    -1.68526504,
+                    24.6,
+                    24.6,
+                    -1.68526504,
+                ],
+                [
+                    -24.6,
+                    -24.6,
+                    -1.67339111,
+                    24.6,
+                    24.6,
+                    -1.67339111,
+                ],
+                [
+                    -24.6,
+                    -24.6,
+                    -1.61785072,
+                    24.6,
+                    24.6,
+                    -1.61785072,
+                ],
+                [
+                    -24.6,
+                    -24.6,
+                    -1.80984986,
+                    24.6,
+                    24.6,
+                    -1.80984986,
+                ],
+                [
+                    -24.6,
+                    -24.6,
+                    -1.763965,
+                    24.6,
+                    24.6,
+                    -1.763965,
+                ],
+            ],
+            reshape_out=True,
+            rotations=[
+                0,
+                1.57,
+            ],
+            sizes=[
+                [
+                    4.60718145,
+                    1.95017717,
+                    1.72270761,
+                ],
+                [
+                    6.73778078,
+                    2.4560939,
+                    2.73004906,
+                ],
+                [
+                    12.01320693,
+                    2.87427237,
+                    3.81509561,
+                ],
+                [
+                    1.68452161,
+                    0.60058911,
+                    1.27192197,
+                ],
+                [
+                    0.7256437,
+                    0.66344886,
+                    1.75748069,
+                ],
+                [
+                    0.40359262,
+                    0.39694519,
+                    1.06232151,
+                ],
+                [
+                    0.48578221,
+                    2.49008838,
+                    0.98297065,
+                ],
+            ],
+            type='AlignedAnchor3DRangeGenerator'),
+        assigner_per_size=False,
+        bbox_coder=dict(code_size=9, type='DeltaXYZWLHRBBoxCoder'),
+        diff_rad_by_sin=True,
+        dir_offset=-0.7854,
+        feat_channels=384,
+        in_channels=384,
+        loss_bbox=dict(
+            beta=0.1111111111111111,
+            loss_weight=1.0,
+            type='mmdet.SmoothL1Loss'),
+        loss_cls=dict(
+            alpha=0.25,
+            gamma=2.0,
+            loss_weight=1.0,
+            type='mmdet.FocalLoss',
+            use_sigmoid=True),
+        loss_dir=dict(
+            loss_weight=0.2, type='mmdet.CrossEntropyLoss', use_sigmoid=False),
+        num_classes=10,
+        type='Anchor3DHead',
+        use_direction_classifier=True),
+    pts_middle_encoder=dict(
+        in_channels=64, output_shape=[
+            200,
+            200,
+        ], type='PointPillarsScatter'),
+    pts_neck=dict(
+        in_channels=[
+            64,
+            128,
+            256,
+        ],
+        norm_cfg=dict(eps=0.001, momentum=0.01, type='BN2d'),
+        out_channels=[
+            128,
+            128,
+            128,
+        ],
+        type='SECONDFPN',
+        upsample_strides=[
+            1,
+            2,
+            4,
+        ]),
+    pts_voxel_encoder=dict(
+        feat_channels=[
+            64,
+            64,
+        ],
+        in_channels=4,
+        norm_cfg=dict(eps=0.001, momentum=0.01, type='BN1d'),
+        point_cloud_range=[
+            -25,
+            -25,
+            -5,
+            25,
+            25,
+            3,
+        ],
+        type='HardVFE',
+        voxel_size=[
+            0.25,
+            0.25,
+            8,
+        ],
+        with_cluster_center=True,
+        with_distance=False,
+        with_voxel_center=True),
+    test_cfg=dict(
+        pts=dict(
+            max_num=500,
+            min_bbox_size=0,
+            nms_across_levels=False,
+            nms_pre=1000,
+            nms_thr=0.2,
+            score_thr=0.05,
+            use_rotate_nms=True)),
+    train_cfg=dict(
+        pts=dict(
+            allowed_border=0,
+            assigner=dict(
+                ignore_iof_thr=-1,
+                iou_calculator=dict(type='BboxOverlapsNearest3D'),
+                min_pos_iou=0.3,
+                neg_iou_thr=0.3,
+                pos_iou_thr=0.6,
+                type='Max3DIoUAssigner'),
+            code_weight=[
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                0.2,
+                0.2,
+            ],
+            debug=False,
+            pos_weight=-1)),
+    type='MVXFasterRCNN')
+optim_wrapper = dict(
+    clip_grad=dict(max_norm=35, norm_type=2),
+    optimizer=dict(lr=0.0001, type='AdamW', weight_decay=0.01),
+    type='AmpOptimWrapper')
+param_scheduler = []
+point_cloud_range = [
+    -50,
+    -50,
+    -5,
+    50,
+    50,
+    3,
+]
+randomness = dict(deterministic=False, seed=20261012)
+resume = False
+test_cfg = dict(type='TestLoop')
+test_dataloader = dict(
+    batch_size=1,
+    dataset=dict(
+        ann_file='D:\\code\\autodrive\\stage03\\data_infos\\val.pkl',
+        backend_args=None,
+        box_type_3d='LiDAR',
+        data_prefix=dict(pts='samples/LIDAR_TOP'),
+        data_root='D:\\code\\autodrive\\stage03\\data\\nuscenes',
+        metainfo=dict(
+            classes=[
+                'car',
+                'truck',
+                'trailer',
+                'bus',
+                'construction_vehicle',
+                'bicycle',
+                'motorcycle',
+                'pedestrian',
+                'traffic_cone',
+                'barrier',
+            ],
+            version='v1.0-mini'),
+        modality=dict(use_camera=False, use_lidar=True),
+        pipeline=[
+            dict(
+                backend_args=None,
+                coord_type='LIDAR',
+                load_dim=5,
+                type='LoadPointsFromFile',
+                use_dim=4),
+            dict(
+                rot_range=[
+                    0,
+                    0,
+                ],
+                scale_ratio_range=[
+                    1.0,
+                    1.0,
+                ],
+                translation_std=[
+                    0,
+                    0,
+                    0,
+                ],
+                type='GlobalRotScaleTrans'),
+            dict(
+                point_cloud_range=[
+                    -25,
+                    -25,
+                    -5,
+                    25,
+                    25,
+                    3,
+                ],
+                type='PointsRangeFilter'),
+            dict(keys=[
+                'points',
+            ], type='Pack3DDetInputs'),
+        ],
+        test_mode=True,
+        type='NuScenesDataset'),
+    num_workers=0,
+    persistent_workers=False,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+test_evaluator = dict(
+    ann_file='D:\\code\\autodrive\\stage03\\data_infos\\val.pkl',
+    backend_args=None,
+    data_root='D:\\code\\autodrive\\stage03\\data\\nuscenes',
+    metric='bbox',
+    modality=dict(use_camera=False, use_lidar=True),
+    type='NuScenesMetric')
+test_pipeline = [
+    dict(
+        backend_args=None,
+        coord_type='LIDAR',
+        load_dim=5,
+        type='LoadPointsFromFile',
+        use_dim=5),
+    dict(
+        backend_args=None,
+        sweeps_num=10,
+        test_mode=True,
+        type='LoadPointsFromMultiSweeps'),
+    dict(
+        flip=False,
+        img_scale=(
+            1333,
+            800,
+        ),
+        pts_scale_ratio=1,
+        transforms=[
+            dict(
+                rot_range=[
+                    0,
+                    0,
+                ],
+                scale_ratio_range=[
+                    1.0,
+                    1.0,
+                ],
+                translation_std=[
+                    0,
+                    0,
+                    0,
+                ],
+                type='GlobalRotScaleTrans'),
+            dict(type='RandomFlip3D'),
+            dict(
+                point_cloud_range=[
+                    -50,
+                    -50,
+                    -5,
+                    50,
+                    50,
+                    3,
+                ],
+                type='PointsRangeFilter'),
+        ],
+        type='MultiScaleFlipAug3D'),
+    dict(keys=[
+        'points',
+    ], type='Pack3DDetInputs'),
+]
+train_cfg = dict(max_epochs=1, type='EpochBasedTrainLoop', val_interval=1)
+train_dataloader = dict(
+    batch_size=1,
+    dataset=dict(
+        ann_file='D:\\code\\autodrive\\stage03\\data_infos\\train.pkl',
+        backend_args=None,
+        box_type_3d='LiDAR',
+        data_prefix=dict(pts='samples/LIDAR_TOP'),
+        data_root='D:\\code\\autodrive\\stage03\\data\\nuscenes',
+        metainfo=dict(
+            classes=[
+                'car',
+                'truck',
+                'trailer',
+                'bus',
+                'construction_vehicle',
+                'bicycle',
+                'motorcycle',
+                'pedestrian',
+                'traffic_cone',
+                'barrier',
+            ],
+            version='v1.0-mini'),
+        modality=dict(use_camera=False, use_lidar=True),
+        pipeline=[
+            dict(
+                backend_args=None,
+                coord_type='LIDAR',
+                load_dim=5,
+                type='LoadPointsFromFile',
+                use_dim=4),
+            dict(
+                type='LoadAnnotations3D',
+                with_bbox_3d=True,
+                with_label_3d=True),
+            dict(
+                rot_range=[
+                    -0.3925,
+                    0.3925,
+                ],
+                scale_ratio_range=[
+                    0.95,
+                    1.05,
+                ],
+                translation_std=[
+                    0,
+                    0,
+                    0,
+                ],
+                type='GlobalRotScaleTrans'),
+            dict(flip_ratio_bev_horizontal=0.5, type='RandomFlip3D'),
+            dict(
+                point_cloud_range=[
+                    -25,
+                    -25,
+                    -5,
+                    25,
+                    25,
+                    3,
+                ],
+                type='PointsRangeFilter'),
+            dict(
+                point_cloud_range=[
+                    -25,
+                    -25,
+                    -5,
+                    25,
+                    25,
+                    3,
+                ],
+                type='ObjectRangeFilter'),
+            dict(
+                classes=[
+                    'car',
+                    'truck',
+                    'trailer',
+                    'bus',
+                    'construction_vehicle',
+                    'bicycle',
+                    'motorcycle',
+                    'pedestrian',
+                    'traffic_cone',
+                    'barrier',
+                ],
+                type='ObjectNameFilter'),
+            dict(type='PointShuffle'),
+            dict(
+                keys=[
+                    'points',
+                    'gt_bboxes_3d',
+                    'gt_labels_3d',
+                ],
+                type='Pack3DDetInputs'),
+        ],
+        test_mode=False,
+        type='NuScenesDataset'),
+    num_workers=0,
+    persistent_workers=False,
+    sampler=dict(shuffle=True, type='DefaultSampler'))
+train_pipeline = [
+    dict(
+        backend_args=None,
+        coord_type='LIDAR',
+        load_dim=5,
+        type='LoadPointsFromFile',
+        use_dim=5),
+    dict(backend_args=None, sweeps_num=10, type='LoadPointsFromMultiSweeps'),
+    dict(type='LoadAnnotations3D', with_bbox_3d=True, with_label_3d=True),
+    dict(
+        rot_range=[
+            -0.3925,
+            0.3925,
+        ],
+        scale_ratio_range=[
+            0.95,
+            1.05,
+        ],
+        translation_std=[
+            0,
+            0,
+            0,
+        ],
+        type='GlobalRotScaleTrans'),
+    dict(flip_ratio_bev_horizontal=0.5, type='RandomFlip3D'),
+    dict(
+        point_cloud_range=[
+            -50,
+            -50,
+            -5,
+            50,
+            50,
+            3,
+        ],
+        type='PointsRangeFilter'),
+    dict(
+        point_cloud_range=[
+            -50,
+            -50,
+            -5,
+            50,
+            50,
+            3,
+        ],
+        type='ObjectRangeFilter'),
+    dict(
+        classes=[
+            'car',
+            'truck',
+            'trailer',
+            'bus',
+            'construction_vehicle',
+            'bicycle',
+            'motorcycle',
+            'pedestrian',
+            'traffic_cone',
+            'barrier',
+        ],
+        type='ObjectNameFilter'),
+    dict(type='PointShuffle'),
+    dict(
+        keys=[
+            'points',
+            'gt_bboxes_3d',
+            'gt_labels_3d',
+        ],
+        type='Pack3DDetInputs'),
+]
+val_cfg = dict(type='ValLoop')
+val_dataloader = dict(
+    batch_size=1,
+    dataset=dict(
+        ann_file='D:\\code\\autodrive\\stage03\\data_infos\\val.pkl',
+        backend_args=None,
+        box_type_3d='LiDAR',
+        data_prefix=dict(pts='samples/LIDAR_TOP'),
+        data_root='D:\\code\\autodrive\\stage03\\data\\nuscenes',
+        metainfo=dict(
+            classes=[
+                'car',
+                'truck',
+                'trailer',
+                'bus',
+                'construction_vehicle',
+                'bicycle',
+                'motorcycle',
+                'pedestrian',
+                'traffic_cone',
+                'barrier',
+            ],
+            version='v1.0-mini'),
+        modality=dict(use_camera=False, use_lidar=True),
+        pipeline=[
+            dict(
+                backend_args=None,
+                coord_type='LIDAR',
+                load_dim=5,
+                type='LoadPointsFromFile',
+                use_dim=4),
+            dict(
+                rot_range=[
+                    0,
+                    0,
+                ],
+                scale_ratio_range=[
+                    1.0,
+                    1.0,
+                ],
+                translation_std=[
+                    0,
+                    0,
+                    0,
+                ],
+                type='GlobalRotScaleTrans'),
+            dict(
+                point_cloud_range=[
+                    -25,
+                    -25,
+                    -5,
+                    25,
+                    25,
+                    3,
+                ],
+                type='PointsRangeFilter'),
+            dict(keys=[
+                'points',
+            ], type='Pack3DDetInputs'),
+        ],
+        test_mode=True,
+        type='NuScenesDataset'),
+    num_workers=0,
+    persistent_workers=False,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+val_evaluator = dict(
+    ann_file='D:\\code\\autodrive\\stage03\\data_infos\\val.pkl',
+    backend_args=None,
+    data_root='D:\\code\\autodrive\\stage03\\data\\nuscenes',
+    metric='bbox',
+    modality=dict(use_camera=False, use_lidar=True),
+    type='NuScenesMetric')
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(type='Det3DLocalVisualizer', vis_backends=[])
+voxel_size = [
+    0.25,
+    0.25,
+    8,
+]
+work_dir = 'D:\\code\\autodrive\\stage03\\outputs\\run1_compact'
+
+D:\code\autodrive\stage03\.env\lib\site-packages\mmdet3d\models\dense_heads\anchor3d_head.py:94: UserWarning: dir_offset and dir_limit_offset will be depressed and be incorporated into box coder in the future
+  warnings.warn(
+10/13 20:00:56 - mmengine - INFO - Distributed training is not used, all SyncBatchNorm (SyncBN) layers in the model will be automatically reverted to BatchNormXd layers if they are used.
+10/13 20:00:56 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_HIGH   ) HeadOnlyGradientAuditHook          
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_HIGH   ) HeadOnlyGradientAuditHook          
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) Det3DVisualizationHook             
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_HIGH   ) HeadOnlyGradientAuditHook          
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) Det3DVisualizationHook             
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+10/13 20:00:56 - mmengine - WARNING - v1.0-mini is not a meta file, simply parsed as meta information
+10/13 20:00:56 - mmengine - INFO - ------------------------------
+10/13 20:00:56 - mmengine - INFO - The length of training dataset: 323
+10/13 20:00:56 - mmengine - INFO - The number of instances per category in the dataset:
++----------------------+--------+
+| category             | number |
++----------------------+--------+
+| car                  | 5051   |
+| truck                | 525    |
+| trailer              | 60     |
+| bus                  | 369    |
+| construction_vehicle | 196    |
+| bicycle              | 191    |
+| motorcycle           | 212    |
+| pedestrian           | 3657   |
+| traffic_cone         | 1339   |
+| barrier              | 2323   |
++----------------------+--------+
+10/13 20:00:56 - mmengine - INFO - ------------------------------
+10/13 20:00:56 - mmengine - INFO - The length of test dataset: 81
+10/13 20:00:56 - mmengine - INFO - The number of instances per category in the dataset:
++----------------------+--------+
+| category             | number |
++----------------------+--------+
+| car                  | 2568   |
+| truck                | 124    |
+| trailer              | 0      |
+| bus                  | 41     |
+| construction_vehicle | 0      |
+| bicycle              | 52     |
+| motorcycle           | 259    |
+| pedestrian           | 1358   |
+| traffic_cone         | 39     |
+| barrier              | 0      |
++----------------------+--------+
+Loads checkpoint by local backend from path: D:\code\autodrive\stage03\checkpoints\pointpillars_nuscenes_official.pth
+10/13 20:00:57 - mmengine - INFO - Load checkpoint from D:\code\autodrive\stage03\checkpoints\pointpillars_nuscenes_official.pth
+10/13 20:00:57 - mmengine - INFO - AUDIT: only pts_bbox_head is trainable; gradient hooks registered.
+10/13 20:00:57 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+10/13 20:00:57 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+10/13 20:00:57 - mmengine - INFO - Checkpoints will be saved to D:\code\autodrive\stage03\outputs\run1_compact.
+D:\code\autodrive\stage03\.env\lib\site-packages\torch\functional.py:504: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\TensorShape.cpp:3484.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+D:\code\autodrive\stage03\.env\lib\site-packages\mmdet\models\task_modules\samplers\sampling_result.py:132: UserWarning: DeprecationWarning: pos_bboxes is deprecated, please use "pos_priors" instead
+  warnings.warn('DeprecationWarning: pos_bboxes is deprecated, '
+10/13 20:00:58 - mmengine - INFO - Epoch(train) [1][ 10/323]  lr: 1.0000e-04  eta: 0:00:38  time: 0.1220  data_time: 0.0133  memory: 295  grad_norm: 2.7219  loss: 3.2840  loss_cls: 1.1094  loss_bbox: 1.9927  loss_dir: 0.1818
+10/13 20:00:58 - mmengine - INFO - Epoch(train) [1][ 20/323]  lr: 1.0000e-04  eta: 0:00:24  time: 0.0817  data_time: 0.0110  memory: 288  grad_norm: inf  loss: 3.3866  loss_cls: 1.1891  loss_bbox: 2.0037  loss_dir: 0.1939
+10/13 20:00:59 - mmengine - INFO - Epoch(train) [1][ 30/323]  lr: 1.0000e-04  eta: 0:00:19  time: 0.0679  data_time: 0.0107  memory: 299  grad_norm: inf  loss: 3.4519  loss_cls: 1.1558  loss_bbox: 2.1014  loss_dir: 0.1947
+10/13 20:00:59 - mmengine - INFO - Epoch(train) [1][ 40/323]  lr: 1.0000e-04  eta: 0:00:17  time: 0.0617  data_time: 0.0111  memory: 293  grad_norm: inf  loss: 3.3919  loss_cls: 1.1422  loss_bbox: 2.0496  loss_dir: 0.2001
+10/13 20:01:00 - mmengine - INFO - Epoch(train) [1][ 50/323]  lr: 1.0000e-04  eta: 0:00:15  time: 0.0577  data_time: 0.0106  memory: 318  grad_norm: inf  loss: 3.3657  loss_cls: 1.1374  loss_bbox: 2.0225  loss_dir: 0.2057
+10/13 20:01:00 - mmengine - INFO - Epoch(train) [1][ 60/323]  lr: 1.0000e-04  eta: 0:00:14  time: 0.0419  data_time: 0.0103  memory: 332  grad_norm: inf  loss: 3.2738  loss_cls: 1.1454  loss_bbox: 1.9230  loss_dir: 0.2053
+10/13 20:01:00 - mmengine - INFO - Epoch(train) [1][ 70/323]  lr: 1.0000e-04  eta: 0:00:13  time: 0.0421  data_time: 0.0104  memory: 371  grad_norm: 3.1592  loss: 3.2486  loss_cls: 1.1308  loss_bbox: 1.9038  loss_dir: 0.2139
+10/13 20:01:01 - mmengine - INFO - Epoch(train) [1][ 80/323]  lr: 1.0000e-04  eta: 0:00:12  time: 0.0422  data_time: 0.0100  memory: 356  grad_norm: 3.0536  loss: 3.0572  loss_cls: 1.1213  loss_bbox: 1.7285  loss_dir: 0.2074
+10/13 20:01:01 - mmengine - INFO - Epoch(train) [1][ 90/323]  lr: 1.0000e-04  eta: 0:00:11  time: 0.0419  data_time: 0.0097  memory: 313  grad_norm: 3.0270  loss: 3.0997  loss_cls: 1.1349  loss_bbox: 1.7581  loss_dir: 0.2068
+10/13 20:01:02 - mmengine - INFO - Epoch(train) [1][100/323]  lr: 1.0000e-04  eta: 0:00:11  time: 0.0418  data_time: 0.0101  memory: 288  grad_norm: 3.0235  loss: 3.0541  loss_cls: 1.0810  loss_bbox: 1.7809  loss_dir: 0.1923
+10/13 20:01:02 - mmengine - INFO - Epoch(train) [1][110/323]  lr: 1.0000e-04  eta: 0:00:10  time: 0.0416  data_time: 0.0096  memory: 286  grad_norm: 2.9959  loss: 3.0903  loss_cls: 1.0546  loss_bbox: 1.8334  loss_dir: 0.2023
+10/13 20:01:03 - mmengine - INFO - Epoch(train) [1][120/323]  lr: 1.0000e-04  eta: 0:00:09  time: 0.0416  data_time: 0.0099  memory: 327  grad_norm: 2.9611  loss: 3.0920  loss_cls: 1.0639  loss_bbox: 1.8257  loss_dir: 0.2024
+10/13 20:01:03 - mmengine - INFO - Epoch(train) [1][130/323]  lr: 1.0000e-04  eta: 0:00:09  time: 0.0412  data_time: 0.0098  memory: 285  grad_norm: 3.1578  loss: 3.1417  loss_cls: 1.0396  loss_bbox: 1.8800  loss_dir: 0.2221
+10/13 20:01:03 - mmengine - INFO - Epoch(train) [1][140/323]  lr: 1.0000e-04  eta: 0:00:08  time: 0.0409  data_time: 0.0097  memory: 279  grad_norm: 3.0893  loss: 3.0737  loss_cls: 1.0140  loss_bbox: 1.8464  loss_dir: 0.2133
+10/13 20:01:04 - mmengine - INFO - Epoch(train) [1][150/323]  lr: 1.0000e-04  eta: 0:00:08  time: 0.0414  data_time: 0.0100  memory: 290  grad_norm: 3.1175  loss: 3.0559  loss_cls: 1.0465  loss_bbox: 1.7842  loss_dir: 0.2252
+10/13 20:01:04 - mmengine - INFO - Epoch(train) [1][160/323]  lr: 1.0000e-04  eta: 0:00:07  time: 0.0409  data_time: 0.0101  memory: 278  grad_norm: 3.0069  loss: 3.0180  loss_cls: 1.0284  loss_bbox: 1.7768  loss_dir: 0.2128
+10/13 20:01:05 - mmengine - INFO - Epoch(train) [1][170/323]  lr: 1.0000e-04  eta: 0:00:07  time: 0.0405  data_time: 0.0095  memory: 371  grad_norm: 2.8788  loss: 2.8343  loss_cls: 0.9707  loss_bbox: 1.6680  loss_dir: 0.1956
+10/13 20:01:05 - mmengine - INFO - Epoch(train) [1][180/323]  lr: 1.0000e-04  eta: 0:00:06  time: 0.0408  data_time: 0.0104  memory: 280  grad_norm: 2.7532  loss: 2.8185  loss_cls: 0.9823  loss_bbox: 1.6551  loss_dir: 0.1812
+10/13 20:01:05 - mmengine - INFO - Epoch(train) [1][190/323]  lr: 1.0000e-04  eta: 0:00:06  time: 0.0407  data_time: 0.0103  memory: 285  grad_norm: 2.6904  loss: 2.7108  loss_cls: 0.9483  loss_bbox: 1.5778  loss_dir: 0.1847
+10/13 20:01:06 - mmengine - INFO - Epoch(train) [1][200/323]  lr: 1.0000e-04  eta: 0:00:05  time: 0.0404  data_time: 0.0099  memory: 293  grad_norm: 2.6386  loss: 2.5909  loss_cls: 0.9537  loss_bbox: 1.4514  loss_dir: 0.1859
+10/13 20:01:06 - mmengine - INFO - Epoch(train) [1][210/323]  lr: 1.0000e-04  eta: 0:00:05  time: 0.0410  data_time: 0.0095  memory: 308  grad_norm: 2.7126  loss: 2.5546  loss_cls: 0.9653  loss_bbox: 1.3992  loss_dir: 0.1901
+10/13 20:01:07 - mmengine - INFO - Epoch(train) [1][220/323]  lr: 1.0000e-04  eta: 0:00:04  time: 0.0410  data_time: 0.0096  memory: 265  grad_norm: 2.6577  loss: 2.5491  loss_cls: 0.9421  loss_bbox: 1.4155  loss_dir: 0.1914
+10/13 20:01:07 - mmengine - INFO - Epoch(train) [1][230/323]  lr: 1.0000e-04  eta: 0:00:04  time: 0.0413  data_time: 0.0091  memory: 288  grad_norm: 2.7149  loss: 2.4802  loss_cls: 0.9492  loss_bbox: 1.3236  loss_dir: 0.2074
+10/13 20:01:07 - mmengine - INFO - Epoch(train) [1][240/323]  lr: 1.0000e-04  eta: 0:00:03  time: 0.0420  data_time: 0.0092  memory: 289  grad_norm: 2.7071  loss: 2.4276  loss_cls: 0.9407  loss_bbox: 1.2857  loss_dir: 0.2012
+10/13 20:01:08 - mmengine - INFO - Epoch(train) [1][250/323]  lr: 1.0000e-04  eta: 0:00:03  time: 0.0424  data_time: 0.0090  memory: 308  grad_norm: 2.7049  loss: 2.6786  loss_cls: 0.9462  loss_bbox: 1.5217  loss_dir: 0.2107
+10/13 20:01:08 - mmengine - INFO - Epoch(train) [1][260/323]  lr: 1.0000e-04  eta: 0:00:02  time: 0.0422  data_time: 0.0093  memory: 289  grad_norm: inf  loss: 2.7544  loss_cls: 0.9769  loss_bbox: 1.5706  loss_dir: 0.2070
+10/13 20:01:09 - mmengine - INFO - Epoch(train) [1][270/323]  lr: 1.0000e-04  eta: 0:00:02  time: 0.0422  data_time: 0.0093  memory: 277  grad_norm: inf  loss: 2.8007  loss_cls: 1.0097  loss_bbox: 1.5815  loss_dir: 0.2094
+10/13 20:01:09 - mmengine - INFO - Epoch(train) [1][280/323]  lr: 1.0000e-04  eta: 0:00:01  time: 0.0423  data_time: 0.0094  memory: 303  grad_norm: inf  loss: 2.7842  loss_cls: 0.9917  loss_bbox: 1.6036  loss_dir: 0.1890
+10/13 20:01:10 - mmengine - INFO - Epoch(train) [1][290/323]  lr: 1.0000e-04  eta: 0:00:01  time: 0.0420  data_time: 0.0095  memory: 279  grad_norm: inf  loss: 2.8159  loss_cls: 0.9972  loss_bbox: 1.6215  loss_dir: 0.1972
+10/13 20:01:10 - mmengine - INFO - Epoch(train) [1][300/323]  lr: 1.0000e-04  eta: 0:00:01  time: 0.0413  data_time: 0.0092  memory: 288  grad_norm: inf  loss: 2.4992  loss_cls: 0.9482  loss_bbox: 1.3681  loss_dir: 0.1829
+10/13 20:01:10 - mmengine - INFO - Epoch(train) [1][310/323]  lr: 1.0000e-04  eta: 0:00:00  time: 0.0416  data_time: 0.0094  memory: 308  grad_norm: 2.5429  loss: 2.5544  loss_cls: 0.9293  loss_bbox: 1.4506  loss_dir: 0.1745
+10/13 20:01:11 - mmengine - INFO - Epoch(train) [1][320/323]  lr: 1.0000e-04  eta: 0:00:00  time: 0.0419  data_time: 0.0095  memory: 313  grad_norm: 2.4906  loss: 2.5351  loss_cls: 0.9419  loss_bbox: 1.4118  loss_dir: 0.1814
+10/13 20:01:11 - mmengine - INFO - Exp name: official_pointpillars_config_20261013_200051
+10/13 20:01:11 - mmengine - INFO - Saving checkpoint at 1 epochs
+10/13 20:01:12 - mmengine - INFO - Epoch(val) [1][10/81]    eta: 0:00:03  time: 0.0493  data_time: 0.0042  memory: 450  
+10/13 20:01:12 - mmengine - INFO - Epoch(val) [1][20/81]    eta: 0:00:02  time: 0.0443  data_time: 0.0042  memory: 440  
+10/13 20:01:13 - mmengine - INFO - Epoch(val) [1][30/81]    eta: 0:00:02  time: 0.0427  data_time: 0.0043  memory: 447  
+10/13 20:01:13 - mmengine - INFO - Epoch(val) [1][40/81]    eta: 0:00:01  time: 0.0424  data_time: 0.0044  memory: 479  
+10/13 20:01:13 - mmengine - INFO - Epoch(val) [1][50/81]    eta: 0:00:01  time: 0.0420  data_time: 0.0044  memory: 512  
+10/13 20:01:14 - mmengine - INFO - Epoch(val) [1][60/81]    eta: 0:00:00  time: 0.0402  data_time: 0.0046  memory: 487  
+10/13 20:01:14 - mmengine - INFO - Epoch(val) [1][70/81]    eta: 0:00:00  time: 0.0400  data_time: 0.0046  memory: 415  
+10/13 20:01:15 - mmengine - INFO - Epoch(val) [1][80/81]    eta: 0:00:00  time: 0.0398  data_time: 0.0046  memory: 471  
+
+Formating bboxes of pred_instances_3d
+Start to convert detection format...
+[                                                  ] 0/81, elapsed: 0s, ETA:[                                ] 1/81, 114.3 task/s, elapsed: 0s, ETA:     1s[                                 ] 2/81, 96.4 task/s, elapsed: 0s, ETA:     1s[>                                ] 3/81, 79.5 task/s, elapsed: 0s, ETA:     1s[>                                ] 4/81, 75.8 task/s, elapsed: 0s, ETA:     1s[>>                               ] 5/81, 70.7 task/s, elapsed: 0s, ETA:     1s[>>                               ] 6/81, 66.9 task/s, elapsed: 0s, ETA:     1s[>>                               ] 7/81, 64.4 task/s, elapsed: 0s, ETA:     1s[>>>                              ] 8/81, 63.6 task/s, elapsed: 0s, ETA:     1s[>>>                              ] 9/81, 65.3 task/s, elapsed: 0s, ETA:     1s[>>>                             ] 10/81, 67.7 task/s, elapsed: 0s, ETA:     1s[>>>>                            ] 11/81, 66.7 task/s, elapsed: 0s, ETA:     1s[>>>>                            ] 12/81, 67.1 task/s, elapsed: 0s, ETA:     1s[>>>>>                           ] 13/81, 68.8 task/s, elapsed: 0s, ETA:     1s[>>>>>                           ] 14/81, 70.1 task/s, elapsed: 0s, ETA:     1s[>>>>>                           ] 15/81, 70.2 task/s, elapsed: 0s, ETA:     1s[>>>>>>                          ] 16/81, 71.8 task/s, elapsed: 0s, ETA:     1s[>>>>>>                          ] 17/81, 73.3 task/s, elapsed: 0s, ETA:     1s[>>>>>>>                         ] 18/81, 71.3 task/s, elapsed: 0s, ETA:     1s[>>>>>>>                         ] 19/81, 70.8 task/s, elapsed: 0s, ETA:     1s[>>>>>>>                         ] 20/81, 71.6 task/s, elapsed: 0s, ETA:     1s[>>>>>>>>                        ] 21/81, 71.7 task/s, elapsed: 0s, ETA:     1s[>>>>>>>>                        ] 22/81, 71.9 task/s, elapsed: 0s, ETA:     1s[>>>>>>>>>                       ] 23/81, 72.0 task/s, elapsed: 0s, ETA:     1s[>>>>>>>>>                       ] 24/81, 72.0 task/s, elapsed: 0s, ETA:     1s[>>>>>>>>>                       ] 25/81, 71.9 task/s, elapsed: 0s, ETA:     1s[>>>>>>>>>>                      ] 26/81, 72.1 task/s, elapsed: 0s, ETA:     1s[>>>>>>>>>>                      ] 27/81, 72.6 task/s, elapsed: 0s, ETA:     1s[>>>>>>>>>>>                     ] 28/81, 72.9 task/s, elapsed: 0s, ETA:     1s[>>>>>>>>>>>                     ] 29/81, 73.1 task/s, elapsed: 0s, ETA:     1s[>>>>>>>>>>>                     ] 30/81, 72.8 task/s, elapsed: 0s, ETA:     1s[>>>>>>>>>>>>                    ] 31/81, 73.1 task/s, elapsed: 0s, ETA:     1s[>>>>>>>>>>>>                    ] 32/81, 73.4 task/s, elapsed: 0s, ETA:     1s[>>>>>>>>>>>>>                   ] 33/81, 73.5 task/s, elapsed: 0s, ETA:     1s[>>>>>>>>>>>>>                   ] 34/81, 73.6 task/s, elapsed: 0s, ETA:     1s[>>>>>>>>>>>>>                   ] 35/81, 73.6 task/s, elapsed: 0s, ETA:     1s[>>>>>>>>>>>>>>                  ] 36/81, 73.2 task/s, elapsed: 0s, ETA:     1s[>>>>>>>>>>>>>>                  ] 37/81, 72.9 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>                 ] 38/81, 73.1 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>                 ] 39/81, 72.2 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>                 ] 40/81, 71.8 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>                ] 41/81, 72.2 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>                ] 42/81, 72.4 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>                ] 43/81, 72.8 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>>               ] 44/81, 73.2 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>>               ] 45/81, 73.4 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>              ] 46/81, 73.9 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>              ] 47/81, 74.2 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>              ] 48/81, 74.6 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>             ] 49/81, 74.8 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>             ] 50/81, 75.1 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>            ] 51/81, 75.5 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>            ] 52/81, 75.6 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>            ] 53/81, 75.8 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>           ] 54/81, 76.1 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>           ] 55/81, 76.2 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>          ] 56/81, 76.3 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>          ] 57/81, 76.6 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>          ] 58/81, 76.9 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>         ] 59/81, 77.1 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>         ] 60/81, 77.0 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>        ] 61/81, 76.9 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>        ] 62/81, 76.8 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>        ] 63/81, 76.8 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>       ] 64/81, 76.8 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>       ] 65/81, 76.9 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>      ] 66/81, 77.0 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>      ] 67/81, 76.8 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>      ] 68/81, 77.0 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>     ] 69/81, 77.0 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>     ] 70/81, 77.0 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 71/81, 76.8 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 72/81, 76.7 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 73/81, 76.8 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 74/81, 76.7 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 75/81, 76.7 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 76/81, 76.5 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 77/81, 76.5 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 78/81, 76.7 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 79/81, 76.9 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 80/81, 77.1 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>] 81/81, 77.1 task/s, elapsed: 1s, ETA:     0s
+Results writes to D:\code\autodrive\stage03\tmp\tmpdvu9nwrs\results\pred_instances_3d\results_nusc.json
+Evaluating bboxes of pred_instances_3d
+  0%|          | 0/81 [00:00<?, ?it/s]                                      mAP: 0.0652
+mATE: 0.8838
+mASE: 0.7743
+mAOE: 0.9204
+mAVE: 1.3761
+mAAE: 0.7253
+NDS: 0.1022
+Eval time: 0.8s
+
+Per-class results:
+Object Class        	AP    	ATE   	ASE   	AOE   	AVE   	AAE   
+car                 	0.266 	0.459 	0.224 	0.910 	0.451 	0.196 
+truck               	0.000 	0.584 	0.351 	0.395 	0.868 	0.130 
+bus                 	0.387 	0.795 	0.168 	0.979 	4.690 	0.477 
+trailer             	0.000 	1.000 	1.000 	1.000 	1.000 	1.000 
+construction_vehicle	0.000 	1.000 	1.000 	1.000 	1.000 	1.000 
+pedestrian          	0.000 	1.000 	1.000 	1.000 	1.000 	1.000 
+motorcycle          	0.000 	1.000 	1.000 	1.000 	1.000 	1.000 
+bicycle             	0.000 	1.000 	1.000 	1.000 	1.000 	1.000 
+traffic_cone        	0.000 	1.000 	1.000 	nan   	nan   	nan   
+barrier             	0.000 	1.000 	1.000 	1.000 	nan   	nan   
+10/13 20:01:17 - mmengine - INFO - Epoch(val) [1][81/81]    NuScenes metric/pred_instances_3d_NuScenes/car_AP_dist_0.5: 0.1148  NuScenes metric/pred_instances_3d_NuScenes/car_AP_dist_1.0: 0.2418  NuScenes metric/pred_instances_3d_NuScenes/car_AP_dist_2.0: 0.3310  NuScenes metric/pred_instances_3d_NuScenes/car_AP_dist_4.0: 0.3747  NuScenes metric/pred_instances_3d_NuScenes/car_trans_err: 0.4593  NuScenes metric/pred_instances_3d_NuScenes/car_scale_err: 0.2243  NuScenes metric/pred_instances_3d_NuScenes/car_orient_err: 0.9100  NuScenes metric/pred_instances_3d_NuScenes/car_vel_err: 0.4512  NuScenes metric/pred_instances_3d_NuScenes/car_attr_err: 0.1956  NuScenes metric/pred_instances_3d_NuScenes/mATE: 0.8838  NuScenes metric/pred_instances_3d_NuScenes/mASE: 0.7743  NuScenes metric/pred_instances_3d_NuScenes/mAOE: 0.9204  NuScenes metric/pred_instances_3d_NuScenes/mAVE: 1.3761  NuScenes metric/pred_instances_3d_NuScenes/mAAE: 0.7253  NuScenes metric/pred_instances_3d_NuScenes/truck_AP_dist_0.5: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/truck_AP_dist_1.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/truck_AP_dist_2.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/truck_AP_dist_4.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/truck_trans_err: 0.5842  NuScenes metric/pred_instances_3d_NuScenes/truck_scale_err: 0.3506  NuScenes metric/pred_instances_3d_NuScenes/truck_orient_err: 0.3950  NuScenes metric/pred_instances_3d_NuScenes/truck_vel_err: 0.8682  NuScenes metric/pred_instances_3d_NuScenes/truck_attr_err: 0.1299  NuScenes metric/pred_instances_3d_NuScenes/trailer_AP_dist_0.5: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/trailer_AP_dist_1.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/trailer_AP_dist_2.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/trailer_AP_dist_4.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/trailer_trans_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/trailer_scale_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/trailer_orient_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/trailer_vel_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/trailer_attr_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/bus_AP_dist_0.5: 0.0256  NuScenes metric/pred_instances_3d_NuScenes/bus_AP_dist_1.0: 0.2119  NuScenes metric/pred_instances_3d_NuScenes/bus_AP_dist_2.0: 0.6546  NuScenes metric/pred_instances_3d_NuScenes/bus_AP_dist_4.0: 0.6546  NuScenes metric/pred_instances_3d_NuScenes/bus_trans_err: 0.7948  NuScenes metric/pred_instances_3d_NuScenes/bus_scale_err: 0.1677  NuScenes metric/pred_instances_3d_NuScenes/bus_orient_err: 0.9786  NuScenes metric/pred_instances_3d_NuScenes/bus_vel_err: 4.6895  NuScenes metric/pred_instances_3d_NuScenes/bus_attr_err: 0.4771  NuScenes metric/pred_instances_3d_NuScenes/construction_vehicle_AP_dist_0.5: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/construction_vehicle_AP_dist_1.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/construction_vehicle_AP_dist_2.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/construction_vehicle_AP_dist_4.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/construction_vehicle_trans_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/construction_vehicle_scale_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/construction_vehicle_orient_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/construction_vehicle_vel_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/construction_vehicle_attr_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/bicycle_AP_dist_0.5: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/bicycle_AP_dist_1.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/bicycle_AP_dist_2.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/bicycle_AP_dist_4.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/bicycle_trans_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/bicycle_scale_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/bicycle_orient_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/bicycle_vel_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/bicycle_attr_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/motorcycle_AP_dist_0.5: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/motorcycle_AP_dist_1.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/motorcycle_AP_dist_2.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/motorcycle_AP_dist_4.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/motorcycle_trans_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/motorcycle_scale_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/motorcycle_orient_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/motorcycle_vel_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/motorcycle_attr_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/pedestrian_AP_dist_0.5: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/pedestrian_AP_dist_1.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/pedestrian_AP_dist_2.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/pedestrian_AP_dist_4.0: 0.0010  NuScenes metric/pred_instances_3d_NuScenes/pedestrian_trans_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/pedestrian_scale_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/pedestrian_orient_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/pedestrian_vel_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/pedestrian_attr_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/traffic_cone_AP_dist_0.5: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/traffic_cone_AP_dist_1.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/traffic_cone_AP_dist_2.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/traffic_cone_AP_dist_4.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/traffic_cone_trans_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/traffic_cone_scale_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/traffic_cone_orient_err: nan  NuScenes metric/pred_instances_3d_NuScenes/traffic_cone_vel_err: nan  NuScenes metric/pred_instances_3d_NuScenes/traffic_cone_attr_err: nan  NuScenes metric/pred_instances_3d_NuScenes/barrier_AP_dist_0.5: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/barrier_AP_dist_1.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/barrier_AP_dist_2.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/barrier_AP_dist_4.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/barrier_trans_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/barrier_scale_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/barrier_orient_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/barrier_vel_err: nan  NuScenes metric/pred_instances_3d_NuScenes/barrier_attr_err: nan  NuScenes metric/pred_instances_3d_NuScenes/NDS: 0.1022  NuScenes metric/pred_instances_3d_NuScenes/mAP: 0.0652  data_time: 0.0045  time: 0.0409
+10/13 20:01:17 - mmengine - INFO - AUDIT: PARAMETERS_UPDATED; changed=6; max_change=2.187e-02
+TRAIN_OK PARAMETERS_UPDATED
+audit=D:\code\autodrive\stage03\outputs\run1_compact\training_audit.json

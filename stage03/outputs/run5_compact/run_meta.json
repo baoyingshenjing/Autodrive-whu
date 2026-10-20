@@ -1,0 +1,18 @@
+{
+  "command": "train.py --resume-from outputs/run1_compact/epoch_1.pth --epochs 5 --work-dir outputs/run5_compact --amp",
+  "data_root": "D:\\code\\autodrive\\stage03\\data\\nuscenes",
+  "input_mode": "single_keyframe_xyz_intensity",
+  "train_samples": 323,
+  "val_samples": 81,
+  "overlap_samples": 0,
+  "max_epochs": 5,
+  "amp": true,
+  "max_voxels_train": 6000,
+  "max_voxels_test": 8000,
+  "bev_range_meters": "x,y in [-25,25]",
+  "mode": "head_only",
+  "load_from": "D:\\code\\autodrive\\stage03\\outputs\\run1_compact\\epoch_1.pth",
+  "resume": true,
+  "status": "SUCCESS_PARAMETERS_UPDATED",
+  "audit_file": "D:\\code\\autodrive\\stage03\\outputs\\run5_compact\\training_audit.json"
+}

@@ -1,0 +1,4 @@
+COMPARISON_OK
+NDS: 0.0269 -> 0.1189 (delta +0.0920)
+mAP: 0.0001 -> 0.0623 (delta +0.0622)
+output=D:\code\autodrive\stage03\outputs\comparison.json

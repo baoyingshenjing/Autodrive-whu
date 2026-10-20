@@ -1,0 +1,60 @@
+{
+  "train_samples": 323,
+  "val_samples": 81,
+  "overlap_samples": 0,
+  "train_scenes": [
+    "scene-0061",
+    "scene-0553",
+    "scene-0655",
+    "scene-0757",
+    "scene-0796",
+    "scene-1077",
+    "scene-1094",
+    "scene-1100"
+  ],
+  "val_scenes": [
+    "scene-0103",
+    "scene-0916"
+  ],
+  "max_global_center_roundtrip_error_m": 4.547473508864641e-13,
+  "point_count_min": 34368,
+  "point_count_max": 34816,
+  "classes": [
+    "car",
+    "truck",
+    "trailer",
+    "bus",
+    "construction_vehicle",
+    "bicycle",
+    "motorcycle",
+    "pedestrian",
+    "traffic_cone",
+    "barrier"
+  ],
+  "lidar_visible_annotation_counts": {
+    "train": {
+      "pedestrian": 3031,
+      "car": 3525,
+      "traffic_cone": 768,
+      "bicycle": 146,
+      "barrier": 1770,
+      "truck": 426,
+      "bus": 323,
+      "construction_vehicle": 164,
+      "motorcycle": 175,
+      "trailer": 58
+    },
+    "val": {
+      "pedestrian": 1254,
+      "car": 1991,
+      "truck": 122,
+      "traffic_cone": 35,
+      "motorcycle": 232,
+      "bicycle": 43,
+      "bus": 41
+    }
+  },
+  "source": "nuScenes SDK boxes in LiDAR coordinates; MMDet3D v1.4 official schema",
+  "box_dimensions": "center x/y/z, length/width/height, yaw; separate vx/vy",
+  "missing_velocity_policy": "retain SDK NaN; NuScenesDataset replaces missing velocities with zero"
+}

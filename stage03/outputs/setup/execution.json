@@ -1,0 +1,126 @@
+[
+  {
+    "step": "environment",
+    "seconds": 3.387,
+    "exit_code": 0,
+    "command": [
+      "D:\\code\\autodrive\\stage03\\.env\\python.exe",
+      "check_environment.py"
+    ]
+  },
+  {
+    "step": "cuda_ops",
+    "seconds": 4.711,
+    "exit_code": 0,
+    "command": [
+      "D:\\code\\autodrive\\stage03\\.env\\python.exe",
+      "check_cuda_ops.py"
+    ]
+  },
+  {
+    "step": "preprocess",
+    "seconds": 16.643,
+    "exit_code": 0,
+    "command": [
+      "D:\\code\\autodrive\\stage03\\.env\\python.exe",
+      "preprocess.py"
+    ]
+  },
+  {
+    "step": "baseline",
+    "seconds": 37.495,
+    "exit_code": 0,
+    "command": [
+      "D:\\code\\autodrive\\stage03\\.env\\python.exe",
+      "test.py",
+      "--checkpoint",
+      "checkpoints/pointpillars_nuscenes_official.pth",
+      "--output-dir",
+      "outputs/baseline_compact_bev",
+      "--vis-count",
+      "3",
+      "--score-thr",
+      "0.10"
+    ]
+  },
+  {
+    "step": "run1",
+    "seconds": 38.366,
+    "exit_code": 0,
+    "command": [
+      "D:\\code\\autodrive\\stage03\\.env\\python.exe",
+      "train.py",
+      "--epochs",
+      "1",
+      "--work-dir",
+      "outputs/run1_compact",
+      "--amp"
+    ]
+  },
+  {
+    "step": "plot1",
+    "seconds": 0.689,
+    "exit_code": 0,
+    "command": [
+      "D:\\code\\autodrive\\stage03\\.env\\python.exe",
+      "plot_training.py",
+      "--work-dir",
+      "outputs/run1_compact"
+    ]
+  },
+  {
+    "step": "run5",
+    "seconds": 71.082,
+    "exit_code": 0,
+    "command": [
+      "D:\\code\\autodrive\\stage03\\.env\\python.exe",
+      "train.py",
+      "--resume-from",
+      "outputs/run1_compact/epoch_1.pth",
+      "--epochs",
+      "5",
+      "--work-dir",
+      "outputs/run5_compact",
+      "--amp"
+    ]
+  },
+  {
+    "step": "plot5",
+    "seconds": 0.685,
+    "exit_code": 0,
+    "command": [
+      "D:\\code\\autodrive\\stage03\\.env\\python.exe",
+      "plot_training.py",
+      "--work-dir",
+      "outputs/run5_compact"
+    ]
+  },
+  {
+    "step": "finetuned",
+    "seconds": 22.843,
+    "exit_code": 0,
+    "command": [
+      "D:\\code\\autodrive\\stage03\\.env\\python.exe",
+      "test.py",
+      "--checkpoint",
+      "outputs/run5_compact/epoch_5.pth",
+      "--output-dir",
+      "outputs/finetuned_compact",
+      "--vis-count",
+      "3",
+      "--score-thr",
+      "0.10"
+    ]
+  },
+  {
+    "step": "comparison",
+    "seconds": 0.892,
+    "exit_code": 0,
+    "command": [
+      "D:\\code\\autodrive\\stage03\\.env\\python.exe",
+      "compare_results.py",
+      "--output",
+      "outputs/comparison.json"
+    ]
+  }
+]

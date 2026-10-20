@@ -1,0 +1,203 @@
+{
+  "status": "MODEL_SHAPE_TRACE_OK",
+  "sample_token": "3e8750f331d7499e9b5123e9eb70f2e2",
+  "sample_idx": 0,
+  "source_lidar": "D:\\code\\autodrive\\stage03\\data\\nuscenes\\samples\\LIDAR_TOP\\n008-2018-08-01-15-16-36-0400__LIDAR_TOP__1533151603547590.pcd.bin",
+  "point_input_shape": [
+    32636,
+    4
+  ],
+  "modules": {
+    "pts_voxel_encoder.vfe_layers.0": {
+      "input_shapes": [
+        [
+          3550,
+          64,
+          10
+        ]
+      ],
+      "output_shapes": [
+        3550,
+        64,
+        128
+      ]
+    },
+    "pts_voxel_encoder.vfe_layers.1": {
+      "input_shapes": [
+        [
+          3550,
+          64,
+          128
+        ]
+      ],
+      "output_shapes": [
+        3550,
+        64
+      ]
+    },
+    "pts_voxel_encoder": {
+      "input_shapes": [
+        [
+          3550,
+          64,
+          4
+        ],
+        [
+          3550
+        ],
+        [
+          3550,
+          4
+        ],
+        "<class 'NoneType'>",
+        [
+          "<class 'dict'>"
+        ]
+      ],
+      "output_shapes": [
+        3550,
+        64
+      ]
+    },
+    "pts_middle_encoder": {
+      "input_shapes": [
+        [
+          3550,
+          64
+        ],
+        [
+          3550,
+          4
+        ],
+        []
+      ],
+      "output_shapes": [
+        1,
+        64,
+        200,
+        200
+      ]
+    },
+    "pts_backbone": {
+      "input_shapes": [
+        [
+          1,
+          64,
+          200,
+          200
+        ]
+      ],
+      "output_shapes": [
+        [
+          1,
+          64,
+          100,
+          100
+        ],
+        [
+          1,
+          128,
+          50,
+          50
+        ],
+        [
+          1,
+          256,
+          25,
+          25
+        ]
+      ]
+    },
+    "pts_neck": {
+      "input_shapes": [
+        [
+          [
+            1,
+            64,
+            100,
+            100
+          ],
+          [
+            1,
+            128,
+            50,
+            50
+          ],
+          [
+            1,
+            256,
+            25,
+            25
+          ]
+        ]
+      ],
+      "output_shapes": [
+        [
+          1,
+          384,
+          100,
+          100
+        ]
+      ]
+    },
+    "pts_bbox_head.conv_cls": {
+      "input_shapes": [
+        [
+          1,
+          384,
+          100,
+          100
+        ]
+      ],
+      "output_shapes": [
+        1,
+        140,
+        100,
+        100
+      ]
+    },
+    "pts_bbox_head.conv_reg": {
+      "input_shapes": [
+        [
+          1,
+          384,
+          100,
+          100
+        ]
+      ],
+      "output_shapes": [
+        1,
+        126,
+        100,
+        100
+      ]
+    },
+    "pts_bbox_head.conv_dir_cls": {
+      "input_shapes": [
+        [
+          1,
+          384,
+          100,
+          100
+        ]
+      ],
+      "output_shapes": [
+        1,
+        28,
+        100,
+        100
+      ]
+    }
+  },
+  "head_parameter_names": [
+    "pts_bbox_head.conv_cls.weight",
+    "pts_bbox_head.conv_cls.bias",
+    "pts_bbox_head.conv_reg.weight",
+    "pts_bbox_head.conv_reg.bias",
+    "pts_bbox_head.conv_dir_cls.weight",
+    "pts_bbox_head.conv_dir_cls.bias"
+  ],
+  "anchor_count_per_location": 14,
+  "final_prediction_count": 178,
+  "mode": "eval; one validation frame; no gradient or optimizer update"
+}

@@ -1,0 +1,13 @@
+{
+  "command": "test.py --checkpoint outputs/run5_compact/epoch_5.pth --output-dir outputs/finetuned_compact --vis-count 3 --score-thr 0.10",
+  "checkpoint": "D:\\code\\autodrive\\stage03\\outputs\\run5_compact\\epoch_5.pth",
+  "data_root": "D:\\code\\autodrive\\stage03\\data\\nuscenes",
+  "input_mode": "single_keyframe_xyz_intensity",
+  "train_samples": 323,
+  "val_samples": 81,
+  "overlap_samples": 0,
+  "status": "SUCCESS",
+  "metrics_file": "D:\\code\\autodrive\\stage03\\outputs\\finetuned_compact\\metrics_summary.json",
+  "prediction_file": "D:\\code\\autodrive\\stage03\\outputs\\finetuned_compact\\predictions.pkl",
+  "visualization_count": 3
+}

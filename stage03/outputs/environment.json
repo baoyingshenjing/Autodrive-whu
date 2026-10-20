@@ -1,0 +1,18 @@
+{
+  "python": "3.9.25 (main, Nov  3 2025, 22:44:01) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "torch": "2.0.1+cu118",
+  "torch_cuda": "11.8",
+  "cuda_available": true,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "gpu_query": "NVIDIA GeForce RTX 4060 Laptop GPU, 591.44, 8188 MiB",
+  "numpy": "1.24.4",
+  "mmcv": "2.1.0",
+  "mmengine": "0.10.7",
+  "mmdet": "3.2.0",
+  "mmdet3d": "1.4.0",
+  "data_root": "D:\\code\\autodrive\\stage03\\data\\nuscenes",
+  "v1_mini_exists": true,
+  "keyframe_bins": 404,
+  "sweep_bins": 0
+}

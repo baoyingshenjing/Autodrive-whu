@@ -1,0 +1,1070 @@
+TRAIN_START
+work_dir=D:\code\autodrive\stage03\outputs\run5_compact
+epochs_cumulative=5 mode=head_only amp=True
+input=single_keyframe_xyz_intensity train/val_overlap=0
+D:\code\autodrive\stage03\.env\lib\site-packages\torch\utils\cpp_extension.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import packaging  # type: ignore[attr-defined]
+10/13 20:01:31 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: win32
+    Python: 3.9.25 (main, Nov  3 2025, 22:44:01) [MSC v.1929 64 bit (AMD64)]
+    CUDA available: True
+    MUSA available: False
+    numpy_random_seed: 20261012
+    GPU 0: NVIDIA GeForce RTX 4060 Laptop GPU
+    CUDA_HOME: C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6
+    NVCC: Cuda compilation tools, release 12.6, V12.6.85
+    MSVC: 用于 x64 的 Microsoft (R) C/C++ 优化编译器 19.41.34120 版
+    GCC: n/a
+    PyTorch: 2.0.1+cu118
+    PyTorch compiling details: PyTorch built with:
+  - C++ Version: 199711
+  - MSVC 193431937
+  - Intel(R) Math Kernel Library Version 2020.0.2 Product Build 20200624 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.7.3 (Git Hash 6dbeffbae1f23cbbeae17adb7b5b13f1f37c080e)
+  - OpenMP 2019
+  - LAPACK is enabled (usually provided by MKL)
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.8
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_90,code=sm_90;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 8.7
+  - Magma 2.5.4
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.8, CUDNN_VERSION=8.7.0, CXX_COMPILER=C:/actions-runner/_work/pytorch/pytorch/builder/windows/tmp_bin/sccache-cl.exe, CXX_FLAGS=/DWIN32 /D_WINDOWS /GR /EHsc /w /bigobj /FS -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOCUPTI -DLIBKINETO_NOROCTRACER -DUSE_FBGEMM -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_DISABLE_GPU_ASSERTS=OFF, TORCH_VERSION=2.0.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=OFF, USE_NNPACK=OFF, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+    TorchVision: 0.15.2+cu118
+    OpenCV: 4.8.1
+    MMEngine: 0.10.7
+
+Runtime environment:
+    cudnn_benchmark: False
+    dist_cfg: {'backend': 'nccl'}
+    mp_cfg: {'mp_start_method': 'spawn', 'opencv_num_threads': 0}
+    seed: 20261012
+    deterministic: False
+    Distributed launcher: none
+    Distributed training: False
+    GPU number: 1
+------------------------------------------------------------
+
+10/13 20:01:31 - mmengine - INFO - Config:
+auto_scale_lr = dict(base_batch_size=32, enable=False)
+backend_args = None
+class_names = [
+    'car',
+    'truck',
+    'trailer',
+    'bus',
+    'construction_vehicle',
+    'bicycle',
+    'motorcycle',
+    'pedestrian',
+    'traffic_cone',
+    'barrier',
+]
+custom_hooks = [
+    dict(
+        audit_file=
+        'D:\\code\\autodrive\\stage03\\outputs\\run5_compact\\training_audit.json',
+        type='HeadOnlyGradientAuditHook'),
+]
+data_prefix = dict(img='', pts='samples/LIDAR_TOP', sweeps='sweeps/LIDAR_TOP')
+data_root = 'data/nuscenes/'
+dataset_type = 'NuScenesDataset'
+default_hooks = dict(
+    checkpoint=dict(
+        interval=1, max_keep_ckpts=-1, save_last=True, type='CheckpointHook'),
+    logger=dict(interval=10, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(type='Det3DVisualizationHook'))
+default_scope = 'mmdet3d'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='spawn', opencv_num_threads=0))
+eval_pipeline = [
+    dict(
+        backend_args=None,
+        coord_type='LIDAR',
+        load_dim=5,
+        type='LoadPointsFromFile',
+        use_dim=5),
+    dict(
+        backend_args=None,
+        sweeps_num=10,
+        test_mode=True,
+        type='LoadPointsFromMultiSweeps'),
+    dict(keys=[
+        'points',
+    ], type='Pack3DDetInputs'),
+]
+input_modality = dict(use_camera=False, use_lidar=True)
+load_from = 'D:\\code\\autodrive\\stage03\\outputs\\run1_compact\\epoch_1.pth'
+log_level = 'INFO'
+log_processor = dict(by_epoch=True, type='LogProcessor', window_size=50)
+lr = 0.001
+metainfo = dict(classes=[
+    'car',
+    'truck',
+    'trailer',
+    'bus',
+    'construction_vehicle',
+    'bicycle',
+    'motorcycle',
+    'pedestrian',
+    'traffic_cone',
+    'barrier',
+])
+model = dict(
+    data_preprocessor=dict(
+        type='Det3DDataPreprocessor',
+        voxel=True,
+        voxel_layer=dict(
+            max_num_points=64,
+            max_voxels=(
+                6000,
+                8000,
+            ),
+            point_cloud_range=[
+                -25,
+                -25,
+                -5,
+                25,
+                25,
+                3,
+            ],
+            voxel_size=[
+                0.25,
+                0.25,
+                8,
+            ])),
+    pts_backbone=dict(
+        in_channels=64,
+        layer_nums=[
+            3,
+            5,
+            5,
+        ],
+        layer_strides=[
+            2,
+            2,
+            2,
+        ],
+        norm_cfg=dict(eps=0.001, momentum=0.01, type='BN2d'),
+        out_channels=[
+            64,
+            128,
+            256,
+        ],
+        type='SECOND'),
+    pts_bbox_head=dict(
+        anchor_generator=dict(
+            custom_values=[
+                0,
+                0,
+            ],
+            ranges=[
+                [
+                    -24.6,
+                    -24.6,
+                    -1.80032795,
+                    24.6,
+                    24.6,
+                    -1.80032795,
+                ],
+                [
+                    -24.6,
+                    -24.6,
+                    -1.74440365,
+                    24.6,
+                    24.6,
+                    -1.74440365,
+                ],
+                [
+                    -24.6,
+                    -24.6,
+                    -1.68526504,
+                    24.6,
+                    24.6,
+                    -1.68526504,
+                ],
+                [
+                    -24.6,
+                    -24.6,
+                    -1.67339111,
+                    24.6,
+                    24.6,
+                    -1.67339111,
+                ],
+                [
+                    -24.6,
+                    -24.6,
+                    -1.61785072,
+                    24.6,
+                    24.6,
+                    -1.61785072,
+                ],
+                [
+                    -24.6,
+                    -24.6,
+                    -1.80984986,
+                    24.6,
+                    24.6,
+                    -1.80984986,
+                ],
+                [
+                    -24.6,
+                    -24.6,
+                    -1.763965,
+                    24.6,
+                    24.6,
+                    -1.763965,
+                ],
+            ],
+            reshape_out=True,
+            rotations=[
+                0,
+                1.57,
+            ],
+            sizes=[
+                [
+                    4.60718145,
+                    1.95017717,
+                    1.72270761,
+                ],
+                [
+                    6.73778078,
+                    2.4560939,
+                    2.73004906,
+                ],
+                [
+                    12.01320693,
+                    2.87427237,
+                    3.81509561,
+                ],
+                [
+                    1.68452161,
+                    0.60058911,
+                    1.27192197,
+                ],
+                [
+                    0.7256437,
+                    0.66344886,
+                    1.75748069,
+                ],
+                [
+                    0.40359262,
+                    0.39694519,
+                    1.06232151,
+                ],
+                [
+                    0.48578221,
+                    2.49008838,
+                    0.98297065,
+                ],
+            ],
+            type='AlignedAnchor3DRangeGenerator'),
+        assigner_per_size=False,
+        bbox_coder=dict(code_size=9, type='DeltaXYZWLHRBBoxCoder'),
+        diff_rad_by_sin=True,
+        dir_offset=-0.7854,
+        feat_channels=384,
+        in_channels=384,
+        loss_bbox=dict(
+            beta=0.1111111111111111,
+            loss_weight=1.0,
+            type='mmdet.SmoothL1Loss'),
+        loss_cls=dict(
+            alpha=0.25,
+            gamma=2.0,
+            loss_weight=1.0,
+            type='mmdet.FocalLoss',
+            use_sigmoid=True),
+        loss_dir=dict(
+            loss_weight=0.2, type='mmdet.CrossEntropyLoss', use_sigmoid=False),
+        num_classes=10,
+        type='Anchor3DHead',
+        use_direction_classifier=True),
+    pts_middle_encoder=dict(
+        in_channels=64, output_shape=[
+            200,
+            200,
+        ], type='PointPillarsScatter'),
+    pts_neck=dict(
+        in_channels=[
+            64,
+            128,
+            256,
+        ],
+        norm_cfg=dict(eps=0.001, momentum=0.01, type='BN2d'),
+        out_channels=[
+            128,
+            128,
+            128,
+        ],
+        type='SECONDFPN',
+        upsample_strides=[
+            1,
+            2,
+            4,
+        ]),
+    pts_voxel_encoder=dict(
+        feat_channels=[
+            64,
+            64,
+        ],
+        in_channels=4,
+        norm_cfg=dict(eps=0.001, momentum=0.01, type='BN1d'),
+        point_cloud_range=[
+            -25,
+            -25,
+            -5,
+            25,
+            25,
+            3,
+        ],
+        type='HardVFE',
+        voxel_size=[
+            0.25,
+            0.25,
+            8,
+        ],
+        with_cluster_center=True,
+        with_distance=False,
+        with_voxel_center=True),
+    test_cfg=dict(
+        pts=dict(
+            max_num=500,
+            min_bbox_size=0,
+            nms_across_levels=False,
+            nms_pre=1000,
+            nms_thr=0.2,
+            score_thr=0.05,
+            use_rotate_nms=True)),
+    train_cfg=dict(
+        pts=dict(
+            allowed_border=0,
+            assigner=dict(
+                ignore_iof_thr=-1,
+                iou_calculator=dict(type='BboxOverlapsNearest3D'),
+                min_pos_iou=0.3,
+                neg_iou_thr=0.3,
+                pos_iou_thr=0.6,
+                type='Max3DIoUAssigner'),
+            code_weight=[
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                0.2,
+                0.2,
+            ],
+            debug=False,
+            pos_weight=-1)),
+    type='MVXFasterRCNN')
+optim_wrapper = dict(
+    clip_grad=dict(max_norm=35, norm_type=2),
+    optimizer=dict(lr=0.0001, type='AdamW', weight_decay=0.01),
+    type='AmpOptimWrapper')
+param_scheduler = []
+point_cloud_range = [
+    -50,
+    -50,
+    -5,
+    50,
+    50,
+    3,
+]
+randomness = dict(deterministic=False, seed=20261012)
+resume = True
+test_cfg = dict(type='TestLoop')
+test_dataloader = dict(
+    batch_size=1,
+    dataset=dict(
+        ann_file='D:\\code\\autodrive\\stage03\\data_infos\\val.pkl',
+        backend_args=None,
+        box_type_3d='LiDAR',
+        data_prefix=dict(pts='samples/LIDAR_TOP'),
+        data_root='D:\\code\\autodrive\\stage03\\data\\nuscenes',
+        metainfo=dict(
+            classes=[
+                'car',
+                'truck',
+                'trailer',
+                'bus',
+                'construction_vehicle',
+                'bicycle',
+                'motorcycle',
+                'pedestrian',
+                'traffic_cone',
+                'barrier',
+            ],
+            version='v1.0-mini'),
+        modality=dict(use_camera=False, use_lidar=True),
+        pipeline=[
+            dict(
+                backend_args=None,
+                coord_type='LIDAR',
+                load_dim=5,
+                type='LoadPointsFromFile',
+                use_dim=4),
+            dict(
+                rot_range=[
+                    0,
+                    0,
+                ],
+                scale_ratio_range=[
+                    1.0,
+                    1.0,
+                ],
+                translation_std=[
+                    0,
+                    0,
+                    0,
+                ],
+                type='GlobalRotScaleTrans'),
+            dict(
+                point_cloud_range=[
+                    -25,
+                    -25,
+                    -5,
+                    25,
+                    25,
+                    3,
+                ],
+                type='PointsRangeFilter'),
+            dict(keys=[
+                'points',
+            ], type='Pack3DDetInputs'),
+        ],
+        test_mode=True,
+        type='NuScenesDataset'),
+    num_workers=0,
+    persistent_workers=False,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+test_evaluator = dict(
+    ann_file='D:\\code\\autodrive\\stage03\\data_infos\\val.pkl',
+    backend_args=None,
+    data_root='D:\\code\\autodrive\\stage03\\data\\nuscenes',
+    metric='bbox',
+    modality=dict(use_camera=False, use_lidar=True),
+    type='NuScenesMetric')
+test_pipeline = [
+    dict(
+        backend_args=None,
+        coord_type='LIDAR',
+        load_dim=5,
+        type='LoadPointsFromFile',
+        use_dim=5),
+    dict(
+        backend_args=None,
+        sweeps_num=10,
+        test_mode=True,
+        type='LoadPointsFromMultiSweeps'),
+    dict(
+        flip=False,
+        img_scale=(
+            1333,
+            800,
+        ),
+        pts_scale_ratio=1,
+        transforms=[
+            dict(
+                rot_range=[
+                    0,
+                    0,
+                ],
+                scale_ratio_range=[
+                    1.0,
+                    1.0,
+                ],
+                translation_std=[
+                    0,
+                    0,
+                    0,
+                ],
+                type='GlobalRotScaleTrans'),
+            dict(type='RandomFlip3D'),
+            dict(
+                point_cloud_range=[
+                    -50,
+                    -50,
+                    -5,
+                    50,
+                    50,
+                    3,
+                ],
+                type='PointsRangeFilter'),
+        ],
+        type='MultiScaleFlipAug3D'),
+    dict(keys=[
+        'points',
+    ], type='Pack3DDetInputs'),
+]
+train_cfg = dict(max_epochs=5, type='EpochBasedTrainLoop', val_interval=5)
+train_dataloader = dict(
+    batch_size=1,
+    dataset=dict(
+        ann_file='D:\\code\\autodrive\\stage03\\data_infos\\train.pkl',
+        backend_args=None,
+        box_type_3d='LiDAR',
+        data_prefix=dict(pts='samples/LIDAR_TOP'),
+        data_root='D:\\code\\autodrive\\stage03\\data\\nuscenes',
+        metainfo=dict(
+            classes=[
+                'car',
+                'truck',
+                'trailer',
+                'bus',
+                'construction_vehicle',
+                'bicycle',
+                'motorcycle',
+                'pedestrian',
+                'traffic_cone',
+                'barrier',
+            ],
+            version='v1.0-mini'),
+        modality=dict(use_camera=False, use_lidar=True),
+        pipeline=[
+            dict(
+                backend_args=None,
+                coord_type='LIDAR',
+                load_dim=5,
+                type='LoadPointsFromFile',
+                use_dim=4),
+            dict(
+                type='LoadAnnotations3D',
+                with_bbox_3d=True,
+                with_label_3d=True),
+            dict(
+                rot_range=[
+                    -0.3925,
+                    0.3925,
+                ],
+                scale_ratio_range=[
+                    0.95,
+                    1.05,
+                ],
+                translation_std=[
+                    0,
+                    0,
+                    0,
+                ],
+                type='GlobalRotScaleTrans'),
+            dict(flip_ratio_bev_horizontal=0.5, type='RandomFlip3D'),
+            dict(
+                point_cloud_range=[
+                    -25,
+                    -25,
+                    -5,
+                    25,
+                    25,
+                    3,
+                ],
+                type='PointsRangeFilter'),
+            dict(
+                point_cloud_range=[
+                    -25,
+                    -25,
+                    -5,
+                    25,
+                    25,
+                    3,
+                ],
+                type='ObjectRangeFilter'),
+            dict(
+                classes=[
+                    'car',
+                    'truck',
+                    'trailer',
+                    'bus',
+                    'construction_vehicle',
+                    'bicycle',
+                    'motorcycle',
+                    'pedestrian',
+                    'traffic_cone',
+                    'barrier',
+                ],
+                type='ObjectNameFilter'),
+            dict(type='PointShuffle'),
+            dict(
+                keys=[
+                    'points',
+                    'gt_bboxes_3d',
+                    'gt_labels_3d',
+                ],
+                type='Pack3DDetInputs'),
+        ],
+        test_mode=False,
+        type='NuScenesDataset'),
+    num_workers=0,
+    persistent_workers=False,
+    sampler=dict(shuffle=True, type='DefaultSampler'))
+train_pipeline = [
+    dict(
+        backend_args=None,
+        coord_type='LIDAR',
+        load_dim=5,
+        type='LoadPointsFromFile',
+        use_dim=5),
+    dict(backend_args=None, sweeps_num=10, type='LoadPointsFromMultiSweeps'),
+    dict(type='LoadAnnotations3D', with_bbox_3d=True, with_label_3d=True),
+    dict(
+        rot_range=[
+            -0.3925,
+            0.3925,
+        ],
+        scale_ratio_range=[
+            0.95,
+            1.05,
+        ],
+        translation_std=[
+            0,
+            0,
+            0,
+        ],
+        type='GlobalRotScaleTrans'),
+    dict(flip_ratio_bev_horizontal=0.5, type='RandomFlip3D'),
+    dict(
+        point_cloud_range=[
+            -50,
+            -50,
+            -5,
+            50,
+            50,
+            3,
+        ],
+        type='PointsRangeFilter'),
+    dict(
+        point_cloud_range=[
+            -50,
+            -50,
+            -5,
+            50,
+            50,
+            3,
+        ],
+        type='ObjectRangeFilter'),
+    dict(
+        classes=[
+            'car',
+            'truck',
+            'trailer',
+            'bus',
+            'construction_vehicle',
+            'bicycle',
+            'motorcycle',
+            'pedestrian',
+            'traffic_cone',
+            'barrier',
+        ],
+        type='ObjectNameFilter'),
+    dict(type='PointShuffle'),
+    dict(
+        keys=[
+            'points',
+            'gt_bboxes_3d',
+            'gt_labels_3d',
+        ],
+        type='Pack3DDetInputs'),
+]
+val_cfg = dict(type='ValLoop')
+val_dataloader = dict(
+    batch_size=1,
+    dataset=dict(
+        ann_file='D:\\code\\autodrive\\stage03\\data_infos\\val.pkl',
+        backend_args=None,
+        box_type_3d='LiDAR',
+        data_prefix=dict(pts='samples/LIDAR_TOP'),
+        data_root='D:\\code\\autodrive\\stage03\\data\\nuscenes',
+        metainfo=dict(
+            classes=[
+                'car',
+                'truck',
+                'trailer',
+                'bus',
+                'construction_vehicle',
+                'bicycle',
+                'motorcycle',
+                'pedestrian',
+                'traffic_cone',
+                'barrier',
+            ],
+            version='v1.0-mini'),
+        modality=dict(use_camera=False, use_lidar=True),
+        pipeline=[
+            dict(
+                backend_args=None,
+                coord_type='LIDAR',
+                load_dim=5,
+                type='LoadPointsFromFile',
+                use_dim=4),
+            dict(
+                rot_range=[
+                    0,
+                    0,
+                ],
+                scale_ratio_range=[
+                    1.0,
+                    1.0,
+                ],
+                translation_std=[
+                    0,
+                    0,
+                    0,
+                ],
+                type='GlobalRotScaleTrans'),
+            dict(
+                point_cloud_range=[
+                    -25,
+                    -25,
+                    -5,
+                    25,
+                    25,
+                    3,
+                ],
+                type='PointsRangeFilter'),
+            dict(keys=[
+                'points',
+            ], type='Pack3DDetInputs'),
+        ],
+        test_mode=True,
+        type='NuScenesDataset'),
+    num_workers=0,
+    persistent_workers=False,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+val_evaluator = dict(
+    ann_file='D:\\code\\autodrive\\stage03\\data_infos\\val.pkl',
+    backend_args=None,
+    data_root='D:\\code\\autodrive\\stage03\\data\\nuscenes',
+    metric='bbox',
+    modality=dict(use_camera=False, use_lidar=True),
+    type='NuScenesMetric')
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(type='Det3DLocalVisualizer', vis_backends=[])
+voxel_size = [
+    0.25,
+    0.25,
+    8,
+]
+work_dir = 'D:\\code\\autodrive\\stage03\\outputs\\run5_compact'
+
+D:\code\autodrive\stage03\.env\lib\site-packages\mmdet3d\models\dense_heads\anchor3d_head.py:94: UserWarning: dir_offset and dir_limit_offset will be depressed and be incorporated into box coder in the future
+  warnings.warn(
+10/13 20:01:32 - mmengine - INFO - Distributed training is not used, all SyncBatchNorm (SyncBN) layers in the model will be automatically reverted to BatchNormXd layers if they are used.
+10/13 20:01:32 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_HIGH   ) HeadOnlyGradientAuditHook          
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_HIGH   ) HeadOnlyGradientAuditHook          
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) Det3DVisualizationHook             
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_HIGH   ) HeadOnlyGradientAuditHook          
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) Det3DVisualizationHook             
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+10/13 20:01:32 - mmengine - WARNING - v1.0-mini is not a meta file, simply parsed as meta information
+10/13 20:01:32 - mmengine - INFO - ------------------------------
+10/13 20:01:32 - mmengine - INFO - The length of training dataset: 323
+10/13 20:01:32 - mmengine - INFO - The number of instances per category in the dataset:
++----------------------+--------+
+| category             | number |
++----------------------+--------+
+| car                  | 5051   |
+| truck                | 525    |
+| trailer              | 60     |
+| bus                  | 369    |
+| construction_vehicle | 196    |
+| bicycle              | 191    |
+| motorcycle           | 212    |
+| pedestrian           | 3657   |
+| traffic_cone         | 1339   |
+| barrier              | 2323   |
++----------------------+--------+
+10/13 20:01:32 - mmengine - INFO - ------------------------------
+10/13 20:01:32 - mmengine - INFO - The length of test dataset: 81
+10/13 20:01:32 - mmengine - INFO - The number of instances per category in the dataset:
++----------------------+--------+
+| category             | number |
++----------------------+--------+
+| car                  | 2568   |
+| truck                | 124    |
+| trailer              | 0      |
+| bus                  | 41     |
+| construction_vehicle | 0      |
+| bicycle              | 52     |
+| motorcycle           | 259    |
+| pedestrian           | 1358   |
+| traffic_cone         | 39     |
+| barrier              | 0      |
++----------------------+--------+
+Loads checkpoint by local backend from path: D:\code\autodrive\stage03\outputs\run1_compact\epoch_1.pth
+10/13 20:01:33 - mmengine - INFO - Load checkpoint from D:\code\autodrive\stage03\outputs\run1_compact\epoch_1.pth
+10/13 20:01:33 - mmengine - INFO - resumed epoch: 1, iter: 323
+10/13 20:01:33 - mmengine - INFO - AUDIT: only pts_bbox_head is trainable; gradient hooks registered.
+10/13 20:01:33 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+10/13 20:01:33 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+10/13 20:01:33 - mmengine - INFO - Checkpoints will be saved to D:\code\autodrive\stage03\outputs\run5_compact.
+D:\code\autodrive\stage03\.env\lib\site-packages\torch\functional.py:504: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\TensorShape.cpp:3484.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+D:\code\autodrive\stage03\.env\lib\site-packages\mmdet\models\task_modules\samplers\sampling_result.py:132: UserWarning: DeprecationWarning: pos_bboxes is deprecated, please use "pos_priors" instead
+  warnings.warn('DeprecationWarning: pos_bboxes is deprecated, '
+10/13 20:01:33 - mmengine - INFO - Epoch(train) [2][ 10/323]  lr: 1.0000e-04  eta: 0:01:32  time: 0.0476  data_time: 0.0082  memory: 279  grad_norm: 2.4806  loss: 2.5871  loss_cls: 0.9739  loss_bbox: 1.4223  loss_dir: 0.1910
+10/13 20:01:34 - mmengine - INFO - Epoch(train) [2][ 20/323]  lr: 1.0000e-04  eta: 0:01:07  time: 0.0464  data_time: 0.0068  memory: 278  grad_norm: 2.4964  loss: 2.6161  loss_cls: 0.9804  loss_bbox: 1.4594  loss_dir: 0.1763
+10/13 20:01:34 - mmengine - INFO - Epoch(train) [2][ 30/323]  lr: 1.0000e-04  eta: 0:00:59  time: 0.0450  data_time: 0.0058  memory: 346  grad_norm: 2.5369  loss: 2.6380  loss_cls: 1.0159  loss_bbox: 1.4477  loss_dir: 0.1744
+10/13 20:01:34 - mmengine - INFO - Epoch(train) [2][ 40/323]  lr: 1.0000e-04  eta: 0:00:55  time: 0.0440  data_time: 0.0047  memory: 327  grad_norm: 2.5539  loss: 2.5703  loss_cls: 1.0286  loss_bbox: 1.3589  loss_dir: 0.1828
+10/13 20:01:35 - mmengine - INFO - Epoch(train) [2][ 50/323]  lr: 1.0000e-04  eta: 0:00:53  time: 0.0428  data_time: 0.0034  memory: 292  grad_norm: 2.7525  loss: 2.5945  loss_cls: 1.0088  loss_bbox: 1.4018  loss_dir: 0.1839
+10/13 20:01:35 - mmengine - INFO - Epoch(train) [2][ 60/323]  lr: 1.0000e-04  eta: 0:00:51  time: 0.0353  data_time: 0.0036  memory: 272  grad_norm: 2.8238  loss: 2.6241  loss_cls: 0.9733  loss_bbox: 1.4718  loss_dir: 0.1789
+10/13 20:01:35 - mmengine - INFO - Epoch(train) [2][ 70/323]  lr: 1.0000e-04  eta: 0:00:49  time: 0.0356  data_time: 0.0036  memory: 286  grad_norm: 2.8558  loss: 2.6171  loss_cls: 0.9913  loss_bbox: 1.4308  loss_dir: 0.1951
+10/13 20:01:36 - mmengine - INFO - Epoch(train) [2][ 80/323]  lr: 1.0000e-04  eta: 0:00:48  time: 0.0357  data_time: 0.0035  memory: 288  grad_norm: 2.8224  loss: 2.6610  loss_cls: 0.9833  loss_bbox: 1.4765  loss_dir: 0.2012
+10/13 20:01:36 - mmengine - INFO - Epoch(train) [2][ 90/323]  lr: 1.0000e-04  eta: 0:00:47  time: 0.0351  data_time: 0.0036  memory: 266  grad_norm: 2.8430  loss: 2.6376  loss_cls: 0.9431  loss_bbox: 1.4968  loss_dir: 0.1977
+10/13 20:01:37 - mmengine - INFO - Epoch(train) [2][100/323]  lr: 1.0000e-04  eta: 0:00:46  time: 0.0353  data_time: 0.0037  memory: 298  grad_norm: 2.6773  loss: 2.6018  loss_cls: 0.9230  loss_bbox: 1.4912  loss_dir: 0.1876
+10/13 20:01:37 - mmengine - INFO - Epoch(train) [2][110/323]  lr: 1.0000e-04  eta: 0:00:45  time: 0.0354  data_time: 0.0038  memory: 317  grad_norm: 2.6781  loss: 2.6774  loss_cls: 0.9667  loss_bbox: 1.5218  loss_dir: 0.1889
+10/13 20:01:37 - mmengine - INFO - Epoch(train) [2][120/323]  lr: 1.0000e-04  eta: 0:00:44  time: 0.0350  data_time: 0.0038  memory: 273  grad_norm: 2.7633  loss: 2.7313  loss_cls: 0.9658  loss_bbox: 1.5770  loss_dir: 0.1885
+10/13 20:01:38 - mmengine - INFO - Epoch(train) [2][130/323]  lr: 1.0000e-04  eta: 0:00:44  time: 0.0352  data_time: 0.0038  memory: 290  grad_norm: 2.7518  loss: 2.7739  loss_cls: 0.9641  loss_bbox: 1.6244  loss_dir: 0.1854
+10/13 20:01:38 - mmengine - INFO - Epoch(train) [2][140/323]  lr: 1.0000e-04  eta: 0:00:43  time: 0.0356  data_time: 0.0037  memory: 341  grad_norm: 2.8026  loss: 2.9171  loss_cls: 1.0094  loss_bbox: 1.7086  loss_dir: 0.1991
+10/13 20:01:38 - mmengine - INFO - Epoch(train) [2][150/323]  lr: 1.0000e-04  eta: 0:00:43  time: 0.0355  data_time: 0.0037  memory: 294  grad_norm: 2.7942  loss: 2.9053  loss_cls: 1.0094  loss_bbox: 1.6881  loss_dir: 0.2078
+10/13 20:01:39 - mmengine - INFO - Epoch(train) [2][160/323]  lr: 1.0000e-04  eta: 0:00:42  time: 0.0353  data_time: 0.0037  memory: 278  grad_norm: 2.7989  loss: 2.8776  loss_cls: 0.9926  loss_bbox: 1.6827  loss_dir: 0.2022
+10/13 20:01:39 - mmengine - INFO - Epoch(train) [2][170/323]  lr: 1.0000e-04  eta: 0:00:42  time: 0.0360  data_time: 0.0040  memory: 366  grad_norm: 2.7333  loss: 2.8595  loss_cls: 1.0091  loss_bbox: 1.6503  loss_dir: 0.2002
+10/13 20:01:39 - mmengine - INFO - Epoch(train) [2][180/323]  lr: 1.0000e-04  eta: 0:00:41  time: 0.0357  data_time: 0.0040  memory: 290  grad_norm: 2.9596  loss: 2.8617  loss_cls: 1.0263  loss_bbox: 1.6372  loss_dir: 0.1981
+10/13 20:01:40 - mmengine - INFO - Epoch(train) [2][190/323]  lr: 1.0000e-04  eta: 0:00:41  time: 0.0363  data_time: 0.0042  memory: 346  grad_norm: 2.8301  loss: 2.8110  loss_cls: 1.0385  loss_bbox: 1.5813  loss_dir: 0.1913
+10/13 20:01:40 - mmengine - INFO - Epoch(train) [2][200/323]  lr: 1.0000e-04  eta: 0:00:40  time: 0.0363  data_time: 0.0043  memory: 289  grad_norm: 2.9306  loss: 2.8643  loss_cls: 1.0777  loss_bbox: 1.6050  loss_dir: 0.1817
+10/13 20:01:40 - mmengine - INFO - Epoch(train) [2][210/323]  lr: 1.0000e-04  eta: 0:00:40  time: 0.0366  data_time: 0.0042  memory: 285  grad_norm: 2.8709  loss: 2.7622  loss_cls: 1.0744  loss_bbox: 1.5020  loss_dir: 0.1859
+10/13 20:01:41 - mmengine - INFO - Epoch(train) [2][220/323]  lr: 1.0000e-04  eta: 0:00:39  time: 0.0362  data_time: 0.0043  memory: 293  grad_norm: 2.8292  loss: 2.7496  loss_cls: 1.0141  loss_bbox: 1.5448  loss_dir: 0.1907
+10/13 20:01:41 - mmengine - INFO - Epoch(train) [2][230/323]  lr: 1.0000e-04  eta: 0:00:39  time: 0.0365  data_time: 0.0042  memory: 288  grad_norm: 2.6439  loss: 2.6834  loss_cls: 0.9815  loss_bbox: 1.4958  loss_dir: 0.2061
+10/13 20:01:42 - mmengine - INFO - Epoch(train) [2][240/323]  lr: 1.0000e-04  eta: 0:00:39  time: 0.0366  data_time: 0.0043  memory: 269  grad_norm: 2.6156  loss: 2.5404  loss_cls: 0.9067  loss_bbox: 1.4289  loss_dir: 0.2048
+10/13 20:01:42 - mmengine - INFO - Epoch(train) [2][250/323]  lr: 1.0000e-04  eta: 0:00:39  time: 0.0398  data_time: 0.0045  memory: 288  grad_norm: 2.5261  loss: 2.5154  loss_cls: 0.8738  loss_bbox: 1.4391  loss_dir: 0.2024
+10/13 20:01:43 - mmengine - INFO - Epoch(train) [2][260/323]  lr: 1.0000e-04  eta: 0:00:39  time: 0.0421  data_time: 0.0047  memory: 266  grad_norm: 2.5882  loss: 2.5241  loss_cls: 0.8586  loss_bbox: 1.4688  loss_dir: 0.1968
+10/13 20:01:43 - mmengine - INFO - Epoch(train) [2][270/323]  lr: 1.0000e-04  eta: 0:00:39  time: 0.0424  data_time: 0.0046  memory: 283  grad_norm: 2.6548  loss: 2.6210  loss_cls: 0.9024  loss_bbox: 1.5274  loss_dir: 0.1913
+10/13 20:01:43 - mmengine - INFO - Epoch(train) [2][280/323]  lr: 1.0000e-04  eta: 0:00:38  time: 0.0426  data_time: 0.0048  memory: 313  grad_norm: 2.5418  loss: 2.6398  loss_cls: 0.8897  loss_bbox: 1.5727  loss_dir: 0.1773
+10/13 20:01:44 - mmengine - INFO - Epoch(train) [2][290/323]  lr: 1.0000e-04  eta: 0:00:38  time: 0.0421  data_time: 0.0046  memory: 287  grad_norm: 2.5365  loss: 2.7597  loss_cls: 0.9190  loss_bbox: 1.6634  loss_dir: 0.1773
+10/13 20:01:44 - mmengine - INFO - Epoch(train) [2][300/323]  lr: 1.0000e-04  eta: 0:00:37  time: 0.0389  data_time: 0.0046  memory: 313  grad_norm: 2.5606  loss: 2.7156  loss_cls: 0.9295  loss_bbox: 1.6015  loss_dir: 0.1846
+10/13 20:01:44 - mmengine - INFO - Epoch(train) [2][310/323]  lr: 1.0000e-04  eta: 0:00:37  time: 0.0365  data_time: 0.0043  memory: 298  grad_norm: 2.4916  loss: 2.7632  loss_cls: 0.9032  loss_bbox: 1.6769  loss_dir: 0.1831
+10/13 20:01:45 - mmengine - INFO - Epoch(train) [2][320/323]  lr: 1.0000e-04  eta: 0:00:36  time: 0.0365  data_time: 0.0041  memory: 317  grad_norm: 2.4109  loss: 2.6044  loss_cls: 0.8999  loss_bbox: 1.5134  loss_dir: 0.1911
+10/13 20:01:45 - mmengine - INFO - Exp name: official_pointpillars_config_20261013_200128
+10/13 20:01:45 - mmengine - INFO - Saving checkpoint at 2 epochs
+10/13 20:01:46 - mmengine - INFO - Epoch(train) [3][ 10/323]  lr: 1.0000e-04  eta: 0:00:36  time: 0.0357  data_time: 0.0039  memory: 293  grad_norm: 2.5581  loss: 2.5817  loss_cls: 0.9004  loss_bbox: 1.4887  loss_dir: 0.1926
+10/13 20:01:46 - mmengine - INFO - Epoch(train) [3][ 20/323]  lr: 1.0000e-04  eta: 0:00:35  time: 0.0356  data_time: 0.0039  memory: 282  grad_norm: 2.5461  loss: 2.5567  loss_cls: 0.8712  loss_bbox: 1.4875  loss_dir: 0.1980
+10/13 20:01:46 - mmengine - INFO - Epoch(train) [3][ 30/323]  lr: 1.0000e-04  eta: 0:00:35  time: 0.0353  data_time: 0.0039  memory: 277  grad_norm: 2.6716  loss: 2.6403  loss_cls: 0.8784  loss_bbox: 1.5805  loss_dir: 0.1813
+10/13 20:01:47 - mmengine - INFO - Epoch(train) [3][ 40/323]  lr: 1.0000e-04  eta: 0:00:35  time: 0.0358  data_time: 0.0042  memory: 286  grad_norm: 2.6339  loss: 2.6716  loss_cls: 0.8958  loss_bbox: 1.5931  loss_dir: 0.1827
+10/13 20:01:47 - mmengine - INFO - Epoch(train) [3][ 50/323]  lr: 1.0000e-04  eta: 0:00:34  time: 0.0358  data_time: 0.0042  memory: 332  grad_norm: 2.6248  loss: 2.6589  loss_cls: 0.8914  loss_bbox: 1.5907  loss_dir: 0.1769
+10/13 20:01:47 - mmengine - INFO - Epoch(train) [3][ 60/323]  lr: 1.0000e-04  eta: 0:00:34  time: 0.0360  data_time: 0.0042  memory: 308  grad_norm: 2.5534  loss: 2.6301  loss_cls: 0.8707  loss_bbox: 1.5805  loss_dir: 0.1789
+10/13 20:01:48 - mmengine - INFO - Epoch(train) [3][ 70/323]  lr: 1.0000e-04  eta: 0:00:33  time: 0.0363  data_time: 0.0042  memory: 313  grad_norm: 2.5429  loss: 2.6081  loss_cls: 0.8954  loss_bbox: 1.5429  loss_dir: 0.1698
+10/13 20:01:48 - mmengine - INFO - Epoch(train) [3][ 80/323]  lr: 1.0000e-04  eta: 0:00:33  time: 0.0365  data_time: 0.0042  memory: 279  grad_norm: 2.6527  loss: 2.6468  loss_cls: 0.8870  loss_bbox: 1.5756  loss_dir: 0.1842
+10/13 20:01:48 - mmengine - INFO - Epoch(train) [3][ 90/323]  lr: 1.0000e-04  eta: 0:00:32  time: 0.0363  data_time: 0.0042  memory: 290  grad_norm: 2.8294  loss: 2.6521  loss_cls: 0.9217  loss_bbox: 1.5422  loss_dir: 0.1882
+10/13 20:01:49 - mmengine - INFO - Epoch(train) [3][100/323]  lr: 1.0000e-04  eta: 0:00:32  time: 0.0360  data_time: 0.0043  memory: 291  grad_norm: 2.8989  loss: 2.7249  loss_cls: 0.9371  loss_bbox: 1.5960  loss_dir: 0.1918
+10/13 20:01:49 - mmengine - INFO - Epoch(train) [3][110/323]  lr: 1.0000e-04  eta: 0:00:32  time: 0.0358  data_time: 0.0043  memory: 265  grad_norm: 2.9334  loss: 2.7283  loss_cls: 0.9585  loss_bbox: 1.5824  loss_dir: 0.1874
+10/13 20:01:50 - mmengine - INFO - Epoch(train) [3][120/323]  lr: 1.0000e-04  eta: 0:00:31  time: 0.0355  data_time: 0.0043  memory: 313  grad_norm: 2.9958  loss: 2.7748  loss_cls: 0.9763  loss_bbox: 1.6090  loss_dir: 0.1896
+10/13 20:01:50 - mmengine - INFO - Epoch(train) [3][130/323]  lr: 1.0000e-04  eta: 0:00:31  time: 0.0353  data_time: 0.0042  memory: 284  grad_norm: 2.7988  loss: 2.6315  loss_cls: 0.9463  loss_bbox: 1.5003  loss_dir: 0.1848
+10/13 20:01:50 - mmengine - INFO - Epoch(train) [3][140/323]  lr: 1.0000e-04  eta: 0:00:30  time: 0.0348  data_time: 0.0041  memory: 280  grad_norm: 2.6462  loss: 2.5482  loss_cls: 0.9024  loss_bbox: 1.4748  loss_dir: 0.1710
+10/13 20:01:51 - mmengine - INFO - Epoch(train) [3][150/323]  lr: 1.0000e-04  eta: 0:00:30  time: 0.0348  data_time: 0.0041  memory: 331  grad_norm: 2.5706  loss: 2.5179  loss_cls: 0.8977  loss_bbox: 1.4461  loss_dir: 0.1741
+10/13 20:01:51 - mmengine - INFO - Epoch(train) [3][160/323]  lr: 1.0000e-04  eta: 0:00:30  time: 0.0351  data_time: 0.0042  memory: 327  grad_norm: 2.6129  loss: 2.5332  loss_cls: 0.9155  loss_bbox: 1.4497  loss_dir: 0.1679
+10/13 20:01:51 - mmengine - INFO - Epoch(train) [3][170/323]  lr: 1.0000e-04  eta: 0:00:29  time: 0.0350  data_time: 0.0042  memory: 322  grad_norm: 2.6389  loss: 2.5012  loss_cls: 0.9027  loss_bbox: 1.4307  loss_dir: 0.1678
+10/13 20:01:52 - mmengine - INFO - Epoch(train) [3][180/323]  lr: 1.0000e-04  eta: 0:00:29  time: 0.0354  data_time: 0.0043  memory: 313  grad_norm: 2.5524  loss: 2.5281  loss_cls: 0.8989  loss_bbox: 1.4556  loss_dir: 0.1736
+10/13 20:01:52 - mmengine - INFO - Epoch(train) [3][190/323]  lr: 1.0000e-04  eta: 0:00:28  time: 0.0361  data_time: 0.0044  memory: 361  grad_norm: 2.4584  loss: 2.6504  loss_cls: 0.9260  loss_bbox: 1.5434  loss_dir: 0.1810
+10/13 20:01:52 - mmengine - INFO - Epoch(train) [3][200/323]  lr: 1.0000e-04  eta: 0:00:28  time: 0.0366  data_time: 0.0045  memory: 287  grad_norm: 2.5150  loss: 2.6416  loss_cls: 0.9410  loss_bbox: 1.5197  loss_dir: 0.1808
+10/13 20:01:53 - mmengine - INFO - Epoch(train) [3][210/323]  lr: 1.0000e-04  eta: 0:00:28  time: 0.0364  data_time: 0.0045  memory: 282  grad_norm: 2.4827  loss: 2.6465  loss_cls: 0.9106  loss_bbox: 1.5450  loss_dir: 0.1909
+10/13 20:01:53 - mmengine - INFO - Epoch(train) [3][220/323]  lr: 1.0000e-04  eta: 0:00:27  time: 0.0364  data_time: 0.0044  memory: 303  grad_norm: inf  loss: 2.7666  loss_cls: 0.9488  loss_bbox: 1.6247  loss_dir: 0.1932
+10/13 20:01:53 - mmengine - INFO - Epoch(train) [3][230/323]  lr: 1.0000e-04  eta: 0:00:27  time: 0.0364  data_time: 0.0044  memory: 274  grad_norm: inf  loss: 2.6535  loss_cls: 0.9456  loss_bbox: 1.5207  loss_dir: 0.1872
+10/13 20:01:54 - mmengine - INFO - Epoch(train) [3][240/323]  lr: 1.0000e-04  eta: 0:00:26  time: 0.0358  data_time: 0.0044  memory: 287  grad_norm: inf  loss: 2.5961  loss_cls: 0.9380  loss_bbox: 1.4664  loss_dir: 0.1917
+10/13 20:01:54 - mmengine - INFO - Epoch(train) [3][250/323]  lr: 1.0000e-04  eta: 0:00:26  time: 0.0350  data_time: 0.0043  memory: 261  grad_norm: inf  loss: 2.5007  loss_cls: 0.8546  loss_bbox: 1.4615  loss_dir: 0.1846
+10/13 20:01:54 - mmengine - INFO - Epoch(train) [3][260/323]  lr: 1.0000e-04  eta: 0:00:26  time: 0.0350  data_time: 0.0043  memory: 285  grad_norm: inf  loss: 2.5723  loss_cls: 0.8913  loss_bbox: 1.4954  loss_dir: 0.1857
+10/13 20:01:55 - mmengine - INFO - Epoch(train) [3][270/323]  lr: 1.0000e-04  eta: 0:00:25  time: 0.0353  data_time: 0.0044  memory: 298  grad_norm: 2.3947  loss: 2.4188  loss_cls: 0.8747  loss_bbox: 1.3578  loss_dir: 0.1863
+10/13 20:01:55 - mmengine - INFO - Epoch(train) [3][280/323]  lr: 1.0000e-04  eta: 0:00:25  time: 0.0355  data_time: 0.0043  memory: 361  grad_norm: 2.3774  loss: 2.5369  loss_cls: 0.9091  loss_bbox: 1.4369  loss_dir: 0.1909
+10/13 20:01:56 - mmengine - INFO - Epoch(train) [3][290/323]  lr: 1.0000e-04  eta: 0:00:25  time: 0.0356  data_time: 0.0044  memory: 291  grad_norm: 2.4364  loss: 2.4964  loss_cls: 0.8901  loss_bbox: 1.4123  loss_dir: 0.1940
+10/13 20:01:56 - mmengine - INFO - Epoch(train) [3][300/323]  lr: 1.0000e-04  eta: 0:00:24  time: 0.0359  data_time: 0.0044  memory: 341  grad_norm: 2.5664  loss: 2.6354  loss_cls: 0.9561  loss_bbox: 1.4857  loss_dir: 0.1937
+10/13 20:01:56 - mmengine - INFO - Epoch(train) [3][310/323]  lr: 1.0000e-04  eta: 0:00:24  time: 0.0362  data_time: 0.0044  memory: 279  grad_norm: 2.5454  loss: 2.4667  loss_cls: 0.9179  loss_bbox: 1.3609  loss_dir: 0.1879
+10/13 20:01:57 - mmengine - INFO - Epoch(train) [3][320/323]  lr: 1.0000e-04  eta: 0:00:23  time: 0.0361  data_time: 0.0044  memory: 293  grad_norm: 2.5496  loss: 2.4581  loss_cls: 0.9003  loss_bbox: 1.3649  loss_dir: 0.1929
+10/13 20:01:57 - mmengine - INFO - Exp name: official_pointpillars_config_20261013_200128
+10/13 20:01:57 - mmengine - INFO - Saving checkpoint at 3 epochs
+10/13 20:01:58 - mmengine - INFO - Epoch(train) [4][ 10/323]  lr: 1.0000e-04  eta: 0:00:23  time: 0.0371  data_time: 0.0047  memory: 307  grad_norm: 2.5887  loss: 2.3846  loss_cls: 0.8709  loss_bbox: 1.3238  loss_dir: 0.1899
+10/13 20:01:58 - mmengine - INFO - Epoch(train) [4][ 20/323]  lr: 1.0000e-04  eta: 0:00:23  time: 0.0391  data_time: 0.0049  memory: 308  grad_norm: 2.5860  loss: 2.4168  loss_cls: 0.9025  loss_bbox: 1.3411  loss_dir: 0.1732
+10/13 20:01:58 - mmengine - INFO - Epoch(train) [4][ 30/323]  lr: 1.0000e-04  eta: 0:00:22  time: 0.0408  data_time: 0.0053  memory: 291  grad_norm: 2.5914  loss: 2.4186  loss_cls: 0.9136  loss_bbox: 1.3444  loss_dir: 0.1607
+10/13 20:01:59 - mmengine - INFO - Exp name: official_pointpillars_config_20261013_200128
+10/13 20:01:59 - mmengine - INFO - Epoch(train) [4][ 40/323]  lr: 1.0000e-04  eta: 0:00:22  time: 0.0412  data_time: 0.0053  memory: 317  grad_norm: 2.5812  loss: 2.4823  loss_cls: 0.9146  loss_bbox: 1.3927  loss_dir: 0.1750
+10/13 20:01:59 - mmengine - INFO - Epoch(train) [4][ 50/323]  lr: 1.0000e-04  eta: 0:00:22  time: 0.0436  data_time: 0.0057  memory: 303  grad_norm: 2.7125  loss: 2.5627  loss_cls: 0.9099  loss_bbox: 1.4911  loss_dir: 0.1617
+10/13 20:02:00 - mmengine - INFO - Epoch(train) [4][ 60/323]  lr: 1.0000e-04  eta: 0:00:21  time: 0.0453  data_time: 0.0059  memory: 331  grad_norm: 2.6280  loss: 2.5403  loss_cls: 0.9387  loss_bbox: 1.4518  loss_dir: 0.1499
+10/13 20:02:00 - mmengine - INFO - Epoch(train) [4][ 70/323]  lr: 1.0000e-04  eta: 0:00:21  time: 0.0443  data_time: 0.0058  memory: 283  grad_norm: 2.6683  loss: 2.6840  loss_cls: 0.9494  loss_bbox: 1.5748  loss_dir: 0.1598
+10/13 20:02:01 - mmengine - INFO - Epoch(train) [4][ 80/323]  lr: 1.0000e-04  eta: 0:00:21  time: 0.0431  data_time: 0.0055  memory: 293  grad_norm: 2.6972  loss: 2.6660  loss_cls: 0.9502  loss_bbox: 1.5436  loss_dir: 0.1723
+10/13 20:02:01 - mmengine - INFO - Epoch(train) [4][ 90/323]  lr: 1.0000e-04  eta: 0:00:20  time: 0.0425  data_time: 0.0054  memory: 293  grad_norm: 2.8303  loss: 2.8484  loss_cls: 0.9626  loss_bbox: 1.7169  loss_dir: 0.1689
+10/13 20:02:01 - mmengine - INFO - Epoch(train) [4][100/323]  lr: 1.0000e-04  eta: 0:00:20  time: 0.0400  data_time: 0.0051  memory: 294  grad_norm: 2.6755  loss: 2.7470  loss_cls: 0.9358  loss_bbox: 1.6288  loss_dir: 0.1824
+10/13 20:02:02 - mmengine - INFO - Epoch(train) [4][110/323]  lr: 1.0000e-04  eta: 0:00:20  time: 0.0375  data_time: 0.0046  memory: 318  grad_norm: 2.6813  loss: 2.8133  loss_cls: 0.9701  loss_bbox: 1.6475  loss_dir: 0.1957
+10/13 20:02:02 - mmengine - INFO - Epoch(train) [4][120/323]  lr: 1.0000e-04  eta: 0:00:19  time: 0.0366  data_time: 0.0045  memory: 341  grad_norm: 2.5917  loss: 2.6718  loss_cls: 0.9240  loss_bbox: 1.5531  loss_dir: 0.1948
+10/13 20:02:02 - mmengine - INFO - Epoch(train) [4][130/323]  lr: 1.0000e-04  eta: 0:00:19  time: 0.0368  data_time: 0.0045  memory: 284  grad_norm: 2.4812  loss: 2.6175  loss_cls: 0.9122  loss_bbox: 1.5154  loss_dir: 0.1898
+10/13 20:02:03 - mmengine - INFO - Epoch(train) [4][140/323]  lr: 1.0000e-04  eta: 0:00:18  time: 0.0367  data_time: 0.0045  memory: 284  grad_norm: 2.3711  loss: 2.5075  loss_cls: 0.9127  loss_bbox: 1.4042  loss_dir: 0.1906
+10/13 20:02:03 - mmengine - INFO - Epoch(train) [4][150/323]  lr: 1.0000e-04  eta: 0:00:18  time: 0.0366  data_time: 0.0044  memory: 279  grad_norm: 2.3781  loss: 2.4753  loss_cls: 0.9220  loss_bbox: 1.3736  loss_dir: 0.1797
+10/13 20:02:04 - mmengine - INFO - Epoch(train) [4][160/323]  lr: 1.0000e-04  eta: 0:00:18  time: 0.0372  data_time: 0.0046  memory: 371  grad_norm: 2.3721  loss: 2.4101  loss_cls: 0.8993  loss_bbox: 1.3304  loss_dir: 0.1804
+10/13 20:02:04 - mmengine - INFO - Epoch(train) [4][170/323]  lr: 1.0000e-04  eta: 0:00:17  time: 0.0370  data_time: 0.0046  memory: 284  grad_norm: 2.3748  loss: 2.3316  loss_cls: 0.8887  loss_bbox: 1.2698  loss_dir: 0.1731
+10/13 20:02:04 - mmengine - INFO - Epoch(train) [4][180/323]  lr: 1.0000e-04  eta: 0:00:17  time: 0.0360  data_time: 0.0044  memory: 290  grad_norm: 2.5636  loss: 2.4751  loss_cls: 0.9274  loss_bbox: 1.3692  loss_dir: 0.1784
+10/13 20:02:05 - mmengine - INFO - Epoch(train) [4][190/323]  lr: 1.0000e-04  eta: 0:00:17  time: 0.0362  data_time: 0.0046  memory: 263  grad_norm: 2.4846  loss: 2.3425  loss_cls: 0.8810  loss_bbox: 1.2880  loss_dir: 0.1735
+10/13 20:02:05 - mmengine - INFO - Epoch(train) [4][200/323]  lr: 1.0000e-04  eta: 0:00:16  time: 0.0366  data_time: 0.0046  memory: 293  grad_norm: 2.5119  loss: 2.3705  loss_cls: 0.9112  loss_bbox: 1.2732  loss_dir: 0.1861
+10/13 20:02:05 - mmengine - INFO - Epoch(train) [4][210/323]  lr: 1.0000e-04  eta: 0:00:16  time: 0.0356  data_time: 0.0045  memory: 291  grad_norm: 2.5212  loss: 2.4188  loss_cls: 0.8602  loss_bbox: 1.3745  loss_dir: 0.1841
+10/13 20:02:06 - mmengine - INFO - Epoch(train) [4][220/323]  lr: 1.0000e-04  eta: 0:00:15  time: 0.0357  data_time: 0.0045  memory: 284  grad_norm: 2.5245  loss: 2.2994  loss_cls: 0.8364  loss_bbox: 1.2785  loss_dir: 0.1846
+10/13 20:02:06 - mmengine - INFO - Epoch(train) [4][230/323]  lr: 1.0000e-04  eta: 0:00:15  time: 0.0359  data_time: 0.0048  memory: 282  grad_norm: 2.3350  loss: 2.1338  loss_cls: 0.7657  loss_bbox: 1.1988  loss_dir: 0.1693
+10/13 20:02:06 - mmengine - INFO - Epoch(train) [4][240/323]  lr: 1.0000e-04  eta: 0:00:15  time: 0.0353  data_time: 0.0047  memory: 280  grad_norm: 2.5644  loss: 2.3697  loss_cls: 0.8130  loss_bbox: 1.3810  loss_dir: 0.1757
+10/13 20:02:07 - mmengine - INFO - Epoch(train) [4][250/323]  lr: 1.0000e-04  eta: 0:00:14  time: 0.0349  data_time: 0.0046  memory: 293  grad_norm: 2.6231  loss: 2.4827  loss_cls: 0.7990  loss_bbox: 1.5009  loss_dir: 0.1828
+10/13 20:02:07 - mmengine - INFO - Epoch(train) [4][260/323]  lr: 1.0000e-04  eta: 0:00:14  time: 0.0348  data_time: 0.0048  memory: 286  grad_norm: 2.6873  loss: 2.4896  loss_cls: 0.7932  loss_bbox: 1.5073  loss_dir: 0.1890
+10/13 20:02:07 - mmengine - INFO - Epoch(train) [4][270/323]  lr: 1.0000e-04  eta: 0:00:13  time: 0.0347  data_time: 0.0048  memory: 361  grad_norm: 2.7723  loss: 2.7670  loss_cls: 0.8874  loss_bbox: 1.6903  loss_dir: 0.1894
+10/13 20:02:08 - mmengine - INFO - Epoch(train) [4][280/323]  lr: 1.0000e-04  eta: 0:00:13  time: 0.0368  data_time: 0.0065  memory: 371  grad_norm: 2.7614  loss: 2.8147  loss_cls: 0.8948  loss_bbox: 1.7267  loss_dir: 0.1932
+10/13 20:02:08 - mmengine - INFO - Epoch(train) [4][290/323]  lr: 1.0000e-04  eta: 0:00:13  time: 0.0374  data_time: 0.0067  memory: 351  grad_norm: 2.6486  loss: 2.6578  loss_cls: 0.8935  loss_bbox: 1.5817  loss_dir: 0.1825
+10/13 20:02:09 - mmengine - INFO - Epoch(train) [4][300/323]  lr: 1.0000e-04  eta: 0:00:12  time: 0.0378  data_time: 0.0068  memory: 303  grad_norm: 2.4942  loss: 2.4650  loss_cls: 0.8696  loss_bbox: 1.4272  loss_dir: 0.1682
+10/13 20:02:09 - mmengine - INFO - Epoch(train) [4][310/323]  lr: 1.0000e-04  eta: 0:00:12  time: 0.0377  data_time: 0.0065  memory: 282  grad_norm: 2.4367  loss: 2.4099  loss_cls: 0.8858  loss_bbox: 1.3584  loss_dir: 0.1657
+10/13 20:02:09 - mmengine - INFO - Epoch(train) [4][320/323]  lr: 1.0000e-04  eta: 0:00:12  time: 0.0378  data_time: 0.0069  memory: 308  grad_norm: 2.2918  loss: 2.3198  loss_cls: 0.8220  loss_bbox: 1.3231  loss_dir: 0.1748
+10/13 20:02:09 - mmengine - INFO - Exp name: official_pointpillars_config_20261013_200128
+10/13 20:02:09 - mmengine - INFO - Saving checkpoint at 4 epochs
+10/13 20:02:10 - mmengine - INFO - Epoch(train) [5][ 10/323]  lr: 1.0000e-04  eta: 0:00:11  time: 0.0364  data_time: 0.0052  memory: 346  grad_norm: 2.3321  loss: 2.3252  loss_cls: 0.8831  loss_bbox: 1.2532  loss_dir: 0.1889
+10/13 20:02:11 - mmengine - INFO - Epoch(train) [5][ 20/323]  lr: 1.0000e-04  eta: 0:00:11  time: 0.0360  data_time: 0.0050  memory: 293  grad_norm: 2.3578  loss: 2.4140  loss_cls: 0.8681  loss_bbox: 1.3562  loss_dir: 0.1897
+10/13 20:02:11 - mmengine - INFO - Epoch(train) [5][ 30/323]  lr: 1.0000e-04  eta: 0:00:10  time: 0.0358  data_time: 0.0047  memory: 286  grad_norm: 2.5550  loss: 2.5876  loss_cls: 0.9132  loss_bbox: 1.4856  loss_dir: 0.1888
+10/13 20:02:11 - mmengine - INFO - Epoch(train) [5][ 40/323]  lr: 1.0000e-04  eta: 0:00:10  time: 0.0360  data_time: 0.0049  memory: 312  grad_norm: 2.5943  loss: 2.6924  loss_cls: 0.9172  loss_bbox: 1.5895  loss_dir: 0.1857
+10/13 20:02:12 - mmengine - INFO - Epoch(train) [5][ 50/323]  lr: 1.0000e-04  eta: 0:00:10  time: 0.0359  data_time: 0.0043  memory: 284  grad_norm: 2.5967  loss: 2.6345  loss_cls: 0.8875  loss_bbox: 1.5701  loss_dir: 0.1769
+10/13 20:02:12 - mmengine - INFO - Epoch(train) [5][ 60/323]  lr: 1.0000e-04  eta: 0:00:09  time: 0.0355  data_time: 0.0039  memory: 293  grad_norm: 2.5123  loss: 2.5563  loss_cls: 0.8393  loss_bbox: 1.5444  loss_dir: 0.1726
+10/13 20:02:12 - mmengine - INFO - Epoch(train) [5][ 70/323]  lr: 1.0000e-04  eta: 0:00:09  time: 0.0357  data_time: 0.0040  memory: 327  grad_norm: 2.5706  loss: 2.5137  loss_cls: 0.8511  loss_bbox: 1.4867  loss_dir: 0.1758
+10/13 20:02:13 - mmengine - INFO - Epoch(train) [5][ 80/323]  lr: 1.0000e-04  eta: 0:00:09  time: 0.0361  data_time: 0.0045  memory: 341  grad_norm: 2.3601  loss: 2.4193  loss_cls: 0.8411  loss_bbox: 1.3978  loss_dir: 0.1805
+10/13 20:02:13 - mmengine - INFO - Epoch(train) [5][ 90/323]  lr: 1.0000e-04  eta: 0:00:08  time: 0.0363  data_time: 0.0041  memory: 294  grad_norm: 2.3217  loss: 2.3654  loss_cls: 0.8776  loss_bbox: 1.3089  loss_dir: 0.1789
+10/13 20:02:14 - mmengine - INFO - Epoch(train) [5][100/323]  lr: 1.0000e-04  eta: 0:00:08  time: 0.0361  data_time: 0.0045  memory: 293  grad_norm: 2.3074  loss: 2.3406  loss_cls: 0.9023  loss_bbox: 1.2502  loss_dir: 0.1881
+10/13 20:02:14 - mmengine - INFO - Epoch(train) [5][110/323]  lr: 1.0000e-04  eta: 0:00:07  time: 0.0361  data_time: 0.0046  memory: 284  grad_norm: 2.2845  loss: 2.3232  loss_cls: 0.9109  loss_bbox: 1.2306  loss_dir: 0.1816
+10/13 20:02:14 - mmengine - INFO - Epoch(train) [5][120/323]  lr: 1.0000e-04  eta: 0:00:07  time: 0.0366  data_time: 0.0047  memory: 342  grad_norm: 2.2081  loss: 2.3445  loss_cls: 0.8902  loss_bbox: 1.2723  loss_dir: 0.1820
+10/13 20:02:15 - mmengine - INFO - Epoch(train) [5][130/323]  lr: 1.0000e-04  eta: 0:00:07  time: 0.0374  data_time: 0.0044  memory: 298  grad_norm: 2.2502  loss: 2.3322  loss_cls: 0.8996  loss_bbox: 1.2565  loss_dir: 0.1761
+10/13 20:02:15 - mmengine - INFO - Epoch(train) [5][140/323]  lr: 1.0000e-04  eta: 0:00:06  time: 0.0378  data_time: 0.0050  memory: 288  grad_norm: 2.3539  loss: 2.3390  loss_cls: 0.9127  loss_bbox: 1.2537  loss_dir: 0.1726
+10/13 20:02:15 - mmengine - INFO - Epoch(train) [5][150/323]  lr: 1.0000e-04  eta: 0:00:06  time: 0.0382  data_time: 0.0047  memory: 360  grad_norm: 2.3922  loss: 2.3595  loss_cls: 0.8916  loss_bbox: 1.3026  loss_dir: 0.1652
+10/13 20:02:16 - mmengine - INFO - Epoch(train) [5][160/323]  lr: 1.0000e-04  eta: 0:00:06  time: 0.0382  data_time: 0.0045  memory: 290  grad_norm: 2.5791  loss: 2.5417  loss_cls: 0.8969  loss_bbox: 1.4839  loss_dir: 0.1608
+10/13 20:02:16 - mmengine - INFO - Epoch(train) [5][170/323]  lr: 1.0000e-04  eta: 0:00:05  time: 0.0371  data_time: 0.0044  memory: 286  grad_norm: 2.7442  loss: 2.5646  loss_cls: 0.9290  loss_bbox: 1.4733  loss_dir: 0.1623
+10/13 20:02:16 - mmengine - INFO - Epoch(train) [5][180/323]  lr: 1.0000e-04  eta: 0:00:05  time: 0.0362  data_time: 0.0041  memory: 279  grad_norm: 2.7278  loss: 2.4623  loss_cls: 0.8868  loss_bbox: 1.4184  loss_dir: 0.1571
+10/13 20:02:17 - mmengine - INFO - Epoch(train) [5][190/323]  lr: 1.0000e-04  eta: 0:00:04  time: 0.0358  data_time: 0.0036  memory: 287  grad_norm: 2.6420  loss: 2.4890  loss_cls: 0.8495  loss_bbox: 1.4824  loss_dir: 0.1571
+10/13 20:02:17 - mmengine - INFO - Epoch(train) [5][200/323]  lr: 1.0000e-04  eta: 0:00:04  time: 0.0351  data_time: 0.0035  memory: 291  grad_norm: 2.6081  loss: 2.4738  loss_cls: 0.8408  loss_bbox: 1.4756  loss_dir: 0.1575
+10/13 20:02:18 - mmengine - INFO - Epoch(train) [5][210/323]  lr: 1.0000e-04  eta: 0:00:04  time: 0.0348  data_time: 0.0035  memory: 293  grad_norm: 2.5928  loss: 2.5029  loss_cls: 0.8669  loss_bbox: 1.4896  loss_dir: 0.1463
+10/13 20:02:18 - mmengine - INFO - Epoch(train) [5][220/323]  lr: 1.0000e-04  eta: 0:00:03  time: 0.0351  data_time: 0.0036  memory: 292  grad_norm: 2.4530  loss: 2.4746  loss_cls: 0.8552  loss_bbox: 1.4651  loss_dir: 0.1543
+10/13 20:02:18 - mmengine - INFO - Epoch(train) [5][230/323]  lr: 1.0000e-04  eta: 0:00:03  time: 0.0350  data_time: 0.0037  memory: 303  grad_norm: 2.5154  loss: 2.6101  loss_cls: 0.8774  loss_bbox: 1.5767  loss_dir: 0.1561
+10/13 20:02:19 - mmengine - INFO - Epoch(train) [5][240/323]  lr: 1.0000e-04  eta: 0:00:03  time: 0.0349  data_time: 0.0039  memory: 285  grad_norm: 2.5061  loss: 2.5078  loss_cls: 0.8670  loss_bbox: 1.4946  loss_dir: 0.1462
+10/13 20:02:19 - mmengine - INFO - Epoch(train) [5][250/323]  lr: 1.0000e-04  eta: 0:00:02  time: 0.0354  data_time: 0.0044  memory: 308  grad_norm: 2.4890  loss: 2.4865  loss_cls: 0.8738  loss_bbox: 1.4702  loss_dir: 0.1425
+10/13 20:02:19 - mmengine - INFO - Epoch(train) [5][260/323]  lr: 1.0000e-04  eta: 0:00:02  time: 0.0357  data_time: 0.0046  memory: 287  grad_norm: 2.4294  loss: 2.3560  loss_cls: 0.8749  loss_bbox: 1.3273  loss_dir: 0.1538
+10/13 20:02:20 - mmengine - INFO - Epoch(train) [5][270/323]  lr: 1.0000e-04  eta: 0:00:01  time: 0.0355  data_time: 0.0041  memory: 286  grad_norm: 2.5491  loss: 2.2601  loss_cls: 0.8686  loss_bbox: 1.2450  loss_dir: 0.1465
+10/13 20:02:20 - mmengine - INFO - Epoch(train) [5][280/323]  lr: 1.0000e-04  eta: 0:00:01  time: 0.0355  data_time: 0.0043  memory: 361  grad_norm: 2.5620  loss: 2.2833  loss_cls: 0.8594  loss_bbox: 1.2684  loss_dir: 0.1555
+10/13 20:02:20 - mmengine - INFO - Epoch(train) [5][290/323]  lr: 1.0000e-04  eta: 0:00:01  time: 0.0355  data_time: 0.0042  memory: 283  grad_norm: 2.6857  loss: 2.4247  loss_cls: 0.8732  loss_bbox: 1.3755  loss_dir: 0.1760
+10/13 20:02:21 - mmengine - INFO - Epoch(train) [5][300/323]  lr: 1.0000e-04  eta: 0:00:00  time: 0.0352  data_time: 0.0040  memory: 278  grad_norm: 2.9131  loss: 2.5491  loss_cls: 0.9135  loss_bbox: 1.4488  loss_dir: 0.1868
+10/13 20:02:21 - mmengine - INFO - Epoch(train) [5][310/323]  lr: 1.0000e-04  eta: 0:00:00  time: 0.0352  data_time: 0.0037  memory: 285  grad_norm: 2.9372  loss: 2.5535  loss_cls: 0.9046  loss_bbox: 1.4628  loss_dir: 0.1862
+10/13 20:02:21 - mmengine - INFO - Epoch(train) [5][320/323]  lr: 1.0000e-04  eta: 0:00:00  time: 0.0352  data_time: 0.0038  memory: 294  grad_norm: 2.7527  loss: 2.5562  loss_cls: 0.8707  loss_bbox: 1.5123  loss_dir: 0.1732
+10/13 20:02:22 - mmengine - INFO - Exp name: official_pointpillars_config_20261013_200128
+10/13 20:02:22 - mmengine - INFO - Saving checkpoint at 5 epochs
+10/13 20:02:22 - mmengine - INFO - Epoch(val) [5][10/81]    eta: 0:00:03  time: 0.0451  data_time: 0.0043  memory: 449  
+10/13 20:02:23 - mmengine - INFO - Epoch(val) [5][20/81]    eta: 0:00:02  time: 0.0427  data_time: 0.0034  memory: 439  
+10/13 20:02:23 - mmengine - INFO - Epoch(val) [5][30/81]    eta: 0:00:02  time: 0.0418  data_time: 0.0032  memory: 446  
+10/13 20:02:24 - mmengine - INFO - Epoch(val) [5][40/81]    eta: 0:00:01  time: 0.0417  data_time: 0.0034  memory: 478  
+10/13 20:02:24 - mmengine - INFO - Epoch(val) [5][50/81]    eta: 0:00:01  time: 0.0416  data_time: 0.0032  memory: 513  
+10/13 20:02:24 - mmengine - INFO - Epoch(val) [5][60/81]    eta: 0:00:00  time: 0.0406  data_time: 0.0031  memory: 487  
+10/13 20:02:25 - mmengine - INFO - Epoch(val) [5][70/81]    eta: 0:00:00  time: 0.0400  data_time: 0.0033  memory: 416  
+10/13 20:02:25 - mmengine - INFO - Epoch(val) [5][80/81]    eta: 0:00:00  time: 0.0398  data_time: 0.0036  memory: 471  
+
+Formating bboxes of pred_instances_3d
+Start to convert detection format...
+[                                                  ] 0/81, elapsed: 0s, ETA:[                                 ] 1/81, 31.2 task/s, elapsed: 0s, ETA:     3s[                                 ] 2/81, 29.1 task/s, elapsed: 0s, ETA:     3s[>                                ] 3/81, 30.4 task/s, elapsed: 0s, ETA:     3s[>                                ] 4/81, 32.4 task/s, elapsed: 0s, ETA:     2s[>>                               ] 5/81, 31.2 task/s, elapsed: 0s, ETA:     2s[>>                               ] 6/81, 31.6 task/s, elapsed: 0s, ETA:     2s[>>                               ] 7/81, 33.1 task/s, elapsed: 0s, ETA:     2s[>>>                              ] 8/81, 34.0 task/s, elapsed: 0s, ETA:     2s[>>>                              ] 9/81, 33.9 task/s, elapsed: 0s, ETA:     2s[>>>                             ] 10/81, 34.5 task/s, elapsed: 0s, ETA:     2s[>>>>                            ] 11/81, 35.4 task/s, elapsed: 0s, ETA:     2s[>>>>                            ] 12/81, 35.8 task/s, elapsed: 0s, ETA:     2s[>>>>>                           ] 13/81, 35.5 task/s, elapsed: 0s, ETA:     2s[>>>>>                           ] 14/81, 35.8 task/s, elapsed: 0s, ETA:     2s[>>>>>                           ] 15/81, 36.6 task/s, elapsed: 0s, ETA:     2s[>>>>>>                          ] 16/81, 36.7 task/s, elapsed: 0s, ETA:     2s[>>>>>>                          ] 17/81, 36.7 task/s, elapsed: 0s, ETA:     2s[>>>>>>>                         ] 18/81, 37.7 task/s, elapsed: 0s, ETA:     2s[>>>>>>>                         ] 19/81, 37.6 task/s, elapsed: 1s, ETA:     2s[>>>>>>>                         ] 20/81, 37.9 task/s, elapsed: 1s, ETA:     2s[>>>>>>>>                        ] 21/81, 38.4 task/s, elapsed: 1s, ETA:     2s[>>>>>>>>                        ] 22/81, 38.7 task/s, elapsed: 1s, ETA:     2s[>>>>>>>>>                       ] 23/81, 39.1 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>                       ] 24/81, 39.2 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>                       ] 25/81, 39.3 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>                      ] 26/81, 39.4 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>                      ] 27/81, 40.4 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>                     ] 28/81, 40.2 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>                     ] 29/81, 40.7 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>                     ] 30/81, 40.8 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>                    ] 31/81, 41.1 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>                    ] 32/81, 41.6 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>                   ] 33/81, 41.5 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>                   ] 34/81, 41.9 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>                   ] 35/81, 41.5 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>                  ] 36/81, 41.4 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>                  ] 37/81, 41.4 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>                 ] 38/81, 41.1 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>                 ] 39/81, 40.7 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>                 ] 40/81, 40.5 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>                ] 41/81, 40.2 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>                ] 42/81, 40.2 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>                ] 43/81, 40.6 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>>               ] 44/81, 41.1 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>>               ] 45/81, 41.5 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>>>              ] 46/81, 41.7 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>>>              ] 47/81, 41.9 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>>>              ] 48/81, 42.6 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>>>>             ] 49/81, 42.8 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>>>>             ] 50/81, 43.0 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>>>>>            ] 51/81, 43.3 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>>>>>            ] 52/81, 43.9 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>>>>>            ] 53/81, 44.0 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>>>>>>           ] 54/81, 44.2 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>>>>>>           ] 55/81, 44.4 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>>>>>>>          ] 56/81, 44.7 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>>>>>>>          ] 57/81, 44.9 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>>>>>>>          ] 58/81, 45.4 task/s, elapsed: 1s, ETA:     1s[>>>>>>>>>>>>>>>>>>>>>>>         ] 59/81, 45.6 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>         ] 60/81, 45.8 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>        ] 61/81, 45.7 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>        ] 62/81, 45.8 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>        ] 63/81, 45.9 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>       ] 64/81, 46.0 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>       ] 65/81, 46.1 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>      ] 66/81, 46.4 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>      ] 67/81, 46.4 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>      ] 68/81, 46.4 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>     ] 69/81, 46.5 task/s, elapsed: 1s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>     ] 70/81, 46.5 task/s, elapsed: 2s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 71/81, 46.5 task/s, elapsed: 2s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 72/81, 46.4 task/s, elapsed: 2s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>>    ] 73/81, 46.6 task/s, elapsed: 2s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 74/81, 46.7 task/s, elapsed: 2s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   ] 75/81, 46.8 task/s, elapsed: 2s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 76/81, 46.8 task/s, elapsed: 2s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 77/81, 46.9 task/s, elapsed: 2s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ] 78/81, 47.1 task/s, elapsed: 2s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 79/81, 47.3 task/s, elapsed: 2s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ] 80/81, 47.5 task/s, elapsed: 2s, ETA:     0s[>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>] 81/81, 47.6 task/s, elapsed: 2s, ETA:     0s
+Results writes to D:\code\autodrive\stage03\tmp\tmpak38hmkw\results\pred_instances_3d\results_nusc.json
+Evaluating bboxes of pred_instances_3d
+  0%|          | 0/81 [00:00<?, ?it/s]100%|██████████| 81/81 [00:00<00:00, 807.65it/s]                                                mAP: 0.0623
+mATE: 0.8555
+mASE: 0.6834
+mAOE: 0.9513
+mAVE: 1.3836
+mAAE: 0.6324
+NDS: 0.1189
+Eval time: 1.1s
+
+Per-class results:
+Object Class        	AP    	ATE   	ASE   	AOE   	AVE   	AAE   
+car                 	0.234 	0.496 	0.218 	0.952 	0.479 	0.195 
+truck               	0.000 	0.582 	0.354 	0.468 	0.886 	0.242 
+bus                 	0.388 	0.709 	0.215 	0.630 	4.437 	0.449 
+trailer             	0.000 	1.000 	1.000 	1.000 	1.000 	1.000 
+construction_vehicle	0.000 	1.000 	1.000 	1.000 	1.000 	1.000 
+pedestrian          	0.001 	0.761 	0.340 	1.512 	1.267 	0.172 
+motorcycle          	0.000 	1.000 	1.000 	1.000 	1.000 	1.000 
+bicycle             	0.000 	1.000 	1.000 	1.000 	1.000 	1.000 
+traffic_cone        	0.000 	1.008 	0.707 	nan   	nan   	nan   
+barrier             	0.000 	1.000 	1.000 	1.000 	nan   	nan   
+10/13 20:02:29 - mmengine - INFO - Epoch(val) [5][81/81]    NuScenes metric/pred_instances_3d_NuScenes/car_AP_dist_0.5: 0.0879  NuScenes metric/pred_instances_3d_NuScenes/car_AP_dist_1.0: 0.2066  NuScenes metric/pred_instances_3d_NuScenes/car_AP_dist_2.0: 0.2991  NuScenes metric/pred_instances_3d_NuScenes/car_AP_dist_4.0: 0.3432  NuScenes metric/pred_instances_3d_NuScenes/car_trans_err: 0.4960  NuScenes metric/pred_instances_3d_NuScenes/car_scale_err: 0.2179  NuScenes metric/pred_instances_3d_NuScenes/car_orient_err: 0.9519  NuScenes metric/pred_instances_3d_NuScenes/car_vel_err: 0.4789  NuScenes metric/pred_instances_3d_NuScenes/car_attr_err: 0.1953  NuScenes metric/pred_instances_3d_NuScenes/mATE: 0.8555  NuScenes metric/pred_instances_3d_NuScenes/mASE: 0.6834  NuScenes metric/pred_instances_3d_NuScenes/mAOE: 0.9513  NuScenes metric/pred_instances_3d_NuScenes/mAVE: 1.3836  NuScenes metric/pred_instances_3d_NuScenes/mAAE: 0.6324  NuScenes metric/pred_instances_3d_NuScenes/truck_AP_dist_0.5: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/truck_AP_dist_1.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/truck_AP_dist_2.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/truck_AP_dist_4.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/truck_trans_err: 0.5816  NuScenes metric/pred_instances_3d_NuScenes/truck_scale_err: 0.3541  NuScenes metric/pred_instances_3d_NuScenes/truck_orient_err: 0.4685  NuScenes metric/pred_instances_3d_NuScenes/truck_vel_err: 0.8861  NuScenes metric/pred_instances_3d_NuScenes/truck_attr_err: 0.2421  NuScenes metric/pred_instances_3d_NuScenes/trailer_AP_dist_0.5: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/trailer_AP_dist_1.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/trailer_AP_dist_2.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/trailer_AP_dist_4.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/trailer_trans_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/trailer_scale_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/trailer_orient_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/trailer_vel_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/trailer_attr_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/bus_AP_dist_0.5: 0.0268  NuScenes metric/pred_instances_3d_NuScenes/bus_AP_dist_1.0: 0.2993  NuScenes metric/pred_instances_3d_NuScenes/bus_AP_dist_2.0: 0.5979  NuScenes metric/pred_instances_3d_NuScenes/bus_AP_dist_4.0: 0.6265  NuScenes metric/pred_instances_3d_NuScenes/bus_trans_err: 0.7090  NuScenes metric/pred_instances_3d_NuScenes/bus_scale_err: 0.2149  NuScenes metric/pred_instances_3d_NuScenes/bus_orient_err: 0.6298  NuScenes metric/pred_instances_3d_NuScenes/bus_vel_err: 4.4368  NuScenes metric/pred_instances_3d_NuScenes/bus_attr_err: 0.4492  NuScenes metric/pred_instances_3d_NuScenes/construction_vehicle_AP_dist_0.5: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/construction_vehicle_AP_dist_1.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/construction_vehicle_AP_dist_2.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/construction_vehicle_AP_dist_4.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/construction_vehicle_trans_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/construction_vehicle_scale_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/construction_vehicle_orient_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/construction_vehicle_vel_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/construction_vehicle_attr_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/bicycle_AP_dist_0.5: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/bicycle_AP_dist_1.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/bicycle_AP_dist_2.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/bicycle_AP_dist_4.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/bicycle_trans_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/bicycle_scale_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/bicycle_orient_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/bicycle_vel_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/bicycle_attr_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/motorcycle_AP_dist_0.5: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/motorcycle_AP_dist_1.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/motorcycle_AP_dist_2.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/motorcycle_AP_dist_4.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/motorcycle_trans_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/motorcycle_scale_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/motorcycle_orient_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/motorcycle_vel_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/motorcycle_attr_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/pedestrian_AP_dist_0.5: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/pedestrian_AP_dist_1.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/pedestrian_AP_dist_2.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/pedestrian_AP_dist_4.0: 0.0047  NuScenes metric/pred_instances_3d_NuScenes/pedestrian_trans_err: 0.7609  NuScenes metric/pred_instances_3d_NuScenes/pedestrian_scale_err: 0.3399  NuScenes metric/pred_instances_3d_NuScenes/pedestrian_orient_err: 1.5119  NuScenes metric/pred_instances_3d_NuScenes/pedestrian_vel_err: 1.2671  NuScenes metric/pred_instances_3d_NuScenes/pedestrian_attr_err: 0.1723  NuScenes metric/pred_instances_3d_NuScenes/traffic_cone_AP_dist_0.5: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/traffic_cone_AP_dist_1.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/traffic_cone_AP_dist_2.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/traffic_cone_AP_dist_4.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/traffic_cone_trans_err: 1.0078  NuScenes metric/pred_instances_3d_NuScenes/traffic_cone_scale_err: 0.7070  NuScenes metric/pred_instances_3d_NuScenes/traffic_cone_orient_err: nan  NuScenes metric/pred_instances_3d_NuScenes/traffic_cone_vel_err: nan  NuScenes metric/pred_instances_3d_NuScenes/traffic_cone_attr_err: nan  NuScenes metric/pred_instances_3d_NuScenes/barrier_AP_dist_0.5: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/barrier_AP_dist_1.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/barrier_AP_dist_2.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/barrier_AP_dist_4.0: 0.0000  NuScenes metric/pred_instances_3d_NuScenes/barrier_trans_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/barrier_scale_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/barrier_orient_err: 1.0000  NuScenes metric/pred_instances_3d_NuScenes/barrier_vel_err: nan  NuScenes metric/pred_instances_3d_NuScenes/barrier_attr_err: nan  NuScenes metric/pred_instances_3d_NuScenes/NDS: 0.1189  NuScenes metric/pred_instances_3d_NuScenes/mAP: 0.0623  data_time: 0.0035  time: 0.0405
+10/13 20:02:29 - mmengine - INFO - AUDIT: PARAMETERS_UPDATED; changed=6; max_change=8.097e-02
+TRAIN_OK PARAMETERS_UPDATED
+audit=D:\code\autodrive\stage03\outputs\run5_compact\training_audit.json

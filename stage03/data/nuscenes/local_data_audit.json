@@ -1,0 +1,9 @@
+{
+  "metadata_source": "D:\\code\\autodrive\\stage02\\PETR\\v1.0-mini\\v1.0-mini",
+  "lidar_archive": "D:\\code\\autodrive\\nuscenes\\nuscenes\\samples\\LIDAR_TOP.tar",
+  "dataset_version": "v1.0-mini",
+  "keyframes": 404,
+  "sweeps_extracted": 0,
+  "raw_storage_dimensions": 5,
+  "model_input_dimensions": 4
+}

@@ -1,0 +1,8 @@
+{
+  "status": "CUDA_OPS_OK",
+  "voxel_count": 2,
+  "nms_keep": 1,
+  "torch": "2.0.1+cu118",
+  "cuda": "11.8",
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU"
+}

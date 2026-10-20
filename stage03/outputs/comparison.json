@@ -1,0 +1,51 @@
+{
+  "configuration": "single keyframe; x/y range [-25,25] m; batch=1; AMP; head-only",
+  "split": "nuScenes v1.0-mini: train=323 keyframes, validation=81 keyframes, overlap=0",
+  "baseline": {
+    "NDS": 0.026859634732443866,
+    "mAP": 6.145001388378578e-05,
+    "metrics_file": "outputs\\baseline_compact_bev\\metrics_summary.json"
+  },
+  "finetuned_5_epoch": {
+    "NDS": 0.11889101418762645,
+    "mAP": 0.06230165937510422,
+    "metrics_file": "outputs\\finetuned_compact\\metrics_summary.json"
+  },
+  "run1_audit": {
+    "validation_status": "PARAMETERS_UPDATED",
+    "trainable_scope": "pts_bbox_head only",
+    "changed_parameter_tensors": 6,
+    "total_trainable_parameter_tensors": 6,
+    "gradient_parameter_tensors": 6,
+    "gradient_events": 1938,
+    "nonfinite_scaled_gradient_events": 2,
+    "max_abs_gradient": 65184.0,
+    "max_abs_parameter_change": 0.021873876452445984,
+    "all_trainable_parameters_finite": true,
+    "wall_seconds": 20.499,
+    "peak_gpu_allocated_bytes": 489917440,
+    "peak_gpu_reserved_bytes": 2491416576,
+    "last_loss": 2.8404555320739746
+  },
+  "run5_audit": {
+    "validation_status": "PARAMETERS_UPDATED",
+    "trainable_scope": "pts_bbox_head only",
+    "changed_parameter_tensors": 6,
+    "total_trainable_parameter_tensors": 6,
+    "gradient_parameter_tensors": 6,
+    "gradient_events": 7752,
+    "nonfinite_scaled_gradient_events": 1,
+    "max_abs_gradient": 57504.0,
+    "max_abs_parameter_change": 0.0809672474861145,
+    "all_trainable_parameters_finite": true,
+    "wall_seconds": 56.393,
+    "peak_gpu_allocated_bytes": 489920512,
+    "peak_gpu_reserved_bytes": 2499805184,
+    "last_loss": 2.6194851398468018
+  },
+  "caveat": "This is a tiny mini split and a teaching-range model, not a full nuScenes benchmark. The validation set was never used for gradient updates, but it is used for model selection/reporting.",
+  "delta": {
+    "NDS": 0.092,
+    "mAP": 0.0622
+  }
+}

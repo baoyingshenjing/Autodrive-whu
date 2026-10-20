@@ -1,0 +1,7 @@
+PREPROCESS_OK
+dataset=v1.0-mini keyframes=404 raw_sweeps=0
+train=323 val=81 overlap=0
+input_mode=single_keyframe_xyz_intensity; LoadPointsFromMultiSweeps is absent
+wrote=D:\code\autodrive\stage03\data_infos\train.pkl
+      D:\code\autodrive\stage03\data_infos\val.pkl
+      D:\code\autodrive\stage03\data_infos\manifest.json

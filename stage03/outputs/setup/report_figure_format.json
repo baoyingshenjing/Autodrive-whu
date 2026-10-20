@@ -1,0 +1,46 @@
+[
+  {
+    "run": "baseline_compact_bev",
+    "folder": "visualizations",
+    "threshold": 0.1,
+    "detections": [
+      162,
+      144,
+      111
+    ],
+    "text_color": "black"
+  },
+  {
+    "run": "finetuned_compact",
+    "folder": "visualizations",
+    "threshold": 0.1,
+    "detections": [
+      51,
+      45,
+      77
+    ],
+    "text_color": "black"
+  },
+  {
+    "run": "finetuned_compact",
+    "folder": "visualizations_thr010",
+    "threshold": 0.1,
+    "detections": [
+      51,
+      45,
+      77
+    ],
+    "text_color": "black"
+  },
+  {
+    "run": "finetuned_compact",
+    "folder": "visualizations_thr030",
+    "threshold": 0.3,
+    "detections": [
+      2,
+      4,
+      4
+    ],
+    "text_color": "black"
+  }
+]

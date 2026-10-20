@@ -1,0 +1,26 @@
+{
+  "rendered": [
+    {
+      "file": "D:\\code\\autodrive\\stage03\\outputs\\baseline_compact_bev\\visualizations\\bev_01.png",
+      "source_lidar": "D:\\code\\autodrive\\stage03\\data\\nuscenes\\samples\\LIDAR_TOP\\n008-2018-08-01-15-16-36-0400__LIDAR_TOP__1533151603547590.pcd.bin",
+      "detections": 162,
+      "sample_index": 0,
+      "score_threshold": 0.1
+    },
+    {
+      "file": "D:\\code\\autodrive\\stage03\\outputs\\baseline_compact_bev\\visualizations\\bev_02.png",
+      "source_lidar": "D:\\code\\autodrive\\stage03\\data\\nuscenes\\samples\\LIDAR_TOP\\n008-2018-08-01-15-16-36-0400__LIDAR_TOP__1533151604048025.pcd.bin",
+      "detections": 144,
+      "sample_index": 1,
+      "score_threshold": 0.1
+    },
+    {
+      "file": "D:\\code\\autodrive\\stage03\\outputs\\baseline_compact_bev\\visualizations\\bev_03.png",
+      "source_lidar": "D:\\code\\autodrive\\stage03\\data\\nuscenes\\samples\\LIDAR_TOP\\n008-2018-08-01-15-16-36-0400__LIDAR_TOP__1533151604547893.pcd.bin",
+      "detections": 111,
+      "sample_index": 2,
+      "score_threshold": 0.1
+    }
+  ],
+  "score_threshold": 0.1
+}

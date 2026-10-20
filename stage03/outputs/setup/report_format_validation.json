@@ -1,0 +1,20 @@
+{
+  "status": "REPORT_FORMAT_OK",
+  "pages": 14,
+  "text_characters_checked": 10225,
+  "text_colors": [
+    "(0.0,)"
+  ],
+  "fonts": [
+    "DTQSCH+SimSun",
+    "IRQUGZ+LMRoman12-Bold",
+    "KONLXK+LMRoman12-Regular",
+    "KOOBRH+LMMono9-Regular",
+    "MIUVPK+LMRoman10-Bold",
+    "QVIUWV+SimHei",
+    "VJKBIL+LMRoman10-Regular"
+  ],
+  "original_results_and_weights_unchanged": true,
+  "experiment_date": "2026-10-13",
+  "format_date": "2026-10-20"
+}

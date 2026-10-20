@@ -1,0 +1,10 @@
+{
+  "outputs/comparison.json": "c13a617a24072d3b06d04fddc1bffc4bb1090cb6a782bf22c665be0742f0e395",
+  "outputs/final_validation.json": "e4f3f90e0ae9b03b67a851baec051a029046165c9c28087e75e5197292ea58d3",
+  "outputs/run1_compact/epoch_1.pth": "290d0b0f36c38c5721a0bf20f0c828bd7229ffe22dda14d09d48a2bfae6f61c3",
+  "outputs/run5_compact/epoch_5.pth": "ff5e265009a1f482b5ff8ba68964b6bac7344824e99f7c93f462e8e7d30dce78",
+  "outputs/setup/run1_console.log": "b3991bdaf7b1c5965ac2e46255984c6d4161c0aee62e7353c20759fe4960821e",
+  "outputs/setup/run5_console.log": "1b1b0a9f48b6984c681a18613ce46559a4bf559b8113a70360ac05312a8f78eb",
+  "outputs/baseline_compact_bev/predictions.pkl": "47f436c72e4017b240f2f6a009c46a4a6a485cbebc70cee5cf5ad77df3da6caf",
+  "outputs/finetuned_compact/predictions.pkl": "0e5d6a0c996373b6e567d4e3def5766f6ddc07318827561a9e321bfe3f43c768"
+}

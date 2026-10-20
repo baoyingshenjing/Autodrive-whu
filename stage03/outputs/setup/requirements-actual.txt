@@ -1,0 +1,137 @@
+absl-py==2.3.1
+addict==2.4.0
+annotated-types==0.7.0
+asttokens==3.0.2
+attrs==26.1.0
+black==25.11.0
+blinker==1.9.0
+cachetools==6.2.6
+certifi==2026.7.22
+cffi==2.0.0
+charset-normalizer==3.5.2
+click==8.1.8
+colorama==0.4.6
+comm==0.2.3
+ConfigArgParse==1.8.0
+cryptography==50.0.2
+cycler==0.12.1
+dash==4.4.1
+decorator==5.3.1
+descartes==1.1.0
+exceptiongroup==1.3.1
+executing==2.3.0
+fastjsonschema==2.21.2
+filelock==3.19.1
+fire==0.7.1
+flake8==7.3.0
+Flask==3.1.3
+fonttools==4.60.2
+google-auth @ file:///D:/code/autodrive/stage03/downloads/google_auth-2.50.0-py3-none-any.whl#sha256=04382175e28b94f49694977f0a792688b59a668def1499e9d8de996dc9ce5b15
+google-auth-oauthlib @ file:///D:/code/autodrive/stage03/downloads/google_auth_oauthlib-1.0.0-py2.py3-none-any.whl#sha256=95880ca704928c300f48194d1770cf5b1462835b6e49db61445a520f793fd5fb
+grpcio==1.80.0
+idna==3.20
+ImageIO==2.37.2
+importlib_metadata==8.7.1
+iniconfig==2.1.0
+ipython==8.18.1
+ipywidgets==8.1.9
+itsdangerous==2.2.0
+janus==2.0.0
+jedi==0.19.2
+Jinja2==3.1.6
+joblib==1.5.3
+jsonschema==4.25.1
+jsonschema-specifications==2025.9.1
+jupyter_core==5.8.1
+jupyterlab_widgets==3.0.17
+kiwisolver==1.4.7
+lazy-loader==0.6
+llvmlite==0.43.0
+lyft-dataset-sdk==0.0.8
+Markdown==3.9
+markdown-it-py==3.0.0
+MarkupSafe==3.0.4
+matplotlib @ file:///D:/code/autodrive/stage03/downloads/matplotlib-3.5.3-cp39-cp39-win_amd64.whl#sha256=ab8d26f07fe64f6f6736d635cce7bfd7f625320490ed5bfc347f2cdb4fae0e56
+matplotlib-inline==0.2.2
+mccabe==0.7.0
+mdurl==0.1.2
+mmcv @ file:///D:/code/autodrive/stage03/downloads/mmcv-2.1.0-cp39-cp39-win_amd64.whl#sha256=a550deb8943a079501a2dbb8a4493d59707bca28393e1ef446c4b652644b905c
+mmdet @ file:///D:/code/autodrive/stage03/downloads/mmdet-3.2.0-py3-none-any.whl#sha256=c64a63fcc93b3c96236964745b4e5515fd0e87ffaf21130816870242c12e59a5
+mmdet3d==1.4.0
+mmengine @ file:///D:/code/autodrive/stage03/downloads/mmengine-0.10.7-py3-none-any.whl#sha256=262ac976a925562f78cd5fd14dd1bc9b680ed0aa81f0d85b723ef782f99c54ee
+mpmath==1.3.0
+mypy_extensions==1.1.0
+narwhals==2.21.0
+nbformat==5.10.4
+nest-asyncio==1.6.0
+networkx==3.2.1
+numba @ file:///D:/code/autodrive/stage03/downloads/numba-0.60.0-cp39-cp39-win_amd64.whl#sha256=3031547a015710140e8c87226b4cfe927cac199835e5bf7d4fe5cb64e814e3ab
+numpy @ file:///D:/code/autodrive/stage03/downloads/numpy-1.24.4-cp39-cp39-win_amd64.whl#sha256=befe2bf740fd8373cf56149a5c23a0f601e82869598d41f8e188a0e9869926f8
+nuscenes-devkit @ file:///D:/code/autodrive/stage03/downloads/nuscenes_devkit-1.1.11-py3-none-any.whl#sha256=f8ab21957b86590bdb23931de70d569dc0184142e5a4c83ec22a3493e99640d6
+oauthlib==4.0.0
+open3d @ file:///D:/code/autodrive/stage03/downloads/open3d-0.18.0-cp39-cp39-win_amd64.whl#sha256=41be2d652f1b9feed9efb8775b29368ece0b4328ba6e90278486ff7643c6d480
+opencv-python @ file:///D:/code/autodrive/stage03/downloads/opencv_python-4.8.1.78-cp37-abi3-win_amd64.whl#sha256=b983197f97cfa6fcb74e1da1802c7497a6f94ed561aba6980f1f33123f904956
+packaging==26.3
+pandas==2.3.3
+parso==0.8.7
+pathspec==1.1.1
+pillow==11.3.0
+platformdirs==4.4.0
+plotly==7.1.0
+pluggy==1.6.0
+plyfile @ file:///D:/code/autodrive/stage03/downloads/plyfile-1.1.3-py3-none-any.whl#sha256=581302f07b1c298431dcaa9038bba2ae80f3f7868b29ccb826a07bc4488ff38a
+prompt_toolkit==3.0.52
+protobuf==6.33.6
+pure_eval==0.2.4
+pyasn1==0.6.4
+pyasn1_modules==0.4.2
+pycocotools==2.0.11
+pycodestyle==2.14.0
+pycparser==2.23
+pydantic==2.13.5
+pydantic_core==2.46.5
+pyflakes==3.4.0
+Pygments==2.21.0
+pyparsing==3.3.3
+pyquaternion==0.9.9
+pytest==8.4.2
+python-dateutil==2.9.0.post0
+pytokens==0.4.1
+pytz==2026.5
+pywin32==312
+PyYAML==6.0.3
+referencing==0.36.2
+regex==2026.1.15
+requests==2.32.5
+requests-oauthlib==2.0.0
+retrying==1.4.2
+rich==15.0.0
+rpds-py==0.27.1
+scikit-image @ file:///D:/code/autodrive/stage03/downloads/scikit_image-0.24.0-cp39-cp39-win_amd64.whl#sha256=56dab751d20b25d5d3985e95c9b4e975f55573554bd76b0aedf5875217c93e69
+scikit-learn==1.6.1
+scipy @ file:///D:/code/autodrive/stage03/downloads/scipy-1.13.1-cp39-cp39-win_amd64.whl#sha256=392e4ec766654852c25ebad4f64e4e584cf19820b980bc04960bca0b0cd6eaa2
+Shapely==1.8.5.post1
+six==1.17.0
+stack-data==0.6.3
+sympy==1.14.0
+tensorboard @ file:///D:/code/autodrive/stage03/downloads/tensorboard-2.14.0-py3-none-any.whl#sha256=3667f9745d99280836ad673022362c840f60ed8fefd5a3e30bf071f5a8fd0017
+tensorboard-data-server==0.7.2
+termcolor==3.1.0
+terminaltables==3.1.10
+threadpoolctl==3.7.0
+tifffile==2024.8.30
+tomli==2.5.0
+torch @ file:///D:/code/autodrive/stage03/downloads/torch-2.0.1%2Bcu118-cp39-cp39-win_amd64.whl#sha256=fa225b6f941ee0e78978ac85ed7744d3c19fff462473821f8060c14faa60043e
+torchvision @ file:///D:/code/autodrive/stage03/downloads/torchvision-0.15.2%2Bcu118-cp39-cp39-win_amd64.whl#sha256=27be62ec887ab9a7b86612eac55ba80f8c23978c8afd5e4339669a1bbc4925ea
+tqdm==4.70.1
+traitlets==5.15.1
+trimesh @ file:///D:/code/autodrive/stage03/downloads/trimesh-4.4.9-py3-none-any.whl#sha256=386ddbbb13502e9669deb0a91ea1140d3da1d65326e402c0a16cb737d8c3c704
+typing-inspection==0.4.2
+typing_extensions==4.16.0
+tzdata==2026.5
+urllib3==2.6.3
+wcwidth==0.9.2
+Werkzeug==3.1.9
+widgetsnbextension==4.0.16
+yapf @ file:///D:/code/autodrive/stage03/downloads/yapf-0.40.1-py3-none-any.whl#sha256=b8bfc1f280949153e795181768ca14ef43d7312629a06c43e7abd279323af313
+zipp==3.23.1
