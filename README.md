@@ -1,14 +1,15 @@
 # 武汉大学自动驾驶技术课程实验
 
-当前分支：`experiment-3`。
+当前分支：`experiment-4`。
 
 | 实验 | 内容 | 入口 |
 |---|---|---|
 | 实验一 | nuScenes 多传感器处理与 YOLO 检测 | [原实验说明](#实验一boston-seaport-多传感器数据处理与-yolo-目标检测) |
 | 实验二 | PETR 多视图三维目标检测 | [stage02/README.md](stage02/README.md) |
 | 实验三 | PointPillars LiDAR 三维目标检测 | [stage03/README.md](stage03/README.md) |
+| 实验四 | 端到端行为克隆 | [stage04/README.md](stage04/README.md) |
 
-实验三提供最终黑色字体报告、可编辑源稿、训练 Log、Loss 曲线、验证结果、BEV 图和最终模型，详见上方入口。
+实验四提供最终增图版报告、LaTeX 源码、训练与评估代码、30 轮记录、曲线、最佳模型及合成通信测试结果。真实模拟器闭环尚未完成，具体指标和限制见实验四入口。
 
 ## 实验一：Boston Seaport 多传感器数据处理与 YOLO 目标检测
 

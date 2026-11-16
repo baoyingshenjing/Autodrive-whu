@@ -1,0 +1,5 @@
+python-socketio==4.6.0
+python-engineio==3.13.2
+eventlet==0.33.3
+Flask==2.2.5
+Werkzeug==2.2.3

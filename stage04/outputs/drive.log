@@ -1,0 +1,19 @@
+NOT RECORDING THIS RUN ...
+(13904) wsgi starting up on http://0.0.0.0:4567
+(13904) accepted ('127.0.0.1', 5748)
+connect  097c8cab65f84136b23f0ee6af94e974
+127.0.0.1 - - [09/Nov/2026 19:42:59] "GET /socket.io/?transport=polling&EIO=3&t=1794224579.4689896 HTTP/1.1" 200 424 0.000000
+127.0.0.1 - - [09/Nov/2026 19:42:59] "POST /socket.io/?transport=polling&EIO=3&sid=097c8cab65f84136b23f0ee6af94e974 HTTP/1.1" 200 167 0.000000
+(13904) accepted ('127.0.0.1', 5749)
+127.0.0.1 - - [09/Nov/2026 19:42:59] "GET /socket.io/?transport=polling&EIO=3&sid=097c8cab65f84136b23f0ee6af94e974&t=1794224579.4803982 HTTP/1.1" 200 183 0.000000
+(13904) accepted ('127.0.0.1', 5755)
+connect  9fa926440ab544e8ad98e0eefa5f7ae0
+127.0.0.1 - - [09/Nov/2026 19:43:06] "GET /socket.io/?transport=polling&EIO=3&t=1794224586.7104974 HTTP/1.1" 200 424 0.000000
+127.0.0.1 - - [09/Nov/2026 19:43:06] "POST /socket.io/?transport=polling&EIO=3&sid=9fa926440ab544e8ad98e0eefa5f7ae0 HTTP/1.1" 200 167 0.000613
+(13904) accepted ('127.0.0.1', 5756)
+127.0.0.1 - - [09/Nov/2026 19:43:06] "GET /socket.io/?transport=polling&EIO=3&sid=9fa926440ab544e8ad98e0eefa5f7ae0&t=1794224586.7179668 HTTP/1.1" 200 183 0.000000
+Steering angle: 0.005774606019258499 | Throttle: 0.9499666539253222 | Speed: 5.0
+127.0.0.1 - - [09/Nov/2026 19:43:06] "GET /socket.io/?transport=polling&EIO=3&sid=9fa926440ab544e8ad98e0eefa5f7ae0&t=1794224586.7198863 HTTP/1.1" 200 260 0.000000
+127.0.0.1 - - [09/Nov/2026 19:43:06] "POST /socket.io/?transport=polling&EIO=3&sid=9fa926440ab544e8ad98e0eefa5f7ae0 HTTP/1.1" 200 167 0.022224
+127.0.0.1 - - [09/Nov/2026 19:43:06] "POST /socket.io/?transport=polling&EIO=3&sid=9fa926440ab544e8ad98e0eefa5f7ae0 HTTP/1.1" 200 167 0.000000
+127.0.0.1 - - [09/Nov/2026 19:43:06] "GET /socket.io/?transport=polling&EIO=3&sid=9fa926440ab544e8ad98e0eefa5f7ae0&t=1794224586.7421107 HTTP/1.1" 200 179 0.077254

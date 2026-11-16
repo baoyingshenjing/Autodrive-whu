@@ -1,0 +1,6 @@
+{"seed": 42, "rows": 32443, "train_rows": 25954, "val_rows": 6489, "train_views": 77862, "val_views": 6489, "batch_size": 64, "epochs": 5, "lr": 0.0001, "weight_decay": 1e-05, "validation": "center only, no augmentation; random split by record", "device": "NVIDIA GeForce RTX 4060 Laptop GPU", "torch": "2.0.1+cu118"}
+{"epoch": 1, "train_mse": 0.1847927705931298, "val_mse": 0.10601472854614258, "lr": 0.0001, "seconds": 162.6790008544922}
+{"epoch": 2, "train_mse": 0.15992522482200683, "val_mse": 0.09967956946762892, "lr": 0.0001, "seconds": 19.700422048568726}
+{"epoch": 3, "train_mse": 0.14965249187594612, "val_mse": 0.09190951456989083, "lr": 0.0001, "seconds": 22.31691074371338}
+{"epoch": 4, "train_mse": 0.14343259800671887, "val_mse": 0.09122016538657325, "lr": 0.0001, "seconds": 28.20003342628479}
+{"epoch": 5, "train_mse": 0.1381971728979021, "val_mse": 0.09183078338339692, "lr": 0.0001, "seconds": 30.333422660827637}

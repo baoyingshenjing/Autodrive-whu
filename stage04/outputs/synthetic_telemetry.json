@@ -1,0 +1,7 @@
+{
+  "test": "synthetic client, not simulator",
+  "response": {
+    "steering_angle": "0.005774606",
+    "throttle": "0.9499666539253222"
+  }
+}

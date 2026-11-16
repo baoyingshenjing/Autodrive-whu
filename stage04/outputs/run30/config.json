@@ -1,0 +1,15 @@
+{
+  "seed": 42,
+  "rows": 32443,
+  "train_rows": 25954,
+  "val_rows": 6489,
+  "train_views": 77862,
+  "val_views": 6489,
+  "batch_size": 64,
+  "epochs": 30,
+  "lr": 0.0001,
+  "weight_decay": 1e-05,
+  "validation": "center only, no augmentation; random split by record",
+  "device": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "torch": "2.0.1+cu118"
+}
