@@ -1,6 +1,6 @@
 # 武汉大学自动驾驶技术课程实验
 
-当前分支：`experiment-4`。
+当前分支：`final-report`。
 
 | 实验 | 内容 | 入口 |
 |---|---|---|
@@ -8,8 +8,9 @@
 | 实验二 | PETR 多视图三维目标检测 | [stage02/README.md](stage02/README.md) |
 | 实验三 | PointPillars LiDAR 三维目标检测 | [stage03/README.md](stage03/README.md) |
 | 实验四 | 端到端行为克隆 | [stage04/README.md](stage04/README.md) |
+| 结课报告 | 系统组成、感知实践与规划决策综合分析 | [final-report/README.md](final-report/README.md) |
 
-实验四提供最终增图版报告、LaTeX 源码、训练与评估代码、30 轮记录、曲线、最佳模型及合成通信测试结果。真实模拟器闭环尚未完成，具体指标和限制见实验四入口。
+完整结课报告提供最终 32 页 PDF、LaTeX 源码和全部必需配图；实验四提供最终报告、训练评估代码、模型与实际记录。各项成果与使用说明见上方入口。
 
 ## 实验一：Boston Seaport 多传感器数据处理与 YOLO 目标检测
 
