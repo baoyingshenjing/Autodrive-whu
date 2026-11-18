@@ -1,100 +1,37 @@
-# 武汉大学自动驾驶技术课程实验
+# 武汉大学自动驾驶技术课程成果
 
-当前分支：`final-report`。
+仓库统一保留 `final-report` 分支，集中保存四个阶段的最终成果及完整结课报告。
 
-| 实验 | 内容 | 入口 |
+| 阶段 | 内容与复现说明 | 最终报告 |
 |---|---|---|
-| 实验一 | nuScenes 多传感器处理与 YOLO 检测 | [原实验说明](#实验一boston-seaport-多传感器数据处理与-yolo-目标检测) |
-| 实验二 | PETR 多视图三维目标检测 | [stage02/README.md](stage02/README.md) |
-| 实验三 | PointPillars LiDAR 三维目标检测 | [stage03/README.md](stage03/README.md) |
-| 实验四 | 端到端行为克隆 | [stage04/README.md](stage04/README.md) |
-| 结课报告 | 系统组成、感知实践与规划决策综合分析 | [final-report/README.md](final-report/README.md) |
+| 实验一 | [nuScenes 多传感器处理与 YOLO](stage01/README.md) | [PDF](stage01/report/boston-seaport-yolo-report.pdf) · [LaTeX](stage01/report/boston-seaport-yolo-report.tex) |
+| 实验二 | [PETR 多相机三维目标检测](stage02/README.md) | [PDF](stage02/report/petr-mini-report.pdf) · [LaTeX](stage02/report/petr-mini-report.tex) |
+| 实验三 | [PointPillars LiDAR 三维目标检测](stage03/README.md) | [PDF](stage03/output/pdf/自动驾驶技术第三次实验报告_杜承敖_2024302112019.pdf) · [LaTeX](stage03/output/pdf/pointpillars-latex/main.tex) |
+| 实验四 | [端到端行为克隆](stage04/README.md) | [PDF](stage04/output/pdf/自动驾驶技术第四次实验报告_杜承敖_2024302112019_增图版.pdf) · [LaTeX](stage04/output/pdf/report.tex) |
+| 结课报告 | [系统组成、感知实践与规划决策综合分析](final-report/README.md) | [PDF](final-report/结课报告_目录修正版.pdf) · [LaTeX](final-report/结课报告_目录修正版.tex) |
 
-完整结课报告提供最终 32 页 PDF、LaTeX 源码和全部必需配图；实验四提供最终报告、训练评估代码、模型与实际记录。各项成果与使用说明见上方入口。
+## 文件范围
 
-## 实验一：Boston Seaport 多传感器数据处理与 YOLO 目标检测
+- 五份最终报告、对应 LaTeX 源码及全部编译必需配图。
+- 四个阶段的实际运行源码、环境依赖说明、核心训练日志、配置、Loss 曲线与最终评估结果。
+- YOLO 最佳模型、PETR 第 20 轮最终模型、PointPillars 公开基线与第 5 轮最终模型、行为克隆最佳模型。
+- 数据集、完整 Python 环境、模拟器安装包、提交 ZIP、旧版报告、排版预览、重复控制台转录及中间轮次模型不纳入当前版本。
 
-本仓库整理了自动驾驶技术课程中 Boston Seaport 场景的实验代码与脱敏结果记录。实验包含 nuScenes 元数据读取、Camera 与 LiDAR 数据显示、三维点投影到二维图像、YOLO 数据组织、YOLO11n 训练、独立 test 集评估及预测可视化。
+实验一的代码与记录沿用根目录 `source/`、`records/`；其报告、配图和最佳模型位于 `stage01/`。实验二至四分别位于 `stage02/`、`stage03/`、`stage04/`，结课报告位于 `final-report/`。
 
-[课程实验要求 PDF](docs/自动驾驶课程实践---数据集+YOLO.pdf)
+## 获取完整模型
 
-## 仓库结构
-
-```text
-docs/                 课程实验要求
-source/scripts/       devkit 证据图与预测拼图脚本
-source/yolo_workflow/ YOLO 训练、评估和可视化脚本
-records/              训练参数、20 轮日志和独立 test 结果
-```
-
-数据集、模型权重和完整训练输出体积较大，未包含在仓库中。`data/boston-seaport/` 表示本地转换后的 YOLO 数据目录；`runs/` 表示训练与评估输出目录。
-
-## 环境
-
-- Python 3.10
-- PyTorch 2.8.0 + CUDA 12.6
-- Ultralytics 8.4.152
-
-安装依赖：
+PETR 最终模型约 388 MB，使用 Git LFS 保存；其余选定模型直接存于 Git。先安装 Git LFS，再克隆本仓库：
 
 ```bash
-pip install -r source/requirements-devkit.txt
-pip install -r source/yolo_workflow/requirements-yolo.txt
+git lfs install
+git clone --branch final-report https://github.com/baoyingshenjing/Autodrive-whu.git
+cd Autodrive-whu
+git lfs pull
 ```
 
-## 数据准备
+[PETR 最终模型](stage02/PETR/outputs/run20/epoch_20.pth)需由 Git LFS 下载实际内容，普通源码 ZIP 不保证包含大文件本体。原始传感器数据和骨干初始化权重按各阶段复现说明从课程资料准备。
 
-YOLO 数据目录应包含 `data.yaml`，并按 `images/{train,val,test}` 与 `labels/{train,val,test}` 组织。当前实验使用 10 个类别，共有训练集 9,420 帧、验证集 1,402 帧、测试集 2,709 帧。
+## 结果口径
 
-本次课程材料中可用的原始传感器文件覆盖前视相机与顶部 LiDAR，因此 devkit 证据脚本完成了 Camera/LiDAR 的读取、坐标变换和叠加显示。元数据仍包含 Radar 通道定义，但缺少对应 Radar 原始 PCD 文件，未生成 Radar 实测叠加结果。
-
-## 运行方法
-
-以下命令在仓库根目录执行，其中 `<DATASET_ROOT>` 是包含 `data.yaml` 的本地数据目录，`<NUSCENES_ROOT>` 与 `<ASSET_ROOT>` 分别是 nuScenes 元数据目录和传感器文件目录。
-
-生成 devkit 数据读取及投影证据：
-
-```bash
-python source/scripts/build_devkit_evidence.py --dataroot <NUSCENES_ROOT> --asset-root <ASSET_ROOT> --output-dir runs/devkit
-```
-
-从预训练 YOLO11n 开始训练 20 轮：
-
-```bash
-python source/yolo_workflow/train.py --model weights/yolo11n.pt --dataset-root <DATASET_ROOT> --imgsz 640 --batch 8 --epochs 20 --device 0 --workers 4 --project runs/checkpoints --name boston_20ep
-```
-
-使用最优权重对独立 test 集评估：
-
-```bash
-python source/yolo_workflow/evaluate.py --model runs/checkpoints/boston_20ep/weights/best.pt --dataset-root <DATASET_ROOT> --splits test --imgsz 640 --batch 8 --device 0 --workers 4 --project runs/evaluation --name boston_test
-```
-
-抽取 12 张 test 图像生成预测结果：
-
-```bash
-python source/yolo_workflow/visualize.py --model runs/checkpoints/boston_20ep/weights/best.pt --dataset-root <DATASET_ROOT> --split test --max-images 12 --imgsz 640 --device 0 --workers 4 --project runs/visualization --name boston_test
-```
-
-生成预测拼图：
-
-```bash
-python source/scripts/build_prediction_montage.py runs/visualization/boston_test runs/visualization/boston_test_montage.jpg
-```
-
-## 实验结果
-
-模型为预训练 YOLO11n，输入尺寸为 640，batch size 为 8，训练 20 轮。使用 `best.pt` 在独立 test 集上的结果为：
-
-| Precision | Recall | mAP50 | mAP50-95 |
-| ---: | ---: | ---: | ---: |
-| 0.511 | 0.394 | 0.403 | 0.217 |
-
-详细训练参数与逐轮日志见 [`records/args.yaml`](records/args.yaml) 和 [`records/results.csv`](records/results.csv)，test 评估与 12 张预测记录见 `records/` 中的两个 JSON 文件。
-
-20 轮训练满足课程实验的最低训练要求，但不代表模型已经过充分调参或达到最优性能。
-
-## 实验二：PETR 多相机三维目标检测
-
-实验二源码、环境依赖、复现说明和实际训练评估记录位于 [`stage02/`](stage02/README.md)。完成 20 轮训练及 81 帧验证评估，详细指标与限制见复现说明。
-
+YOLO、PETR 与 PointPillars 的传感器、任务、训练规模和评价指标不同，不能直接按 mAP 数值横向排名。实验四已完成离线验证和合成通信检查，尚无真实模拟器赛道闭环成绩；结课报告保留这些限制。

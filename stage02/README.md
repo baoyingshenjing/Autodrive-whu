@@ -10,7 +10,11 @@
 - `records/`：本次真实训练日志、逐轮 Loss 汇总与曲线、实际运行配置、81 帧评估指标及三帧展示记录。
 - `README.md`：本复现说明。实验一内容保留在仓库原有目录。
 
-本分支不上传报告 PDF、提交包 ZIP、报告 Markdown/TeX、排版资源或编译产物，也不上传原始数据、模型权重、Conda 环境、缓存及大型逐框预测文件。数据和骨干预训练权重从课程资料另行准备。代码保留原始许可证，PETR 与 mmdetection3d 的 LICENSE 位于对应源码目录。
+当前统一分支 `final-report` 已补全[最终报告 PDF](report/petr-mini-report.pdf)、[LaTeX 源码](report/petr-mini-report.tex)、[编译必需配图](report/assets/)和[第 20 轮最终模型](PETR/outputs/run20/epoch_20.pth)。最终模型使用 Git LFS，需执行 `git lfs pull` 获取本体。
+
+原始数据、Conda 环境、安装缓存、逐轮中间模型、完整提交 ZIP 和大型逐框预测文件不入库。数据和骨干预训练权重从课程资料另行准备。代码保留原始许可证，PETR 与 mmdetection3d 的 LICENSE 位于对应源码目录。
+
+在 `stage02/report/` 连续执行三次 `xelatex -interaction=nonstopmode -halt-on-error petr-mini-report.tex` 可编译报告。源码仅将配图路径集中到 `assets/`，正文和最终 PDF 保持原样。
 
 ## 2. 目录关系
 
@@ -41,7 +45,7 @@ PETR/
 
 实际环境：Windows，Python 3.8.19，PyTorch 1.13.1+cu117，torchvision 0.14.1+cu117，mmcv-full 1.7.0，mmdet 2.28.2，mmsegmentation 0.30.0，CUDA runtime 11.7；本次 GPU 为 RTX 4060 Laptop，约 8 GB 显存。依赖清单及完整版本约束附在 environment/。
 
-克隆仓库并切换到 `experiment-2` 分支后，从 `stage02/PETR` 目录执行，例如：
+克隆仓库的默认 `final-report` 分支后，从 `stage02/PETR` 目录执行，例如：
 
 ```bat
 conda create -n petr-mini python=3.8.19

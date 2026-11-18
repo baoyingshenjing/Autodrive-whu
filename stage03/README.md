@@ -7,12 +7,12 @@
 
 ## GitHub 分支成果入口
 
-本分支在实验二分支基础上增加 `stage03/`，保留实验一、二已有文件。
+本目录位于统一的 `final-report` 分支，汇集实验三最终成果；四次实验与结课报告见仓库首页。
 
 - [正式实验报告 PDF](output/pdf/自动驾驶技术第三次实验报告_杜承敖_2024302112019.pdf)
 - [可编辑 Markdown 源稿](output/pdf/实验报告.md) 与 [LaTeX 源稿](output/pdf/pointpillars-latex/main.tex)
 - [累计五轮 Loss 曲线](outputs/loss_all_5epochs.png) 与 [微调前后指标](outputs/comparison.json)
-- [首轮训练 Log](outputs/setup/run1_console.log)、[续训 Log](outputs/setup/run5_console.log) 和 [验证 Log](outputs/setup/finetuned_console.log)
+- [首轮训练 Log](outputs/run1_compact/20261013_200051/20261013_200051.log)、[续训 Log](outputs/run5_compact/20261013_200128/20261013_200128.log) 和 [验证 Log](outputs/finetuned_compact/20261013_200240/20261013_200240.log)
 - [第五轮最终模型](outputs/run5_compact/epoch_5.pth) 与 [最终核验记录](outputs/final_validation.json)
 
 | 相同 81 帧 mini_val | NDS | mAP |
@@ -20,7 +20,7 @@
 | 公开权重基线 | 0.026860 | 0.000061 |
 | 累计五轮微调 | 0.118891 | 0.062302 |
 
-仓库包含可复现源码、教师提供的原版 MMDetection3D 源码、原始训练/验证记录、缓存预测、图表、报告及公开初始权重、首轮和第五轮模型。未上传原始传感器数据、原始 JSON 元数据、Python 环境、安装缓存和重复的完整提交 ZIP。`data_infos/` 的派生索引通过下面的数据准备命令重建。日志中的本机路径保留为真实运行记录，复现时按自己的目录传参。
+仓库包含可复现源码、教师提供的原版 MMDetection3D 源码、原始训练/验证记录、最终预测、图表、报告及公开初始权重和第五轮最终模型。未上传原始传感器数据、原始 JSON 元数据、Python 环境、安装缓存和重复的完整提交 ZIP。`data_infos/` 的派生索引通过下面的数据准备命令重建。日志中的本机路径保留为真实运行记录，复现时按自己的目录传参。
 
 若只阅读成果，无需配置训练环境或下载数据。完整 ZIP 提交包保留在本机 `output/submission/`；仓库中的报告、源码和选定模型均直接复制自最终成果。
 
@@ -88,7 +88,7 @@ python compare_results.py --baseline outputs/baseline_compact_bev --finetuned ou
 若流程被中断，可用 `python run_experiment.py --start-from 步骤名` 从未完成步骤继续；
 脚本拒绝覆盖已完成的首轮或第五轮检查点。本次基线完成后流程中断，后续使用
 `--start-from run1` 完成训练与评估；训练本身另按指导书从首轮检查点恢复至五轮。
-`summarize_results.py` 验证五轮检查点、1615 个损失点、81 帧预测 token 一致性，
+`summarize_results.py` 在完整复现后验证首轮与第五轮检查点、1615 个损失点、81 帧预测 token 一致性，
 并生成累计损失曲线和 `outputs/final_validation.json`。
 
 ## 结果与提交
@@ -96,8 +96,8 @@ python compare_results.py --baseline outputs/baseline_compact_bev --finetuned ou
 - `output/pdf/`：正式 PDF 报告和可编辑 Markdown 源稿。
 - `output/pdf/pointpillars-latex/`：沿用前两次报告版式的 LaTeX 源项目（main.tex 和 images/）。正文为宋体、标题为黑体，文档及图中文字统一为黑色。
 - 报告包含点云与图像的比较和互补、实际训练 Log / Loss / 验证结果、结合源码的 PointPillars 原理分析。
-- `outputs/run1_compact/`：首轮检查点、梯度及参数更新审计、损失图和训练日志。
-- `outputs/run5_compact/`：续训日志、审计、损失图和累计第五轮权重。
+- `outputs/run1_compact/`：首轮梯度及参数更新审计、Loss 记录和训练日志；首轮中间检查点不入库，按复现流程重新训练可生成。
+- `outputs/run5_compact/`：续训日志、审计、Loss 记录和累计第五轮最终权重。
 - `outputs/baseline_compact_bev/` 与 `outputs/finetuned_compact/`：完整验证指标、预测与 BEV 图。
 - `outputs/comparison.json`：微调前后指标；`outputs/setup/execution.json`：逐步命令与耗时。
 - `inspect_model.py` 在 eval 模式对固定验证帧 0 进行一次前向，不更新权重；`outputs/setup/model_shape_trace.json` 记录各层特征尺寸，作为报告代码理解部分的依据。
@@ -119,3 +119,7 @@ python compare_results.py --baseline outputs/baseline_compact_bev --finetuned ou
 - 教师已提供标准命名的权重和展开配置，因此直接校验现有文件，不使用要求另一套源文件名的复制脚本。
 
 第三方源码与权重保留原有许可及来源。本地压缩包内的数据、缓存和完整 Python 环境不属于提交内容。
+
+## 最终版本整理
+
+当前版本仅保留累计五轮 Loss 总图和实际训练记录；已移除排版检查 JSON、重复控制台转录、首轮中间模型与重复阈值图片。`final_validation.json` 保留原实验完成时的实际核验结果。若重新运行完整核验，请先按上述流程生成首轮检查点及数据索引；阈值 0.10 的图片见 `visualizations/`，原 `visualizations_thr010/` 仅保留必要统计 JSON，重绘脚本可重新生成图片。

@@ -24,3 +24,12 @@ PETR/outputs/setup/*
 *.fdb_latexmk
 *.synctex.gz
 !records/*.log
+
+# 最终报告、配图和最终检测模型
+!PETR实践指导文档.pdf
+!report/
+!report/*.pdf
+!report/*.tex
+!PETR/outputs/run20/
+PETR/outputs/run20/*
+!PETR/outputs/run20/epoch_20.pth

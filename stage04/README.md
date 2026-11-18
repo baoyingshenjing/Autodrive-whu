@@ -4,7 +4,7 @@
 
 ## GitHub 分支成果入口
 
-`experiment-4` 在 `experiment-3` 基础上增加本目录，保留实验一至三的已有成果。
+本目录位于统一的 `final-report` 分支，保留实验四的最终成果；四个阶段和结课报告的入口见仓库首页。
 
 - [最终增图版实验报告 PDF](output/pdf/自动驾驶技术第四次实验报告_杜承敖_2024302112019_增图版.pdf)
 - [LaTeX 源码](output/pdf/report.tex)及其 [配图](output/pdf/figures/)
