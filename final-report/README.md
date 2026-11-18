@@ -33,7 +33,7 @@ xelatex -interaction=nonstopmode -halt-on-error "结课报告_目录修正版.te
 
 源码已通过三轮 XeLaTeX 编译，并核对了目录页码及论文配图的引用编号。
 
-PDF SHA256：`c0844880f9d4ef7d4d97544c4a7c8daa91821fedb07d70a2d4b89ccf5a1c22e7`。
+PDF SHA256：`616ee108a4a9ac0fa53a49d69517d12696f5276014687631a75fec412c2447e7`。
 
 ## 实验成果
 

@@ -21,7 +21,14 @@
 \widowpenalty=10000\clubpenalty=10000
 \raggedbottom
 \setlength{\intextsep}{10pt plus 2pt minus 2pt}
-\DeclareRobustCommand{\figcite}[1]{\textsuperscript{\cite{#1}}}
+\makeatletter
+\DeclareRobustCommand{\figcite}[1]{%
+  \begingroup
+  \let\@cite\@firstoftwo
+  \raisebox{.95ex}{\scriptsize\cite{#1}}%
+  \endgroup
+}
+\makeatother
 \newcommand{\paperfig}[6]{\begin{figure}[H]\centering\includegraphics[width=#2\textwidth,height=#3cm,keepaspectratio]{assets/papers/#1.png}\caption{#4\figcite{#5}}\label{#6}\end{figure}}
 \begin{document}
 \begin{titlepage}\centering\vspace*{1.8cm}
