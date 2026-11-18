@@ -21,7 +21,8 @@
 \widowpenalty=10000\clubpenalty=10000
 \raggedbottom
 \setlength{\intextsep}{10pt plus 2pt minus 2pt}
-\newcommand{\paperfig}[6]{\begin{figure}[H]\centering\includegraphics[width=#2\textwidth,height=#3cm,keepaspectratio]{assets/papers/#1.png}\caption{#4~\cite{#5}}\label{#6}\end{figure}}
+\DeclareRobustCommand{\figcite}[1]{\textsuperscript{\cite{#1}}}
+\newcommand{\paperfig}[6]{\begin{figure}[H]\centering\includegraphics[width=#2\textwidth,height=#3cm,keepaspectratio]{assets/papers/#1.png}\caption{#4\figcite{#5}}\label{#6}\end{figure}}
 \begin{document}
 \begin{titlepage}\centering\vspace*{1.8cm}
 {\zihao{1}\heiti\bfseries 自动驾驶技术结课报告\par}\vspace{1.0cm}
@@ -37,7 +38,7 @@
 
 \noindent\textbf{关键词：}自动驾驶；nuScenes；环境感知；端到端驾驶；长尾场景；防御性驾驶
 
-\noindent\textbf{材料说明：}实验数值和实验图片依据四次课程报告与保存结果；个人观察仅限本人所述使用体会，延伸案例及改进实验均作为分析方案。论文检索截至 2026 年 11 月 16 日，预印本按相应版本引用，论文图片在图注中注明原图号和页码。
+\noindent\textbf{材料说明：}实验数值和实验图片依据四次课程报告与保存结果；个人观察仅限本人所述使用体会，延伸案例及改进实验均作为分析方案。论文检索截至 2026 年 11 月 16 日，预印本按相应版本引用，论文配图以图注末尾的上标数字对应参考文献。
 \section{自动驾驶系统组成与关键技术分析}
 \FloatBarrier
 \subsection{自动驾驶系统主要由哪些部分组成及其功能}
@@ -65,7 +66,7 @@
 \caption{模块化自动驾驶系统架构。规划与控制独立；定位与地图辅助感知和规划，车辆状态进入下一轮更新。虚线边框表示安全监测对全流程的约束。}\label{fig:system}\end{figure}
 图\ref{fig:system}中的箭头不仅传递目标框，还传递道路约束和车辆状态。例如定位使感知目标能与地图对齐，预测结果改变轨迹规划的安全空间，控制误差又影响下一次规划的初始条件。由此看，单模块准确率提高未必带来同等幅度的驾驶改进：若决策仍把检查点当作普通障碍物，感知框更准也可能只让绕行更顺畅。
 
-统一自动驾驶框架（Unified Autonomous Driving，UniAD）将感知、预测与规划组织在同一网络中，围绕驾驶规划协调中间任务\cite{uniad}。它提示我，模块划分可以帮助分析责任，但研究目标仍应落在最终驾驶行为上。课程前三次感知实验训练的检测器只覆盖其中一部分，第四次转向回归实验也不能替代完整闭环。
+感知、预测与规划可以围绕最终驾驶目标进行联合设计。我认为，模块划分有助于明确各部分的责任，系统评价还需要检验最终驾驶行为。课程前三次感知实验训练的检测器只覆盖其中一部分，第四次转向回归实验也不能替代完整闭环。
 
 \FloatBarrier
 \subsection{常用传感器及摄像头激光雷达毫米波雷达的特点和应用}
@@ -104,9 +105,9 @@ GNSS 提供全球位置参考，IMU 描述角速度和加速度，轮速计补�
 \FloatBarrier
 \subsection{nuScenes 数据集的基本组成及研究作用}
 \subsubsection{传感器场景标注与数据表}
-nuScenes 是包含波士顿和新加坡道路场景的多模态数据集，完整数据集包含 1000 段约 20 秒的场景，配置六路相机、一台激光雷达和五个毫米波雷达，并提供三维框、类别、标定、位姿及时间信息\cite{nuscenes}。它支持检测、跟踪、预测等任务，也提供统一基准。场景、关键帧、传感器采样及标注通过 token 关联，使用时必须区分传感器、自车与全局坐标系。
+nuScenes 是包含波士顿和新加坡道路场景的多模态数据集，完整数据集包含 1000 段约 20 秒的场景，配置六路相机、一台激光雷达和五个毫米波雷达，并提供三维框、类别、标定、位姿及时间信息。它支持检测、跟踪、预测等任务，也提供统一基准。场景、关键帧、传感器采样及标注通过 token 关联，使用时必须区分传感器、自车与全局坐标系。
 第一次实验使用本地 trainval 元数据中的 Boston Seaport 子集；原始文件仅前视相机与顶置激光雷达可用，其他通道有元数据但缺少对应原始文件。第二、三次实验使用 mini 的 8 个训练场景、2 个验证场景，分别为 323 和 81 个关键帧。mini 的规模适合理解流程，但场景覆盖与类别分布有限。
-原始标注类别与检测基准使用的类别需要区分：nuScenes 原始三维框包含 23 类，常用检测评估归并为 10 类\cite{nuscenes}。scene 表描述驾驶片段，sample 表描述关键帧，sample\_data 指向传感器文件，calibrated\_sensor 和 ego\_pose 提供标定与位姿。统一的基准使算法可以在规定的数据划分和指标下比较，但结论仍受采集地区、天气和场景分布限制。
+原始标注类别与检测基准使用的类别需要区分：nuScenes 原始三维框包含 23 类，常用检测评估归并为 10 类。scene 表描述驾驶片段，sample 表描述关键帧，sample\_data 指向传感器文件，calibrated\_sensor 和 ego\_pose 提供标定与位姿。统一的基准使算法可以在规定的数据划分和指标下比较，但结论仍受采集地区、天气和场景分布限制。
 \subsubsection{课程数据访问与坐标投影}
 原始数据以时间和坐标变换连接。第一次实验先通过 devkit 查询场景及传感器记录，再将三维框和点云转换到相机坐标系。下面代码摘录自第一次实验报告，展示从场景到各传感器记录的访问方式；其中 token 是跨表索引，文件是否在本地仍需单独检查。
 \par\noindent\begin{minipage}{\linewidth}
@@ -124,9 +125,9 @@ for channel, token in sorted(sample["data"].items()):
 \end{lstlisting}
 \end{minipage}\par
 对于同一时刻的理想情况，激光点先由雷达坐标变换到自车坐标，再变换到相机坐标；真实采集时还需要考虑各自时间戳处的自车位姿。相机坐标中的点 $(X_c,Y_c,Z_c)$ 满足 $Z_c>0$ 时，可通过相机内参矩阵 $K$ 投影到齐次像素坐标，再除以深度得到图像位置。只有位于图像边界内的点才显示；投影到画面内也不保证该点未被其他物体遮挡。
-\begin{figure}[H]\centering\includegraphics[width=.9\textwidth,height=7cm,keepaspectratio]{assets/overlay.png}\caption{第一次实验：LiDAR 点云投影到前视相机图像，颜色用于表示深度。来源：devkit 实际生成结果。}\end{figure}
+\begin{figure}[H]\centering\includegraphics[width=.9\textwidth,height=7cm,keepaspectratio]{assets/overlay.png}\caption{第一次实验：LiDAR 点云投影到前视相机图像，颜色用于表示深度。}\end{figure}
 该样本中共有 34720 个原始 LiDAR 点，2769 个投影到相机可见区域。点云叠加使图像语义与空间测距产生联系：道路和车辆表面的点可帮助理解深度，但稀疏区域不意味着一定没有障碍物。图中对齐质量还依赖传感器外参、位姿以及时间同步。
-\begin{figure}[H]\centering\includegraphics[width=.9\textwidth,height=7cm,keepaspectratio]{assets/projection.png}\caption{第一次实验：将三维标注框投影至前视图像。来源：devkit 实际生成结果。}\end{figure}
+\begin{figure}[H]\centering\includegraphics[width=.9\textwidth,height=7cm,keepaspectratio]{assets/projection.png}\caption{第一次实验：将三维标注框投影至前视图像。}\end{figure}
 图像中的三维线框可以用于核对投影关系；训练 YOLO（You Only Look Once）系列的二维检测器时，再将投影后的可见目标转为二维外接框并归一化。这个转换会丢失朝向、深度等信息，因此二维检测得分不能回答三维定位是否准确。
 \subsubsection{研究价值及长尾覆盖的限制}
 nuScenes 让我能够把图像、点云、标定和三维标注放在同一套数据组织中理解，也为三维检测提供统一评估。但是“数据中包含锥桶和行人”不等于“包含足够多的施工指挥或检查配合示范”。常规目标框主要描述对象是什么、在哪里，开放问题还需要谁在指挥、指令对谁生效及应该持续多久等标注。进一步研究应结合专门场景数据，不能把通用数据集上的平均精度当成对全部道路情形的覆盖。
@@ -136,9 +137,9 @@ nuScenes 让我能够把图像、点云、标定和三维标注放在同一套�
 \subsubsection{输出空间与评价指标的区别}
 二维目标检测输出图像中的类别与矩形框，常用参数为 $(u,v,w,h)$；三维检测输出物体中心、尺寸和朝向，部分任务还估计速度与属性。二维框能提供语义位置，却无法唯一确定真实距离；三维结果可以直接进入空间碰撞判断，但对标定、深度或点云质量提出更高要求。二维交并比（Intersection over Union，IoU）与三维中心距离是不同的匹配标准，两类平均精度均值（mean Average Precision，mAP）的数值不应直接比较。
 \subsubsection{YOLO 与 PointPillars}
-YOLO11n 从图像提取多尺度特征，预测目标类别和二维框。其轻量配置适合课程训练，但单帧二维框还需要深度、跟踪或多传感器信息才能用于可靠的三维规划。PointPillars 将点云按地面网格划分为竖直柱，对柱内点编码后散射为伪图像，再用二维卷积提取特征并回归三维框\cite{pillars}。柱化将稀疏三维输入转换为适于常规卷积处理的形式，代价是对柱内高度结构作了压缩。
+YOLO11n 从图像提取多尺度特征，预测目标类别和二维框。其轻量配置适合课程训练，但单帧二维框还需要深度、跟踪或多传感器信息才能用于可靠的三维规划。PointPillars 将点云按地面网格划分为竖直柱，对柱内点编码后散射为伪图像，再用二维卷积提取特征并回归三维框。柱化将稀疏三维输入转换为适于常规卷积处理的形式，代价是对柱内高度结构作了压缩。
 \subsubsection{PETR 与 BEVFormer}
-PETR（Position Embedding Transformation，位置嵌入变换）将三维位置编码融入多视角图像特征，通过目标查询预测三维框\cite{petr}；BEVFormer 在鸟瞰视图（Bird's-Eye View，BEV）网格上设置查询，利用空间交叉注意力汇聚不同相机视角，并用时序自注意力融合历史 BEV\cite{bev}。PETR 的位置编码和 BEVFormer 的显式鸟瞰网格提供了不同的空间组织方式。后者还强调历史信息，但时序融合需要处理自车运动、目标运动和遮挡变化，并不能自动解决新场景的语义理解。
+PETR（Position Embedding Transformation，位置嵌入变换）将三维位置编码融入多视角图像特征，通过目标查询预测三维框；BEVFormer 在鸟瞰视图（Bird's-Eye View，BEV）网格上设置查询，利用空间交叉注意力汇聚不同相机视角，并用时序自注意力融合历史 BEV。PETR 的位置编码和 BEVFormer 的显式鸟瞰网格提供了不同的空间组织方式。后者还强调历史信息，但时序融合需要处理自车运动、目标运动和遮挡变化，并不能自动解决新场景的语义理解。
 
 在我的修路案例中，通用检测器可以输出锥桶、工人和车辆框，BEV 表征能帮助规划理解空间关系，但还需进一步表达“这串锥桶改变了车道连接”“该人员正在要求本车等待”。因此应把目标检测与场景理解、指令识别区分开来，再设计它们如何向驾驶决策提供约束。
 
@@ -206,7 +207,7 @@ if not trainable:
 \end{lstlisting}
 \end{minipage}\par
 代码中异常提示文字为便于阅读的英文改写，参数筛选逻辑与实验实现一致。参数冻结并不等于只执行检测头：冻结的骨干仍参与前向计算，只是不更新其参数。实验还在训练前后检查可训练参数变化和梯度有限性，以确认实际发生了更新。
-\begin{figure}[H]\centering\includegraphics[width=.83\textwidth,height=6.5cm,keepaspectratio]{assets/pillar_loss.png}\caption{第三次实验：累计五轮 PointPillars 训练损失。来源：全部训练批次记录。}\end{figure}
+\begin{figure}[H]\centering\includegraphics[width=.83\textwidth,height=6.5cm,keepaspectratio]{assets/pillar_loss.png}\caption{第三次实验：累计五轮 PointPillars 训练损失。}\end{figure}
 五轮整轮平均损失从 2.873274 下降到 2.456259；同一 mini 验证集上，微调前后 mAP 从 0.000061 变为 0.062302。前者说明训练目标在优化，后者才提供了同一验证条件下的泛化证据。两次评估使用同一个小验证集，仍应警惕场景少带来的波动，且该结果不能替代完整数据集评估。
 我更愿意将这组实践概括为不同任务的学习记录：YOLO 展示二维识别链路，PETR 暴露小规模配置下的三维学习困难，PointPillars 展示可核验的微调变化。要检验视觉与 LiDAR 对修路的差异，应在相同施工片段上分别报告远处锥桶召回、工人漏检、临时通道边界误差和推理延迟，并让同一规划器使用两种输出。这样才有可能把模态差异与训练条件分开。
 
@@ -216,16 +217,16 @@ if not trainable:
 复杂环境问题包括远距离小目标、遮挡、夜间眩光、雨雾、标定误差和未知类别。施工还改变了道路拓扑：原本相连的车道可能被截断，工人和设备会移动，可通行的几何空隙未必是行驶路线。单独提高锥桶检测召回率只能解决其中一部分。
 
 我的改进重点是把分散的锥桶、工人和指示牌组织为临时通道，判断哪条车道被截断、标牌对哪里生效，以及现场信息是否与旧地图冲突。ROADWork 在国际计算机视觉大会（International Conference on Computer Vision，ICCV）2025 年论文中研究施工区识别与通行路径，正好提供了这类问题的参考，图\ref{fig:roadwork}展示了路径差异\cite{roadwork}。它支持施工语义值得专门研究，但没有证明同样的方法已适用于我遇到的道路；要迁移这一思路，仍应验证本地标牌、施工布置和工人行为。
-\paperfig{roadwork}{.68}{8.1}{ROADWork 原论文图 1 的图像部分，展示施工区安全与不安全路径。来源：Ghosh 等，ICCV 2025，第 6132 页；裁去周围正文。}{roadwork}{fig:roadwork}
+\paperfig{roadwork}{.68}{8.1}{施工区的安全路径与不安全路径示例}{roadwork}{fig:roadwork}
 \subsubsection{检查点需要理解人员指令及其适用对象}
 我的酒驾检查观察提示，感知至少要区分普通行人动作、工作人员引导和要求停车的交通指令。还要判断指令是否面向本车、是否被遮挡、与上一时刻是否一致，以及是否存在明确的放行信息。夜间反光衣、强光和手臂过渡动作都会增加难度。
 
 我认为需要同时回答两个问题：动作是什么，以及动作是否针对本车。RSC-GestureNet 对中国交警手势的研究提示，可利用过去帧和姿态可靠性判断命令，不可靠时暂不强制分类\cite{gesture}。但手势识别本身没有回答第二个问题，更没有完成检查配合。对我的案例，我会把“指令对象关联是否正确”和“停车动作是否执行”单独列为评价项，而不只看手势分类准确率。
-\paperfig{gesture}{.96}{6.2}{RSC-GestureNet 原论文图 1，包含可靠性建模、时序识别和选择性命令输出。来源：Li 等，arXiv:2608.02200v1，第 6 页。}{gesture}{fig:gesture}
+\paperfig{gesture}{.96}{6.2}{交警手势的可靠性建模、时序识别与选择性命令输出}{gesture}{fig:gesture}
 \subsubsection{从固定类别检测扩展到时空占用与未知风险}
 开放道路还会出现掉落货物、变形护栏、伸入车道的异形物等，未必都属于训练时定义的十类目标。这使我进一步思考：即使模型说不准它是什么，也应尽可能判断它占据哪里、是否挡住通路，以及哪些空间还没有被可靠观测。类别置信度低与空间安全可通行不是同一个结论。
 
-三维占用表征把空间划分为单元，描述占据情况；再加入时间，就能讨论空间随运动的变化。OccWorld 探索在三维占用空间中预测场景演化和自车运动，为超出独立目标框的表达提供了基础思路\cite{occworld}。我认为这种表征可补充几何结构，但占用本身不能解释检查指令或路权，也不能保证被遮挡空间没有目标。
+三维占用表征把空间划分为单元，描述占据情况；再加入时间，就能讨论空间随运动的变化。在三维占用空间中预测场景演化和自车运动，可以同时考虑障碍物与周围可通行空间。我认为这种表征可补充几何结构，但占用本身不能解释检查指令或路权，也不能保证被遮挡空间没有目标。
 
 如果继续感知实验，我会把“已观测为空、已占据、观测不足”分开处理，并设置不在训练类别内的障碍来检验。评价除类别精度外，还应包括障碍边界、可用通行宽度、未知空间误判为空的次数和最终通行风险。开放词汇模型可提供语义线索，但不能只因为它能给物体取名，就认为已经完成可靠的距离和风险估计。
 
@@ -309,7 +310,7 @@ trajectory = plan(state, scene, constraints)
 表中的可解释性与安全性需要分开看：能定位到某个模块，有助于排错，但不自动保证闭环安全；能给出流畅的驾驶解释，也不证明轨迹确实服从解释中的风险判断。两种架构都需要检查输入可靠性、规划约束和执行反馈；显式约束的有效性也依赖状态估计，不能单凭约束写在程序里就认为已经安全。
 \subsubsection{课程行为克隆实验与关键代码}
 第四次实验是行为克隆的简化例子：网络由前视图像回归转向，服务端另根据当前速度和转向计算油门，并非完整的城市端到端驾驶系统。训练 30 轮后，6489 张验证图像上的 均方误差（Mean Squared Error，MSE） 为 0.077897、平均绝对误差（Mean Absolute Error，MAE）为 0.207337。验证集参与选模，且按记录随机划分，相邻帧可能相似；合成客户端仅证明一次服务请求可返回控制值，模拟器窗口未能激活，因此没有闭环碰撞率、偏离率或安全行驶结论。
-\begin{figure}[H]\centering\includegraphics[width=.78\textwidth,height=6cm,keepaspectratio]{assets/driving.png}\caption{第四次实验：30 轮行为克隆训练与验证损失。来源：第四次实验实际输出。}\end{figure}
+\begin{figure}[H]\centering\includegraphics[width=.78\textwidth,height=6cm,keepaspectratio]{assets/driving.png}\caption{第四次实验：30 轮行为克隆训练与验证损失。}\end{figure}
 实验四以驾驶记录中的图像和转向角为监督。训练数据按记录随机划分，训练使用左、中、右相机并施加转向修正，验证仅使用中央相机；水平翻转时同时反转转向标签。下面摘录训练数据读取中的关键步骤，变量与原实现一致，省略了路径读取及异常处理。
 \par\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}[language=Python,caption={行为克隆的数据增强和输入归一化}]
@@ -331,7 +332,7 @@ return torch.from_numpy(img), torch.tensor([angle], dtype=torch.float32)
 
 \subsubsection{前沿模型中的推理与动作连接}
 对检查点这类任务，我最关心的是“停车理由是否真正进入动作”，因此不能只评估解释是否合理。Alpamayo-R1 将推理与轨迹生成连接，并训练两者的一致性，图\ref{fig:alpamayo}给出了一条技术路径\cite{alpamayo}。它对我的启发是给模型增加决策理由与动作关联的训练和测试，而不是依靠网络规模来推断理解能力；论文自身的测试也不能直接证明其覆盖了我的检查配合场景。
-\paperfig{alpamayo}{.90}{5.0}{Alpamayo-R1 原论文图 1，展示视觉编码、推理骨干和轨迹生成的连接。来源：NVIDIA，arXiv:2511.00088v1，第 5 页。}{alpamayo}{fig:alpamayo}
+\paperfig{alpamayo}{.90}{5.0}{视觉编码、推理骨干与轨迹生成的连接}{alpamayo}{fig:alpamayo}
 一种后续测试是保留相似道路和车辆状态，只改变“普通行人”与“明确要求本车停车的指挥者”这一条件，观察纵向轨迹、停车点和等待行为是否相应变化。该测试是本文提出的方案，不能仅根据模型生成的解释判断它已经理解了交通场景。
 
 综合架构和实验，我更倾向于按任务组合方法：用学习模型提取场景信息或生成候选轨迹，用可检查的约束筛查风险，再由控制器闭环执行。端到端可以保留中间模块，传统模块化也仍有接口清晰和便于局部验证的价值；混合架构的意义在于发挥各自作用，并验证它们共同形成的行为。
@@ -357,13 +358,13 @@ return torch.from_numpy(img), torch.tensor([angle], dtype=torch.float32)
 
 
 为区分这些问题，可以先固定车速和道路，只改变行人位置，检查轨迹是否响应。Perceives but Doesn't Brake 的受控研究发现，危险信息可能存在于表征中却没有充分影响纵向动作，为这种诊断提供了参考\cite{binding}。我希望借鉴的是逐层检查证据到动作的联系；该研究针对特定模型和条件，并没有证明所有端到端系统都具有同一失效原因。
-\paperfig{binding}{.96}{6.1}{感知与动作连接不足及采样时干预的研究示意，原论文图 1。来源：Cercola 等，arXiv:2610.28184v1，第 2 页。}{binding}{fig:binding}
+\paperfig{binding}{.96}{6.1}{感知与动作连接不足及采样阶段干预示意}{binding}{fig:binding}
 对我的检查点案例，需要同时保留两种解释：一是停车指令尚未被正确理解，二是相关证据已经可用却没有足够影响动作。前者需要补充场景和指令理解，后者需要检查规划目标和风险约束；在没有内部记录的情况下，我不能替产品判定是哪一种。
 \subsubsection{防御性驾驶应在行人出现之前开始}
 我所说的“智驾偏自我”，可以进一步转化为可观察的问题：是否只沿自己的路线前进、是否默认他车会让行、是否在遮挡出口仍保持缺少余量的速度。防御性驾驶要求对他人的可能失误和不可见风险留有余量，例如经过停放车辆、公交车站或学校出口时，提前考虑可能突然出现的人，而不是等检测到目标后才处理。
 
 我会将“遮挡后可能出现人”作为独立风险，而不是等待出现完整检测框再行动。遮挡感知应急规划研究对潜在车辆准备探索和备用轨迹，图\ref{fig:occlusion}说明了保留后备动作的思路\cite{occlusion}。我借鉴的是提前留余量的方法；论文主要研究遮挡车辆，不能直接套用其运动边界描述行人，迁移时还需要验证行人速度和方向变化。
-\paperfig{occlusion}{.53}{7.6}{遮挡路口中的探索轨迹与备用轨迹，原论文图 1。来源：Zheng 等，arXiv:2502.06359v1，第 2 页。}{occlusion}{fig:occlusion}
+\paperfig{occlusion}{.53}{7.6}{遮挡路口中的探索轨迹与备用轨迹}{occlusion}{fig:occlusion}
 为说明提前减速为何重要，可用简化停止距离模型：
 \begin{equation}
 d_{\mathrm{stop}}=v\Delta t+\frac{v^2}{2a}+m,
@@ -400,8 +401,8 @@ DriveWorld-VLA（2026）研究在潜在状态空间中连接未来场景建模�
 \end{equation}
 其中 $s_t$ 是当前环境与自车的状态表征，$u_{t:t+k-1}$ 是候选动作序列，$\hat{s}_{t+k}$ 是模型预测的未来表征，$F_\theta$ 是学习到的预测函数，$k$ 为预测步数。预测结果仍有误差，不能当作将必然发生的未来。
 图\ref{fig:world-planning}展示了论文如何把共享表征、动作条件和反馈联系起来。三个阶段的区分使我能更清楚地检查：模型学到未来表征后，是否又学到了动作对未来的影响，以及这种影响是否真正参与规划。
-\paperfig{driveworld}{1.0}{8.8}{DriveWorld-VLA 原论文图 2，展示联合训练、动作可控性微调与反馈完善阶段。来源：Jia 等，arXiv:2602.06521v1，第 3 页；裁去周围正文。}{driveworld}{fig:world-planning}
-我认为关键检验是保持同一初始场景，改变减速、等待或变道动作，看预测的相对运动是否合理变化。如果不论怎样操作，模型都生成相似的安全画面，它就没有为决策提供有效依据。RoXDrive 对动作与未来视觉演化是否一致进行筛查，说明世界模型用于闭环训练前，本身也需要验证\cite{roxdrive}。对这一方向，我会优先检查动作响应、几何一致性与长时误差累积，再看生成画面的观感。
+\paperfig{driveworld}{1.0}{8.8}{世界模型与驾驶规划的联合训练、动作可控性微调及反馈完善}{driveworld}{fig:world-planning}
+我认为关键检验是保持同一初始场景，改变减速、等待或变道动作，看预测的相对运动是否合理变化。如果不论怎样操作，模型都生成相似的安全画面，它就没有为决策提供有效依据。将世界模型用于闭环训练前，需要验证模拟结果是否随动作变化。对这一方向，我会优先检查动作响应、几何一致性与长时误差累积，再看生成画面的观感。
 
 还有部署上的实际取舍：更复杂的推理和预测可能增加计算时间。第 3.3 节的停止距离分析已经表明，延迟本身会消耗安全余量。因此，评价需要同时报告决策质量、端到端时延及其波动，不能只比较模型规模或平均轨迹误差。
 
@@ -409,7 +410,7 @@ DriveWorld-VLA（2026）研究在潜在状态空间中连接未来场景建模�
 实验四的行为克隆通过拟合记录转角学习驾驶，模型在训练时并不直接经历自己的错误动作引起的新观测。强化学习（Reinforcement Learning，RL）可以在可交互环境中根据动作后果和奖励调整策略，有机会补充偏离后的恢复、让行时机及长期交互，但改进取决于环境和奖励是否真实表达目标。
 
 MAPLE 的 2026 年研究让自车与周围交通参与者在潜在空间中相互响应，并结合监督学习和强化学习进行闭环训练\cite{maple}。对我而言，最有价值的是“他车会因本车动作而变化”这一点。例如并线时，不能一边假定邻车保持记录轨迹不动，一边据此认定本车动作安全。多车交互还应覆盖犹豫、抢行和不配合的参与者，才能检验是否具备防御性。
-\paperfig{maple}{.98}{7.0}{MAPLE 原论文图 4 右半幅。上排为雨天行人横穿，下排为骑行者等动态交通情形；蓝线是本车规划轨迹。来源：Yasarla 等，arXiv:2605.14201v3，第 10 页；保留所选面板顺序，未修改轨迹。}{maple}{fig:maple-cases}
+\paperfig{maple}{.98}{7.0}{闭环规划示例。上排为雨天行人横穿，下排为骑行者与周围交通，蓝线为本车规划轨迹}{maple}{fig:maple-cases}
 图\ref{fig:maple-cases}把多车交互落到了具体场景中，也提示我应分别检查弱可见性、横穿和骑行者干扰下的动作。它是作者选取的代表性示例，不能替代成功率统计和失败案例；真正需要验证的仍是他车反应变化时，本车能否持续调整。
 
 
@@ -417,18 +418,18 @@ MAPLE 的 2026 年研究让自车与周围交通参与者在潜在空间中相�
 
 \subsubsection{生成式数据与长尾场景的数据闭环}
 前沿模型也依赖数据覆盖。与简单增加常规直行帧相比，我更关注如何有目的地补充未覆盖条件，例如低矮异物、雨夜反光、非常规遮挡、车辆突然改变意图，以及同一道路在不同交通密度下的交互。Cosmos-Drive-Dreams 利用世界基础模型生成可控、多视角且时空一致的驾驶数据，为扩充训练条件提供了代表性方案\cite{cosmos}。
-\paperfig{cosmos}{1.0}{8.7}{Cosmos-Drive-Dreams 原论文图 1。左侧为数据生成与训练评价的循环，右侧为多样场景、多视角、长尾情形和 LiDAR 合成示例。来源：Ren 等，arXiv:2506.09042v3，第 1 页；右侧为论文合成示例。}{cosmos}{fig:cosmos-data}
+\paperfig{cosmos}{1.0}{8.7}{生成式驾驶数据的训练与评价循环。右侧展示多视角、长尾场景与 LiDAR 的合成示例}{cosmos}{fig:cosmos-data}
 图\ref{fig:cosmos-data}使数据闭环的含义更直观：生成只是其中一步，还要筛选数据、训练下游模型，再从评价中发现新的不足。对课程项目，我会把这条链路落实为“补充哪类失败条件、标签是否一致、独立测试是否改善”三个可检查的问题。
 
 
 我的判断是，合成数据的收益必须由独立真实数据上的改进来证明。图像看起来像雨天，并不表示路面附着、反射、深度和标签都同步正确；如果训练和测试只是同一个场景的不同生成版本，还会高估泛化。可先固定检测器或驾驶策略，以“真实数据”对照“真实加合成数据”，检查是否改善目标长尾条件，同时观察常规场景有无退化。
 
-若继续课程项目，我会按“失败记录、问题分类、针对性采集或生成、标签核查、独立回归测试”的循环整理数据。WZDrive 的针对性交互采集提供了另一种参考\cite{wzdrive}：某些问题需要人参与并作出反应，仅生成更多外观相似图片并不充分。部署前还应明确不确定性和接管条件，避免把尚未验证的新能力直接计入可用能力。
+若继续课程项目，我会按“失败记录、问题分类、针对性采集或生成、标签核查、独立回归测试”的循环整理数据。针对临时指挥和交互让行，我会补采有人参与并作出反应的连续场景，以便验证对方行为改变时本车能否及时调整。部署前还应明确不确定性和接管条件，避免把尚未验证的新能力直接计入可用能力。
 
 这些方向对课程的共同启发是，把输入表征、动作后果和验证条件连接起来。感知分数、生成质量、训练奖励和闭环表现分别回答不同问题。研究热点值得跟进，但我会优先选择能够解释失败、能做受控对照，并确实改善未见场景行为的方法。
 
 \subsubsection{按能力和场景建立闭环评价}
-我更希望得到一张“在哪些情境下失败”的能力清单，而不是一个总分。Bench2Drive 的多场景闭环评价为此提供了参考\cite{bench}。我的具体做法是分别统计常规行驶、施工通行、检查配合、遮挡预判和交互让行，再分析失败原因；基准中的路线成功也不能替代本地检查点或真实道路测试。
+我希望用一张按场景统计的清单说明系统会在哪些情境下失败。我的具体做法是分别统计常规行驶、施工通行、检查配合、遮挡预判和交互让行，再分析失败原因。模拟路线的测试结果还需要通过本地检查点及真实道路测试验证。
 \begin{table}[H]\centering\small\caption{针对本文开放问题的后续闭环评价方案，尚未执行}
 \begin{tabularx}{\textwidth}{p{2.1cm}XX}\toprule
 能力 & 控制变量或场景变化 & 除任务成功率外的指标\\\midrule
@@ -447,22 +448,13 @@ MAPLE 的 2026 年研究让自车与周围交通参与者在潜在空间中相�
 \addcontentsline{toc}{section}{参考文献}
 \begin{thebibliography}{99}\small
 \setlength{\itemsep}{3pt}\setlength{\parsep}{0pt}\setlength{\parskip}{0pt}\interlinepenalty=10000
-\bibitem{uniad} Hu Y, Yang J, Chen L, et al. Planning-oriented autonomous driving[C]. IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2023. \url{https://arxiv.org/abs/2212.10156}
-\bibitem{nuscenes} Caesar H, Bankiti V, Lang A H, et al. nuScenes: A multimodal dataset for autonomous driving[C]. IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2020. \url{https://arxiv.org/abs/1903.11027}
-\bibitem{pillars} Lang A H, Vora S, Caesar H, et al. PointPillars: Fast encoders for object detection from point clouds[C]. IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2019. \url{https://arxiv.org/abs/1812.05784}
-\bibitem{petr} Liu Y, Wang T, Zhang X, et al. PETR: Position embedding transformation for multi-view 3D object detection[C]. European Conference on Computer Vision (ECCV), 2022. \url{https://arxiv.org/abs/2203.05625}
-\bibitem{bev} Li Z, Wang W, Li H, et al. BEVFormer: Learning bird's-eye-view representation from multi-camera images via spatiotemporal transformers[C]. European Conference on Computer Vision (ECCV), 2022. \url{https://arxiv.org/abs/2203.17270}
 \bibitem{roadwork} Ghosh A, Zheng S, Tamburo R, et al. ROADWork: A dataset and benchmark for learning to recognize, observe, analyze and drive through work zones[C]. IEEE/CVF International Conference on Computer Vision (ICCV), 2025: 6132--6142. \url{https://openaccess.thecvf.com/content/ICCV2025/html/Ghosh_ROADWork_A_Dataset_and_Benchmark_for_Learning_to_Recognize_Observe_ICCV_2025_paper.html}
 \bibitem{gesture} Li C, Gao R, Fu B. RSC-GestureNet: Reliability-aware selective causal recognition of Chinese traffic police gestures[EB/OL]. arXiv:2608.02200v1, 2026-08-03 [2026-11-16]. \url{https://arxiv.org/abs/2608.02200v1}
-\bibitem{occworld} Zheng W, Chen W, Huang Y, et al. OccWorld: Learning a 3D occupancy world model for autonomous driving[EB/OL]. arXiv:2311.16038v1, 2023-11-27 [2026-11-16]. \url{https://arxiv.org/abs/2311.16038v1}
 \bibitem{alpamayo} NVIDIA. Alpamayo-R1: Bridging reasoning and action prediction for generalizable autonomous driving in the long tail[EB/OL]. arXiv:2511.00088v1, 2025-10-30 [2026-11-16]. \url{https://arxiv.org/abs/2511.00088v1}
 \bibitem{binding} Cercola M, Luo K Z, Formentin S, et al. Perceives but doesn't brake: A perception-action binding gap in reasoning driving VLAs[EB/OL]. arXiv:2610.28184v1, 2026-10-20 [2026-11-16]. \url{https://arxiv.org/abs/2610.28184v1}
 \bibitem{occlusion} Zheng L, Yang R, Zheng M, et al. Occlusion-aware contingency safety-critical planning for autonomous vehicles[EB/OL]. arXiv:2502.06359v1, 2025-02-10 [2026-11-16]. \url{https://arxiv.org/abs/2502.06359v1}
 \bibitem{driveworld} Jia F, Liu L, Song Z, et al. DriveWorld-VLA: Unified latent-space world modeling with vision-language-action for autonomous driving[EB/OL]. arXiv:2602.06521v1, 2026-02-06 [2026-11-16]. \url{https://arxiv.org/abs/2602.06521v1}
-\bibitem{roxdrive} Lin H, Zheng C, Yang Y, et al. RoXDrive: Closed-loop reinforcement learning for end-to-end autonomous driving via action-faithful rollouts[EB/OL]. arXiv:2609.36851v2, 2026-09-30 [2026-11-16]. \url{https://arxiv.org/abs/2609.36851v2}
 \bibitem{maple} Yasarla R, Hegde D, Cheng H P, et al. MAPLE: Latent multi-agent play for end-to-end autonomous driving[EB/OL]. arXiv:2605.14201v3, 2026-11-10 [2026-11-16]. \url{https://arxiv.org/abs/2605.14201v3}
 \bibitem{cosmos} Ren X, Lu Y, Cao T, et al. Cosmos-Drive-Dreams: Scalable synthetic driving data generation with world foundation models[EB/OL]. arXiv:2506.09042v3, 2025-06-18 [2026-11-16]. \url{https://arxiv.org/abs/2506.09042v3}
-\bibitem{wzdrive} Zhang S, Sunesh A, Ergan S, et al. Trajectory prediction for autonomous driving in road construction zones using human-in-the-loop driving data[EB/OL]. arXiv:2610.12747v1, 2026-10-08 [2026-11-16]. \url{https://arxiv.org/abs/2610.12747v1}
-\bibitem{bench} Jia X, Yang Z, Li Q, et al. Bench2Drive: Towards multi-ability benchmarking of closed-loop end-to-end autonomous driving[EB/OL]. arXiv:2406.03877v1, 2024-06-06 [2026-11-16]. \url{https://arxiv.org/abs/2406.03877v1}
 \end{thebibliography}
 \end{document}
